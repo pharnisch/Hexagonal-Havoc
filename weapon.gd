@@ -56,7 +56,7 @@ func _physics_process(delta):
 		
 func equip_triangle_shield(bullet_template):
 	var new_bullet = bullet_template.instantiate()
-	new_bullet.damage = 5 * (1 + self.skill_state.triangle.damage / 10. + self.skill_state.damage / 40.)
+	new_bullet.damage = 10 * 5 * (1 + self.skill_state.triangle.damage / 10. + self.skill_state.damage / 40.)
 	new_bullet.living_time = 4.5 * (1 + self.skill_state.triangle.living_time / 10. + self.skill_state.living_time / 40.)
 	new_bullet.crit = 1. * (self.skill_state.triangle.crit / 10. + self.skill_state.crit / 40.)
 	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.triangle.crit_factor / 10. + self.skill_state.crit_factor / 40.)
@@ -86,11 +86,11 @@ func _beam(bullet_template, target_position, main_beam = true):
 	target_position = owner.global_position + v * (1 + self.line_overshoot / 4.)
 	
 	new_bullet.set_points(owner.global_position, target_position)
-	new_bullet.damage = 4 * (1 + self.skill_state.line.damage / 10. + self.skill_state.damage / 40.)
+	new_bullet.damage = 10 * 4 * (1 + self.skill_state.line.damage / 10. + self.skill_state.damage / 40.)
 	new_bullet.living_time = 0.5 * (1 + self.skill_state.line.living_time / 10. + self.skill_state.living_time / 40.)
 	new_bullet.crit = 1. * (self.skill_state.line.crit / 10. + self.skill_state.crit / 40.)
 	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.line.crit_factor / 10. + self.skill_state.crit_factor / 40.)
-	new_bullet.destructable = self.skill_state.line.destructable
+	new_bullet.destructable = !self.skill_state.line.indestructable
 	owner.owner.add_child(new_bullet)
 	
 func beam_sun(bullet_template, main_target_position):
@@ -110,14 +110,14 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner):
 	var new_bullet = bullet_template.instantiate()
 	
 	if shoot_direction == null: # circle
-		new_bullet.damage = 10 * (1 + self.skill_state.circle.damage / 10. + self.skill_state.damage / 40.)
+		new_bullet.damage = 10 * 10 * (1 + self.skill_state.circle.damage / 10. + self.skill_state.damage / 40.)
 		new_bullet.living_time = 5 * (1 + self.skill_state.circle.living_time / 10. + self.skill_state.living_time / 40.)
 		new_bullet.crit = 1. * (self.skill_state.circle.crit / 10. + self.skill_state.crit / 40.)
 		new_bullet.crit_factor = 1.5 * (1 + self.skill_state.circle.crit_factor / 10. + self.skill_state.crit_factor / 40.)
 	
-		new_bullet.destructable = self.skill_state.circle.destructable
+		new_bullet.destructable = !self.skill_state.circle.indestructable
 	else: # square
-		new_bullet.damage = 20 * (1 + self.skill_state.square.damage / 10. + self.skill_state.damage / 40.)
+		new_bullet.damage = 10 * 20 * (1 + self.skill_state.square.damage / 10. + self.skill_state.damage / 40.)
 		new_bullet.living_time = 3 * (1 + self.skill_state.square.living_time / 10. + self.skill_state.living_time / 40.)
 		new_bullet.crit = 1. * (self.skill_state.square.crit / 10. + self.skill_state.crit / 40.)
 		new_bullet.crit_factor = 1.5 * (1 + self.skill_state.square.crit_factor / 10. + self.skill_state.crit_factor / 40.)
@@ -155,6 +155,7 @@ func get_nearest_enemy(attack_range = owner.get_node("AttackRange")):
 	return closest_enemy
 		
 func on_skills_update(new_skill_state):
+	print(new_skill_state)
 	self.skill_state = new_skill_state
 	self.reload_time_line = 0.7 * (1 - self.skill_state.line.casting_speed / 10. - self.skill_state.casting_speed / 40.)
 	self.reload_time_circle = 1 * (1 - self.skill_state.circle.casting_speed / 10. - self.skill_state.casting_speed / 40.)
@@ -163,3 +164,5 @@ func on_skills_update(new_skill_state):
 
 	self.line_sun_beam = self.skill_state.line.sun_beam / 40.
 	self.line_overshoot = self.skill_state.line.overshoot
+
+

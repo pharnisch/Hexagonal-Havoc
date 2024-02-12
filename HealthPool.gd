@@ -26,6 +26,8 @@ func _get_damage(dmg):
 	self._update_health_display()
 	
 	if self.health <= 0:
+		if "Enemy" in owner.name:
+			owner.die()
 		owner.queue_free() # destroy parent
 		#self.player.add_score(5)
 		

@@ -7,6 +7,7 @@ var rng = null
 var direction_change_interval = 0
 var direction_change_interval_timer = 0
 var walking_variant = 1
+var exp_worth = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -73,3 +74,7 @@ func get_nearest_collider(comfort_range = self.get_node("ComfortZone")):
 				closest_distance = distance
 				nearest_collider = collider
 	return nearest_collider
+	
+	
+func die():
+	owner.get_node("Player").gain_exp(self.exp_worth)

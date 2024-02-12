@@ -23,7 +23,7 @@ func change_size(dmg):
 	# 5 +  * 1 = 5; 5 + 0,04 * 1000 = 45
 	#var size = 10 + 0.04 * dmg
 	# from 4 dmg to 100 dmg:
-	var size = 15 + 0.5 * dmg
+	var size = 15 + 0.05 * dmg
 	add_theme_font_size_override("font_size", size)
 	
 func set_value(dmg):
