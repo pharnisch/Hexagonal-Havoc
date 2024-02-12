@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctnwhw040qh3x"]
+
+[ext_resource type="Script" path="res://SquareShape.gd" id="1_45g63"]
+
+[node name="SquareShape" type="Node2D"]
+script = ExtResource("1_45g63")

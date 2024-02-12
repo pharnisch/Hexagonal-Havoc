@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://oabja83rgktq"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_7i5rp"]
+[ext_resource type="PackedScene" uid="uid://cqonsdyndkq16" path="res://hexagon_shape.tscn" id="1_wy4nx"]
+[ext_resource type="PackedScene" uid="uid://cb0dy4uh1od1c" path="res://health_pool.tscn" id="2_5vrfc"]
+[ext_resource type="PackedScene" uid="uid://ddvfi4psfkx3i" path="res://movement.tscn" id="4_yl61p"]
+[ext_resource type="PackedScene" uid="uid://ci8g2osy20wod" path="res://weapon.tscn" id="5_7jc6x"]
+[ext_resource type="PackedScene" uid="uid://d4ig0jr3u77so" path="res://attack_range.tscn" id="6_6pu1t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wf0q8"]
+radius = 55.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 828
+script = ExtResource("1_7i5rp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wf0q8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HexagonShape" parent="." instance=ExtResource("1_wy4nx")]
+
+[node name="HealthPool" parent="." instance=ExtResource("2_5vrfc")]
+
+[node name="Movement" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("4_yl61p")]
+unique_name_in_owner = true
+entity = NodePath("..")
+
+[node name="Weapon" parent="." instance=ExtResource("5_7jc6x")]
+
+[node name="AttackRange" parent="." instance=ExtResource("6_6pu1t")]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb0dy4uh1od1c"]
+
+[ext_resource type="Script" path="res://HealthPool.gd" id="1_b6rgq"]
+
+[node name="HealthPool" type="Node2D"]
+script = ExtResource("1_b6rgq")

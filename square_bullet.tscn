@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://f5kdgeil1vn7"]
+
+[ext_resource type="PackedScene" uid="uid://ctnwhw040qh3x" path="res://square_shape.tscn" id="1_6g2s7"]
+[ext_resource type="Script" path="res://square_bullet.gd" id="1_x1jxe"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_sn8qw"]
+a = Vector2(-51, 51)
+b = Vector2(51, 51)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_s35co"]
+a = Vector2(51, 51)
+b = Vector2(51, -51)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_auuby"]
+a = Vector2(51, -51)
+b = Vector2(-51, -51)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_gc3m8"]
+a = Vector2(-51, -51)
+b = Vector2(-51, 51)
+
+[node name="SquareBullet" type="Area2D"]
+collision_layer = 2
+collision_mask = 20
+script = ExtResource("1_x1jxe")
+destructable = false
+
+[node name="SquareShape" parent="." instance=ExtResource("1_6g2s7")]
+width = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_sn8qw")
+debug_color = Color(0, 0.623529, 0.529412, 0.419608)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_s35co")
+debug_color = Color(0, 0.623529, 0.529412, 0.419608)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_auuby")
+debug_color = Color(0, 0.623529, 0.529412, 0.419608)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_gc3m8")
+debug_color = Color(0, 0.623529, 0.529412, 0.419608)

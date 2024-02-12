@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dila1qvm6ryb6"]
+
+[ext_resource type="Script" path="res://triangle_bullet.gd" id="1_1wnfe"]
+[ext_resource type="PackedScene" uid="uid://f83thjh08ys3" path="res://triangle_shape.tscn" id="1_da7vl"]
+
+[node name="TriangleBullet" type="Area2D"]
+collision_layer = 2
+collision_mask = 20
+script = ExtResource("1_1wnfe")
+
+[node name="TriangleShape" parent="." instance=ExtResource("1_da7vl")]
+width = 10
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 73, -60, -43.923, 60, -43.923)

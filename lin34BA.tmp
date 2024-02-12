@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dh2pnfbixiigq"]
+
+[ext_resource type="Script" path="res://line_bullet.gd" id="1_82hdw"]
+[ext_resource type="PackedScene" uid="uid://d1jmj1nocg1ke" path="res://line_shape.tscn" id="1_qqu16"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_b150u"]
+
+[node name="LineBullet" type="Area2D"]
+script = ExtResource("1_82hdw")
+
+[node name="LineShape" parent="." instance=ExtResource("1_qqu16")]
+unique_name_in_owner = true
+
+[node name="SegmentCollider" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("SegmentShape2D_b150u")

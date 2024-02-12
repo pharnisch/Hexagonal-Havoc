@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://f83thjh08ys3"]
+
+[ext_resource type="Script" path="res://triangle_shape.gd" id="1_2k4hw"]
+
+[node name="TriangleShape" type="Node2D"]
+script = ExtResource("1_2k4hw")

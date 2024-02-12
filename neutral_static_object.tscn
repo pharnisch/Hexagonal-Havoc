@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://4d2cu5gj3fq4"]
+
+[ext_resource type="PackedScene" uid="uid://ctnwhw040qh3x" path="res://square_shape.tscn" id="1_h7ku5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxjlt"]
+size = Vector2(120, 120)
+
+[node name="NeutralStaticObject" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 63
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gxjlt")
+
+[node name="SquareShape" parent="." instance=ExtResource("1_h7ku5")]
+color = Color(1, 0.513726, 1, 1)
+rotation_speed = 0
+growing_speed = 0.0
