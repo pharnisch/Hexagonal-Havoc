@@ -28,6 +28,7 @@ func _ready():
 	self.triangle_bullet = load("res://triangle_bullet.tscn")
 	self.rng = RandomNumberGenerator.new()
 	self.get_node("SkillSystem").skills_updated.connect(on_skills_update)
+		
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,7 +78,7 @@ func equip_triangle_shield(bullet_template):
 	owner.add_child(new_bullet)
 
 func beam(bullet_template):
-	var nearest_enemy = self.get_nearest_enemy()
+	var nearest_enemy = self.get_nearest_enemy(owner.get_node("AttackRangeLine"))
 	if nearest_enemy == null:
 		return
 	var sun_proc = self.rng.randf_range(0,1) <= self.line_sun_beam
@@ -142,7 +143,7 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, squar
 		
 	var direction = Vector2(0,1)
 	if new_bullet.aim_required:
-		var nearest_enemy = self.get_nearest_enemy()
+		var nearest_enemy = self.get_nearest_enemy(owner.get_node("AttackRangeCircle"))
 		if nearest_enemy == null:
 			new_bullet.queue_free()
 			return

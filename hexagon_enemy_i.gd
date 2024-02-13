@@ -8,6 +8,7 @@ var direction_change_interval = 2
 var direction_change_interval_timer = 2
 var walking_variant = 1
 var exp_worth = 1
+var melee_dmg = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

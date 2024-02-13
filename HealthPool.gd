@@ -20,8 +20,6 @@ func _process(delta):
 		self.health = self.max_health
 		
 func _get_damage(dmg):
-	
-	
 	#print("get dmg: ", dmg)
 	self.health -= dmg
 	self._display_damage(dmg)

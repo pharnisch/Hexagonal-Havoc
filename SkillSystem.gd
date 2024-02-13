@@ -20,7 +20,7 @@ func _ready():
 	#self.state.circle.learned = true
 	#self.state.triangle.learned = true
 	#self.state.square.learned = true
-	self.state = self.get_max_state()
+	#self.state = self.get_max_state()
 	#self.state.triangle.learned = false
 	#self.state.square.learned = false
 	
@@ -97,9 +97,19 @@ func offer_skill_upgrades():
 	self.offer_skill_upgrades_active = true
 	self.skill_points_spent += 1
 	if self.skill_points_spent % 5 == 0:
-		self.skill_container.display_options(self.get_random_big_skill_options(3))
+		var options = self.get_random_big_skill_options(3)
+		if options.size() == 0:
+			var minor_options = self.get_random_skill_options(3)
+			if minor_options.size() == 0:
+				return
+			self.skill_container.display_options(minor_options)
+		else:
+			self.skill_container.display_options(options)
 	else:
-		self.skill_container.display_options(self.get_random_skill_options(3))
+		var minor_options = self.get_random_skill_options(3)
+		if minor_options.size() == 0:
+			return
+		self.skill_container.display_options(minor_options)
 		
 
 # alles kann man 5 mal skillen (außer boolean), also einfach integer 0-5, das scaling mit basiswerten passiert dann bei der anwendung
@@ -132,12 +142,12 @@ func get_default_state():
 			#growing_speed = 0.05,
 			attack_range = 0,
 			bounce = 0,
-			split = 5,
+			split = 0,
 			
 			element = null,
 		},
 		line = {
-			learned = false,
+			learned = true,
 			
 			casting_speed = 0,
 			damage = 0,
@@ -171,7 +181,7 @@ func get_default_state():
 			element = null,
 		},
 		square = {
-			learned = true,
+			learned = false,
 			
 			casting_speed = 0,
 			damage = 0,
@@ -191,9 +201,9 @@ func get_default_state():
 	
 func get_max_state():
 	return {
-		running_speed = 0,
-		life_max = 0,
-		life_reg = 0,
+		running_speed = 10,
+		life_max = 10,
+		life_reg = 10,
 		
 		# wird addiert zum spezialisierten, daher können diese up to 10 gehen (statt up to 5)!
 		casting_speed = 10,
