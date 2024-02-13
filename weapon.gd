@@ -6,13 +6,15 @@ var line_bullet = null
 var triangle_bullet = null
 var line_sun_beam = 0
 var line_overshoot = 0
-@export var reload_time_line = 0.7
+var reload_time_line = 0.7
 var reload_timer_line = 0
-@export var reload_time_circle = 1
+var reload_time_circle = 1
 var reload_timer_circle = 0
-@export var reload_time_square = 13
+var reload_time_square = 13
 var reload_timer_square = 0
-@export var reload_time_triangle = 7
+var reload_time_square_echo = 999999999
+var reload_timer_square_echo = 0
+var reload_time_triangle = 7
 var reload_timer_triangle = 0
 const DEG2RAD = PI / 180.0
 var rng = null
@@ -48,6 +50,12 @@ func _physics_process(delta):
 		if self.skill_state != null and self.skill_state.square.learned:
 			self._shoot(self.square_bullet, Vector2(0,0))	
 
+	self.reload_timer_square_echo += delta
+	if self.reload_timer_square_echo >= self.reload_time_square_echo:
+		self.reload_timer_square_echo -= self.reload_time_square_echo
+		if self.skill_state != null and self.skill_state.square.learned:
+			self._shoot(self.square_bullet, Vector2(0,0), owner.owner, true)	
+
 	self.reload_timer_triangle += delta
 	if self.reload_timer_triangle >= self.reload_time_triangle:
 		self.reload_timer_triangle -= self.reload_time_triangle
@@ -63,7 +71,7 @@ func equip_triangle_shield(bullet_template):
 	
 	new_bullet.get_node("TriangleShape").growing_speed = 0.05 * (1 + self.skill_state.triangle.growing_speed / 10.)
 	new_bullet.get_node("TriangleShape").rotation_speed = 3 * (1 + self.skill_state.triangle.rotation_speed / 10.)
-	new_bullet.get_node("TriangleShape").growing_min_scale = 1.5 * (1 + self.skill_state.triangle.growing_min_scale / 10.)
+	#new_bullet.get_node("TriangleShape").growing_min_scale = 1.5 * (1 + self.skill_state.triangle.growing_min_scale / 10.)
 	new_bullet.get_node("TriangleShape").growing_max_scale = 2.5 * (1 + self.skill_state.triangle.growing_max_scale / 10.)
 	
 	owner.add_child(new_bullet)
@@ -106,7 +114,7 @@ func beam_sun(bullet_template, main_target_position):
 		var v = Vector2(velocity.x*c-velocity.y*s, velocity.x*s + velocity.y*c) * self.rng.randf_range(min_factor, max_factor)
 		self._beam(bullet_template, owner.global_position + v, false)
 
-func _shoot(bullet_template, shoot_direction = null, parent = owner.owner):
+func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, square_echo = false):
 	var new_bullet = bullet_template.instantiate()
 	
 	if shoot_direction == null: # circle
@@ -114,8 +122,10 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner):
 		new_bullet.living_time = 5 * (1 + self.skill_state.circle.living_time / 10. + self.skill_state.living_time / 40.)
 		new_bullet.crit = 1. * (self.skill_state.circle.crit / 10. + self.skill_state.crit / 40.)
 		new_bullet.crit_factor = 1.5 * (1 + self.skill_state.circle.crit_factor / 10. + self.skill_state.crit_factor / 40.)
+		new_bullet.bounce = self.skill_state.circle.bounce / 10.
 	
 		new_bullet.destructable = !self.skill_state.circle.indestructable
+		new_bullet.split = self.skill_state.circle.split
 	else: # square
 		new_bullet.damage = 10 * 20 * (1 + self.skill_state.square.damage / 10. + self.skill_state.damage / 40.)
 		new_bullet.living_time = 3 * (1 + self.skill_state.square.living_time / 10. + self.skill_state.living_time / 40.)
@@ -124,6 +134,11 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner):
 	
 		new_bullet.get_node("SquareShape").growing_speed = 0.05 * (1 + self.skill_state.square.growing_speed / 10.)
 		new_bullet.get_node("SquareShape").rotation_speed = 1 * (1 + self.skill_state.square.rotation_speed / 10.)
+		
+		if square_echo:
+			new_bullet.damage = new_bullet.damage / 4.
+			new_bullet.get_node("SquareShape").width = 1
+			new_bullet.get_node("SquareShape")._draw()
 		
 	var direction = Vector2(0,1)
 	if new_bullet.aim_required:
@@ -164,5 +179,6 @@ func on_skills_update(new_skill_state):
 
 	self.line_sun_beam = self.skill_state.line.sun_beam / 40.
 	self.line_overshoot = self.skill_state.line.overshoot
+	self.reload_time_square_echo = self.reload_time_square / self.skill_state.square.echo - 0.5 if self.skill_state.square.echo > 0 else 999999999
 
 

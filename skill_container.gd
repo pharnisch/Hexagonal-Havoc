@@ -25,6 +25,7 @@ func display_options(options=["A", "B", "C"]):
 		b.text = option
 		gc.add_child(b)
 		b.talent_chosen.connect(self.on_talent_chosen)
+	self.get_node("AnimationPlayer").play("UI_animation_test")
 	get_tree().paused = true
 		
 func on_talent_chosen(skill_identifier):

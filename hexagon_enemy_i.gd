@@ -4,8 +4,8 @@ var movement_speed = 200
 var move_direction = null
 const DEG2RAD = PI / 180.0
 var rng = null
-var direction_change_interval = 0
-var direction_change_interval_timer = 0
+var direction_change_interval = 2
+var direction_change_interval_timer = 2
 var walking_variant = 1
 var exp_worth = 1
 
@@ -13,7 +13,6 @@ var exp_worth = 1
 func _ready():
 	self.name = "Enemy"
 	self.rng = RandomNumberGenerator.new()
-	var direction_change_interval = 2
 
 func _physics_process(delta):
 	self.direction_change_interval_timer += delta
@@ -32,11 +31,17 @@ func change_direction():
 	if walking_variant == 1:
 		v = Vector2(cos*velocity.x - sin*velocity.y, sin*velocity.x + cos*velocity.y)
 		self.movement_speed = 200
-		%Movement.movement_speed_changed()
 	elif walking_variant == 2:
 		v = velocity
-		self.movement_speed = 60
-		%Movement.movement_speed_changed()
+		self.movement_speed = 75
+	elif walking_variant == 3:
+		v = velocity
+		self.movement_speed = 90
+		self.direction_change_interval = 3.5
+	elif walking_variant == 4:
+		v = Vector2(cos*velocity.x + sin*velocity.y, - sin*velocity.x + cos*velocity.y)
+		self.movement_speed = 200
+	%Movement.movement_speed_changed()
 	
 	# 2. change it slightly, if other enemys/or objects are in the way (very close: within comfort zone), maybe in random direction then
 	# 2.b or move random if previous direction is zero-vector

@@ -8,6 +8,7 @@ var updated = false
 var rng = null
 var skill_container = null
 var skill_points_spent = 0
+var offer_skill_upgrades_active = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,7 +20,7 @@ func _ready():
 	#self.state.circle.learned = true
 	#self.state.triangle.learned = true
 	#self.state.square.learned = true
-	#self.state = self.get_max_state()
+	self.state = self.get_max_state()
 	#self.state.triangle.learned = false
 	#self.state.square.learned = false
 	
@@ -40,7 +41,7 @@ func get_random_skill_options(n):
 	var all_options = []
 	for k_i in self.state.keys():
 		if (typeof(self.state[k_i]) != typeof({})):
-			if self.state[k_i] < 5 or (k_i == "damage" and self.state[k_i] < 20):
+			if self.state[k_i] < 10 or (k_i == "damage" and self.state[k_i] < 20):
 				all_options.append(k_i)
 		else:
 			for k_j in self.state[k_i].keys():
@@ -88,11 +89,12 @@ func on_talent_chosen(skill_identifier):
 			self.state[spl[0]][spl[1]] = {}
 	else:
 		self.state[skill_identifier] += 1
-	print(self.state)
+	self.offer_skill_upgrades_active = false
 	self.update()
 	#self.offer_skill_upgrades()
 
 func offer_skill_upgrades():
+	self.offer_skill_upgrades_active = true
 	self.skill_points_spent += 1
 	if self.skill_points_spent % 5 == 0:
 		self.skill_container.display_options(self.get_random_big_skill_options(3))
@@ -129,6 +131,8 @@ func get_default_state():
 			indestructable = false,
 			#growing_speed = 0.05,
 			attack_range = 0,
+			bounce = 0,
+			split = 5,
 			
 			element = null,
 		},
@@ -167,7 +171,7 @@ func get_default_state():
 			element = null,
 		},
 		square = {
-			learned = false,
+			learned = true,
 			
 			casting_speed = 0,
 			damage = 0,
@@ -179,6 +183,7 @@ func get_default_state():
 			#travel_speed = 500,
 			rotation_speed = 0,
 			growing_speed = 0,
+			echo = 5,
 			
 			element = null,
 		},
@@ -191,11 +196,11 @@ func get_max_state():
 		life_reg = 0,
 		
 		# wird addiert zum spezialisierten, daher können diese up to 10 gehen (statt up to 5)!
-		casting_speed = 5,
+		casting_speed = 10,
 		damage = 20,
-		crit = 5,
-		crit_factor = 5,
-		living_time = 5,
+		crit = 10,
+		crit_factor = 10,
+		living_time = 10,
 		#ultimate_proc = 0,
 		
 		circle = {
@@ -212,6 +217,8 @@ func get_max_state():
 			indestructable = true,
 			#growing_speed = 0.05,
 			attack_range = 0,
+			bounce = 5,
+			split = 5,
 			
 			element = null,
 		},
@@ -244,7 +251,7 @@ func get_max_state():
 			
 			rotation_speed = 5,
 			growing_speed = 5,
-			growing_min_scale = 5,
+			#growing_min_scale = 5,
 			growing_max_scale = 5,
 			
 			element = null,
@@ -262,6 +269,7 @@ func get_max_state():
 			#travel_speed = 500,
 			rotation_speed = 5,
 			growing_speed = 5,
+			echo = 5,
 			
 			element = null,
 		},

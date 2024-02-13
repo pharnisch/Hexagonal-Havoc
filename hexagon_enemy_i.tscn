@@ -16,14 +16,14 @@ gravity_scale = 0.0
 script = ExtResource("1_wahus")
 
 [node name="HexagonShape" parent="." instance=ExtResource("1_tbyrt")]
-color = Color(0.666667, 0.309804, 0.282353, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_a64yl")
 
 [node name="HealthPool" parent="." instance=ExtResource("2_qn734")]
 unique_name_in_owner = true
-max_health = 8
+max_health = 8000
 
 [node name="Movement" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("3_t1quy")]
 unique_name_in_owner = true

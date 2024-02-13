@@ -1,6 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://bi5fcq38pi5oy"]
+[gd_scene load_steps=5 format=3 uid="uid://bi5fcq38pi5oy"]
 
 [ext_resource type="Script" path="res://skill_container.gd" id="1_6bcgl"]
+[ext_resource type="PackedScene" uid="uid://si6xejkupe8v" path="res://button.tscn" id="2_w6t5l"]
+
+[sub_resource type="Animation" id="Animation_10267"]
+resource_name = "UI_animation_test"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GridContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.148651, 0.683025),
+"update": 0,
+"values": [Vector2(312, -400), Vector2(312, 128)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8vdgj"]
+_data = {
+"UI_animation_test": SubResource("Animation_10267")
+}
 
 [node name="SkillContainer" type="CanvasLayer"]
 process_mode = 3
@@ -13,8 +34,21 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -264.0
-offset_top = -196.0
+offset_top = -724.0
 offset_right = 264.0
-offset_bottom = 196.0
+offset_bottom = -332.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Button" parent="GridContainer" instance=ExtResource("2_w6t5l")]
+visible = false
+layout_mode = 2
+
+[node name="Button2" parent="GridContainer" instance=ExtResource("2_w6t5l")]
+visible = false
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8vdgj")
+}

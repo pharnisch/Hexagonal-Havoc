@@ -23,7 +23,7 @@ func _ready():
 					"amount": 5,
 					"shape": self.circle_wave,
 					"shape_args": {"radius":300,"sep":100},
-					"walking_variant": 1,
+					"walking_variant": 4,
 				},
 				{
 					"spawn_time": 3,
@@ -44,7 +44,7 @@ func _ready():
 					"amount": 5,
 					"shape": self.square_wave,
 					"shape_args": {"radius":600,"sep":100},
-					"walking_variant": 1,
+					"walking_variant": 3,
 				},
 				{
 					"spawn_time": 3,
@@ -52,7 +52,7 @@ func _ready():
 					"amount": 5,
 					"shape": self.square_wave,
 					"shape_args": {"radius":600,"sep":100},
-					"walking_variant": 1,
+					"walking_variant": 2,
 				}
 			],
 		}
@@ -72,6 +72,7 @@ func _process(delta):
 			# game end (?)
 			# repeat from start
 			self.wave_ind = 0
+			print("all waves finished")
 		self.wave_time = self.waves[self.wave_ind]["duration"]
 		self.wave_timer = 0
 	

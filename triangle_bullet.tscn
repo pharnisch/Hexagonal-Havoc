@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dila1qvm6ryb6"]
+[gd_scene load_steps=4 format=3 uid="uid://dila1qvm6ryb6"]
 
 [ext_resource type="Script" path="res://triangle_bullet.gd" id="1_1wnfe"]
 [ext_resource type="PackedScene" uid="uid://f83thjh08ys3" path="res://triangle_shape.tscn" id="1_da7vl"]
+[ext_resource type="Texture2D" uid="uid://bflciyxvhfbr3" path="res://Triangle.Equilateral.svg.png" id="3_ymrpq"]
 
 [node name="TriangleBullet" type="Area2D"]
 collision_layer = 2
@@ -13,3 +14,10 @@ width = 10
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, 73, -60, -43.923, 60, -43.923)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 10)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_ymrpq")
