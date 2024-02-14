@@ -10,10 +10,10 @@ collision_mask = 20
 script = ExtResource("1_1wnfe")
 
 [node name="TriangleShape" parent="." instance=ExtResource("1_da7vl")]
-width = 10
+width = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, 73, -60, -43.923, 60, -43.923)
+polygon = PackedVector2Array(0, 60, -51.96, -30, 51.96, -30)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false

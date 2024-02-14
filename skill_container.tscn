@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi5fcq38pi5oy"]
+[gd_scene load_steps=6 format=3 uid="uid://bi5fcq38pi5oy"]
 
 [ext_resource type="Script" path="res://skill_container.gd" id="1_6bcgl"]
 [ext_resource type="PackedScene" uid="uid://si6xejkupe8v" path="res://button.tscn" id="2_w6t5l"]
@@ -8,18 +8,34 @@ resource_name = "UI_animation_test"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GridContainer:position")
+tracks/0/path = NodePath("Container/GridContainer:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(0.148651, 0.683025),
 "update": 0,
-"values": [Vector2(312, -400), Vector2(312, 128)]
+"values": [Vector2(0, -1000), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1r1af"]
+resource_name = "CloseSkillBox"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/GridContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(3.73215, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1000)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8vdgj"]
 _data = {
+"CloseSkillBox": SubResource("Animation_1r1af"),
 "UI_animation_test": SubResource("Animation_10267")
 }
 
@@ -27,28 +43,50 @@ _data = {
 process_mode = 3
 script = ExtResource("1_6bcgl")
 
-[node name="GridContainer" type="VBoxContainer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8vdgj")
+}
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -264.0
-offset_top = -724.0
+offset_top = -199.0
 offset_right = 264.0
-offset_bottom = -332.0
+offset_bottom = 199.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" parent="GridContainer" instance=ExtResource("2_w6t5l")]
+[node name="GridContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = -1199.0
+offset_right = 576.0
+offset_bottom = -801.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" parent="Container/GridContainer" instance=ExtResource("2_w6t5l")]
 visible = false
+custom_minimum_size = Vector2(75, 130)
 layout_mode = 2
 
-[node name="Button2" parent="GridContainer" instance=ExtResource("2_w6t5l")]
+[node name="Button2" parent="Container/GridContainer" instance=ExtResource("2_w6t5l")]
 visible = false
+custom_minimum_size = Vector2(75, 130)
 layout_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_8vdgj")
-}
+[node name="Button3" parent="Container/GridContainer" instance=ExtResource("2_w6t5l")]
+visible = false
+custom_minimum_size = Vector2(75, 130)
+layout_mode = 2

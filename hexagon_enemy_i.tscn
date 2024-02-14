@@ -16,14 +16,16 @@ gravity_scale = 0.0
 script = ExtResource("1_wahus")
 
 [node name="HexagonShape" parent="." instance=ExtResource("1_tbyrt")]
+scale = Vector2(0.7, 0.7)
 color = Color(0, 0, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.7, 0.7)
 shape = SubResource("CircleShape2D_a64yl")
 
 [node name="HealthPool" parent="." instance=ExtResource("2_qn734")]
 unique_name_in_owner = true
-max_health = 8
+health_regen_per_sec = 0
 
 [node name="Movement" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("3_t1quy")]
 unique_name_in_owner = true
@@ -31,3 +33,4 @@ entity = NodePath("..")
 
 [node name="ComfortZone" parent="." instance=ExtResource("5_3u86t")]
 unique_name_in_owner = true
+scale = Vector2(0.7, 0.7)

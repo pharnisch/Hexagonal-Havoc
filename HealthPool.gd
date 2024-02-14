@@ -1,5 +1,7 @@
 extends Node2D
 
+signal player_health_change(current_health, max_health)
+
 @export var max_health := 100
 @export var health_regen_per_sec := 1
 var min_health = 0
@@ -18,22 +20,32 @@ func _process(delta):
 	self.health += self.health_regen_per_sec * delta
 	if self.health > self.max_health:
 		self.health = self.max_health
+	if "Player" in owner.name:
+		player_health_change.emit(self.health, self.max_health)
 		
-func _get_damage(dmg):
+func _get_damage(dmg, special_display=null):
 	#print("get dmg: ", dmg)
 	self.health -= dmg
-	self._display_damage(dmg)
+	if special_display != null:
+		self._display_string(special_display)
+	else:
+		self._display_damage(dmg)
 	if self.health < self.min_health:
 		self.health = self.min_health
 	self._update_health_display()
+	if "Player" in owner.name:
+		player_health_change.emit(self.health, self.max_health)
 	
 	if self.health <= 0:
 		if "Enemy" in owner.name:
 			owner.die()
+			owner.queue_free()
+		elif "Player" in owner.name:
+			owner.die()
 		#owner.get_node("Sprite").visible = false
 		#owner.set_process(false)
 		#self.get_node("AnimationPlayer").play("HitDeath")
-		owner.queue_free() # destroy parent
+		 # destroy parent
 		#self.player.add_score(5)
 	#else:
 		#self.get_node("AnimationPlayer").play("Hit")
@@ -50,6 +62,12 @@ func _display_damage(dmg):
 	var text_label = self.text_label.instantiate()
 	text_label.position = owner.position
 	text_label.set_value(dmg)
+	owner.owner.add_child(text_label)
+
+func _display_string(string):
+	var text_label = self.text_label.instantiate()
+	text_label.position = owner.position
+	text_label.set_string(string)
 	owner.owner.add_child(text_label)
 	
 	

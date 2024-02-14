@@ -29,3 +29,8 @@ func change_size(dmg):
 func set_value(dmg):
 	self.text = str(round(dmg))
 	self.change_size(dmg)
+
+func set_string(string):
+	self.text = string
+	add_theme_font_size_override("font_size", 20)
+	

@@ -9,6 +9,7 @@ var direction_change_interval_timer = 2
 var walking_variant = 1
 var exp_worth = 1
 var melee_dmg = 5
+var movement_speed_factor = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,17 +32,17 @@ func change_direction():
 	var v = null
 	if walking_variant == 1:
 		v = Vector2(cos*velocity.x - sin*velocity.y, sin*velocity.x + cos*velocity.y)
-		self.movement_speed = 200
+		self.movement_speed = 200 * movement_speed_factor
 	elif walking_variant == 2:
 		v = velocity
-		self.movement_speed = 75
+		self.movement_speed = 75 * movement_speed_factor
 	elif walking_variant == 3:
 		v = velocity
-		self.movement_speed = 90
+		self.movement_speed = 90 * movement_speed_factor
 		self.direction_change_interval = 3.5
 	elif walking_variant == 4:
 		v = Vector2(cos*velocity.x + sin*velocity.y, - sin*velocity.x + cos*velocity.y)
-		self.movement_speed = 200
+		self.movement_speed = 200 * movement_speed_factor
 	%Movement.movement_speed_changed()
 	
 	# 2. change it slightly, if other enemys/or objects are in the way (very close: within comfort zone), maybe in random direction then
@@ -84,3 +85,4 @@ func get_nearest_collider(comfort_range = self.get_node("ComfortZone")):
 	
 func die():
 	owner.get_node("Player").gain_exp(self.exp_worth)
+

@@ -1,17 +1,17 @@
 extends Button
 
-signal talent_chosen(skill_identifier)
-
-var identifier = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.pressed.connect(self.on_click)
+	self.pressed.connect(click)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-func on_click():
-	talent_chosen.emit(self.identifier)
+func click():
+	#get_tree().reload_scene()
+	#get_tree().change_scene("res://map_1.tscn")
+	get_node("/root/Map_1").free()
+	get_tree().change_scene_to_file("res://map_1.tscn")

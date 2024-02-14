@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var damage := 5
+@export var damage := 7
 @export var destructable := false
 @export var living_time := 4.5
 @export var travel_speed := 0

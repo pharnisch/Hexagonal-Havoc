@@ -96,7 +96,7 @@ func on_talent_chosen(skill_identifier):
 func offer_skill_upgrades():
 	self.offer_skill_upgrades_active = true
 	self.skill_points_spent += 1
-	if self.skill_points_spent % 5 == 0:
+	if self.skill_points_spent % 10 == 0:
 		var options = self.get_random_big_skill_options(3)
 		if options.size() == 0:
 			var minor_options = self.get_random_skill_options(3)
@@ -144,10 +144,10 @@ func get_default_state():
 			bounce = 0,
 			split = 0,
 			
-			element = null,
+			#element = null,
 		},
 		line = {
-			learned = true,
+			learned = false,
 			
 			casting_speed = 0,
 			damage = 0,
@@ -161,7 +161,7 @@ func get_default_state():
 			sun_beam = 0,
 			attack_range = 0, # todo: create second attack range
 			
-			element = null,
+			#element = null,
 		},
 		triangle = {
 			learned = false,
@@ -178,7 +178,7 @@ func get_default_state():
 			growing_min_scale = 0,
 			growing_max_scale = 0,
 			
-			element = null,
+			#element = null,
 		},
 		square = {
 			learned = false,
@@ -193,9 +193,9 @@ func get_default_state():
 			#travel_speed = 500,
 			rotation_speed = 0,
 			growing_speed = 0,
-			echo = 5,
+			echo = 0,
 			
-			element = null,
+			#element = null,
 		},
 	}
 	

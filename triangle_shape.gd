@@ -26,10 +26,11 @@ func _process(delta):
 		owner.scale += Vector2(1,1) * self.growing_speed
 
 func _draw():
+	var R = 1.2
 	var points = [
-		Vector2(0., 1.22),
-		Vector2(1., -0.73205),
-		Vector2(-1., -0.73205),
+		Vector2(0., 1 * R), # R*cos(0), R*sin(0) = R, 0
+		Vector2(0.866 * R, -0.5 * R), # R*cos(120deg), R*sin(120deg) = -0.5R, (√3/2)R=0.866R
+		Vector2(-0.866 * R, -0.5 * R), # R*cos(240eg), R*sin(240deg) = -0.5R, -(√3/2)R=-0.866R
 		]
 		
 		
@@ -40,6 +41,9 @@ func _draw():
 		
 		var point_start = points[idx_start]
 		var point_end = points[idx_end]
+		
+		#print(point_start.distance_to(point_end))
+		#print(point_start.distance_to(Vector2(0,0)))
 		
 		var direction = (point_end - point_start).normalized()
 		draw_line(point_start*length - direction*width/2, point_end*length + direction*width/2, color, width)
