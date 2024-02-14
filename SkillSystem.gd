@@ -175,7 +175,7 @@ func get_default_state():
 			
 			rotation_speed = 0,
 			growing_speed = 0,
-			growing_min_scale = 0,
+			#growing_min_scale = 0,
 			growing_max_scale = 0,
 			
 			#element = null,
@@ -191,8 +191,8 @@ func get_default_state():
 			#ultimate_proc = 0,
 			
 			#travel_speed = 500,
-			rotation_speed = 0,
-			growing_speed = 0,
+			#rotation_speed = 0,
+			#growing_speed = 0,
 			echo = 0,
 			
 			#element = null,
@@ -277,7 +277,7 @@ func get_max_state():
 			#ultimate_proc = 0,
 			
 			#travel_speed = 500,
-			rotation_speed = 5,
+			#rotation_speed = 5,
 			growing_speed = 5,
 			echo = 5,
 			

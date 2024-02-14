@@ -73,7 +73,7 @@ func equip_triangle_shield(bullet_template):
 	new_bullet.get_node("TriangleShape").growing_speed = 0.05 * (1 + self.skill_state.triangle.growing_speed / 10.)
 	new_bullet.get_node("TriangleShape").rotation_speed = 3 * (1 + self.skill_state.triangle.rotation_speed / 10.)
 	#new_bullet.get_node("TriangleShape").growing_min_scale = 1.5 * (1 + self.skill_state.triangle.growing_min_scale / 10.)
-	new_bullet.get_node("TriangleShape").growing_max_scale = 2.5 * (1 + self.skill_state.triangle.growing_max_scale / 10.)
+	new_bullet.get_node("TriangleShape").growing_max_scale = 2.5 * (1 + self.skill_state.triangle.growing_max_scale / 3.)
 	
 	owner.add_child(new_bullet)
 
@@ -173,10 +173,10 @@ func get_nearest_enemy(attack_range = owner.get_node("AttackRange")):
 func on_skills_update(new_skill_state):
 	print(new_skill_state)
 	self.skill_state = new_skill_state
-	self.reload_time_line = 0.7 * (1 - self.skill_state.line.casting_speed / 10. - self.skill_state.casting_speed / 30.)
-	self.reload_time_circle = 1 * (1 - self.skill_state.circle.casting_speed / 10. - self.skill_state.casting_speed / 30.)
-	self.reload_time_square = 13 * (1 - self.skill_state.square.casting_speed / 10. - self.skill_state.casting_speed / 30.)
-	self.reload_time_triangle = 7 * (1 - self.skill_state.triangle.casting_speed / 10. - self.skill_state.casting_speed / 30.)
+	self.reload_time_line = 0.7 / (1 + self.skill_state.line.casting_speed / 10. + self.skill_state.casting_speed / 30.)
+	self.reload_time_circle = 1.5 / (1 + self.skill_state.circle.casting_speed / 10. + self.skill_state.casting_speed / 30.)
+	self.reload_time_square = 13 / (1 + self.skill_state.square.casting_speed / 10. + self.skill_state.casting_speed / 30.)
+	self.reload_time_triangle = 7 / (1 + self.skill_state.triangle.casting_speed / 10. + self.skill_state.casting_speed / 30.)
 
 	self.line_sun_beam = self.skill_state.line.sun_beam / 40.
 	self.line_overshoot = self.skill_state.line.overshoot
