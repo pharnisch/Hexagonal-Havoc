@@ -11,7 +11,7 @@
 radius = 55.0
 
 [node name="Player" type="CharacterBody2D"]
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.5, 0.5)
 collision_mask = 828
 script = ExtResource("1_7i5rp")
 
@@ -31,9 +31,10 @@ entity = NodePath("..")
 [node name="Weapon" parent="." instance=ExtResource("5_7jc6x")]
 
 [node name="AttackRangeLine" parent="." instance=ExtResource("6_6pu1t")]
-scale = Vector2(1.25, 1.25)
+scale = Vector2(1.5, 1.5)
 
 [node name="AttackRangeCircle" parent="." instance=ExtResource("6_6pu1t")]
+scale = Vector2(1.25, 1.25)
 
 [node name="HurtBox" parent="." instance=ExtResource("6_6pu1t")]
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.33, 0.33)

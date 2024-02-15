@@ -47,7 +47,7 @@ func request_destruction():
 			new_bullet.split = self.split - 1 if self.split >= 1 else 0
 			new_bullet.shoot(direction)
 			new_bullet.transform = self.global_transform
-			print(new_bullet.transform)
+			#print(new_bullet.transform)
 			new_bullet.scale = Vector2(0.5, 0.5)
 			get_tree().get_root().get_node("Map_1").add_child(new_bullet)
 			

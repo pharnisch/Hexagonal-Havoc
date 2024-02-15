@@ -75,12 +75,12 @@ func _physics_process(delta):
 func equip_triangle_shield(bullet_template):
 	var new_bullet = bullet_template.instantiate()
 	new_bullet.damage = 10 * 10 * (1 + self.skill_state.triangle.damage / 10. + self.skill_state.damage / 30.)
-	new_bullet.living_time = 4.5 * (1 + self.skill_state.triangle.living_time / 5. + self.skill_state.living_time / 10.)
-	new_bullet.crit = 1. * (self.skill_state.triangle.crit / 8. + self.skill_state.crit / 20.)
-	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.triangle.crit_factor / 8. + self.skill_state.crit_factor / 20.)
+	new_bullet.living_time = 4.5 * (1 + self.skill_state.triangle.living_time / 4. + self.skill_state.living_time / 8.)
+	new_bullet.crit = 0.05 + 1. * (self.skill_state.triangle.crit / 8. + self.skill_state.crit / 20.)
+	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.triangle.crit_factor / 5. + self.skill_state.crit_factor / 10.)
 	
-	new_bullet.get_node("TriangleShape").growing_speed = 0.05 * (1 + self.skill_state.triangle.growing_speed / 5.)
-	new_bullet.get_node("TriangleShape").rotation_speed = 3 * (1 + self.skill_state.triangle.rotation_speed / 5.)
+	new_bullet.get_node("TriangleShape").growing_speed = 0.05 * (1 + self.skill_state.triangle.growing_speed / 3.)
+	new_bullet.get_node("TriangleShape").rotation_speed = 3 * (1 + self.skill_state.triangle.rotation_speed / 3.)
 	#new_bullet.get_node("TriangleShape").growing_min_scale = 1.5 * (1 + self.skill_state.triangle.growing_min_scale / 10.)
 	new_bullet.get_node("TriangleShape").growing_max_scale = 2.5 * (1 + self.skill_state.triangle.growing_max_scale / 3.)
 	
@@ -89,13 +89,13 @@ func equip_triangle_shield(bullet_template):
 func equip_triangle_surrounding(bullet_template):
 	var new_bullet = bullet_template.instantiate()
 	new_bullet.damage = 10 * 3 * (1 + self.skill_state.triangle.damage / 10. + self.skill_state.damage / 30.)
-	new_bullet.living_time = 15 * (1 + self.skill_state.triangle.living_time / 5. + self.skill_state.living_time / 10.)
-	new_bullet.crit = 1. * (self.skill_state.triangle.crit / 8. + self.skill_state.crit / 20.)
-	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.triangle.crit_factor / 8. + self.skill_state.crit_factor / 20.)
+	new_bullet.living_time = 15 * (1 + self.skill_state.triangle.living_time / 4. + self.skill_state.living_time / 8.)
+	new_bullet.crit = 0.05 + 1. * (self.skill_state.triangle.crit / 8. + self.skill_state.crit / 20.)
+	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.triangle.crit_factor / 5. + self.skill_state.crit_factor / 10.)
 	
 	new_bullet.scale_up(0.3)
-	new_bullet.get_node("TriangleShape").growing_speed = 0.05 * (1 + self.skill_state.triangle.growing_speed / 5.)
-	new_bullet.get_node("TriangleShape").rotation_speed = 3 * (1 + self.skill_state.triangle.rotation_speed / 5.)
+	new_bullet.get_node("TriangleShape").growing_speed = 0.05 * (1 + self.skill_state.triangle.growing_speed / 3.)
+	new_bullet.get_node("TriangleShape").rotation_speed = 3 * (1 + self.skill_state.triangle.rotation_speed / 3.)
 	#new_bullet.get_node("TriangleShape").growing_min_scale = 1.5 * (1 + self.skill_state.triangle.growing_min_scale / 10.)
 	new_bullet.get_node("TriangleShape").growing_max_scale = 2.5 * (1 + self.skill_state.triangle.growing_max_scale / 3.)
 	
@@ -123,9 +123,9 @@ func _beam(bullet_template, target_position, main_beam = true):
 	
 	new_bullet.set_points(owner.global_position, target_position)
 	new_bullet.damage = 10 * 8 * (1 + self.skill_state.line.damage / 10. + self.skill_state.damage / 30.)
-	new_bullet.living_time = 0.5 * (1 + self.skill_state.line.living_time / 5. + self.skill_state.living_time / 10.)
-	new_bullet.crit = 1. * (self.skill_state.line.crit / 8. + self.skill_state.crit / 20.)
-	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.line.crit_factor / 8. + self.skill_state.crit_factor / 20.)
+	new_bullet.living_time = 0.5 * (1 + self.skill_state.line.living_time / 4. + self.skill_state.living_time / 8.)
+	new_bullet.crit = 0.05 + 1. * (self.skill_state.line.crit / 8. + self.skill_state.crit / 20.)
+	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.line.crit_factor / 5. + self.skill_state.crit_factor / 10.)
 	#new_bullet.destructable = !self.skill_state.line.indestructable
 	new_bullet.destructable = !(self.rng.randf_range(0,1) <= self.skill_state.line.indestructable * 0.1)
 	owner.owner.add_child(new_bullet)
@@ -148,12 +148,11 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, squar
 	
 	if shoot_direction == null: # circle
 		new_bullet.damage = 10 * 10 * (1. + self.skill_state.circle.damage / 10. + self.skill_state.damage / 30.)
-		var living_time_multiplier = (1. + self.skill_state.circle.living_time / 5. + self.skill_state.living_time / 10.)
+		var living_time_multiplier = (1. + self.skill_state.circle.living_time / 4. + self.skill_state.living_time / 8.)
 		var product = living_time_multiplier * 1
-		print(product)
 		new_bullet.living_time = product
-		new_bullet.crit = 1. * (self.skill_state.circle.crit / 8. + self.skill_state.crit / 20.)
-		new_bullet.crit_factor = 1.5 * (1 + self.skill_state.circle.crit_factor / 8. + self.skill_state.crit_factor / 20.)
+		new_bullet.crit = 0.05 + 1. * (self.skill_state.circle.crit / 8. + self.skill_state.crit / 20.)
+		new_bullet.crit_factor = 1.5 * (1 + self.skill_state.circle.crit_factor / 5. + self.skill_state.crit_factor / 10.)
 		new_bullet.bounce = self.skill_state.circle.bounce / 10.
 	
 		#new_bullet.destructable = !self.skill_state.circle.indestructable
@@ -161,9 +160,9 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, squar
 		new_bullet.split = self.skill_state.circle.split
 	else: # square
 		new_bullet.damage = 10 * 25 * (1 + self.skill_state.square.damage / 10. + self.skill_state.damage / 30.)
-		new_bullet.living_time = 2 * (1 + self.skill_state.square.living_time / 5. + self.skill_state.living_time / 10.)
-		new_bullet.crit = 1. * (self.skill_state.square.crit / 8. + self.skill_state.crit / 20.)
-		new_bullet.crit_factor = 1.5 * (1 + self.skill_state.square.crit_factor / 8. + self.skill_state.crit_factor / 20.)
+		new_bullet.living_time = 2 * (1 + self.skill_state.square.living_time / 4. + self.skill_state.living_time / 8.)
+		new_bullet.crit = 0.05 + 1. * (self.skill_state.square.crit / 8. + self.skill_state.crit / 20.)
+		new_bullet.crit_factor = 1.5 * (1 + self.skill_state.square.crit_factor / 5. + self.skill_state.crit_factor / 10.)
 		
 		#new_bullet.get_node("SquareShape").growing_speed = 0.05 * (1 + self.skill_state.square.growing_speed / 10.)
 		#new_bullet.get_node("SquareShape").rotation_speed = 1 * (1 + self.skill_state.square.rotation_speed / 10.)
