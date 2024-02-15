@@ -29,5 +29,5 @@ func movement_speed_changed():
 	self.speed = self.entity.movement_speed
 	
 func stun(stun_time):
-	self.stun_time = stun_time
+	self.stun_time += stun_time
 

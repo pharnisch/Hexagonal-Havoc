@@ -44,8 +44,8 @@ func _process(delta):
 				var new_enemy = sub_wave["enemy_type"].instantiate()
 				new_enemy.walking_variant = sub_wave["walking_variant"]
 				new_enemy.melee_dmg *= (1 + (sub_wave["difficulty_scale"] - 1)/ 1.)
-				new_enemy.exp_worth *= (1 + (sub_wave["difficulty_scale"] - 1)/ 2.)
-				new_enemy.movement_speed_factor *= (1 + (sub_wave["difficulty_scale"] - 1)/ 4.)
+				new_enemy.exp_worth *= (1 + (sub_wave["difficulty_scale"] - 1)/ 1.5)
+				new_enemy.movement_speed_factor *= (1 + (sub_wave["difficulty_scale"] - 1)/ 8.)
 				
 				new_enemy.position = sp
 				self.add_child(new_enemy)
@@ -90,7 +90,7 @@ func get_new_wave():
 	var player_skill_estimate = hp.health/hp.max_health #(hp.health/hp.max_health + self.agony) / 2.
 	var duration = 5 #self.rng.randi_range(5,20)
 	var shapes = [self.square_wave, self.circle_wave]
-	var difficulty_coefficient = 1 + wave_ind * 0.1 * (1 + player_skill_estimate)
+	var difficulty_coefficient = 1 + wave_ind * 0.075 + wave_ind * 0.01 * (1 + player_skill_estimate)
 	print("difficulty: ", difficulty_coefficient)
 	var new_wave = {
 		"duration": duration,
@@ -98,7 +98,7 @@ func get_new_wave():
 				{
 					"spawn_time": 0,
 					"enemy_type": self.hexagon_enemy,
-					"amount": 5 + round(difficulty_coefficient),
+					"amount": 2 + round(difficulty_coefficient),
 					"shape": shapes[self.rng.randi_range(0,shapes.size()-1)],
 					"shape_args": {"radius":600,"sep":100},
 					"walking_variant": self.rng.randi_range(1,4),

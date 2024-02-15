@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 signal OnMovementSpeedChange()
-signal on_exp_change(exp, exp_for_next_skill, total_exp)
+signal on_exp_change(lvl, exp, exp_for_next_skill, total_exp)
 
 var movement_speed = 200
 var move_direction = null
@@ -43,12 +43,12 @@ func die():
 	#get_node("/root/Map_1/UI/RestartButton").visible = true
 
 func on_skills_update(skills):
-	var new_max_health = 100 + skills.life_max * 10
+	var new_max_health = 100 + skills.life_max * 50
 	print(new_max_health, self.hp.max_health)
 	if new_max_health > self.hp.max_health:
 		self.hp.max_health = new_max_health
-		self.hp.health += 10
-	self.movement_speed = 200 + skills.running_speed * 20
+		self.hp.health += 50
+	self.movement_speed = 200 + skills.running_speed * 40
 	self.get_node("Movement").movement_speed_changed()
 	self.hp.health_regen_per_sec = 1 + skills.life_reg * 0.1
 	self.get_node("AttackRangeCircle").scale = Vector2(1,1) * (1 + skills.circle.attack_range * 0.2 + skills.attack_range * 0.1)
@@ -61,11 +61,11 @@ func gain_exp(gain):
 	self.total_exp += gain
 
 	var exp_required = 2 + round(self.skills_learned * 1) + round(self.skills_learned *  self.skills_learned * 0.02) 
-	on_exp_change.emit(self.exp, exp_required, self.total_exp)
+	on_exp_change.emit(self.skills_learned, self.exp, exp_required, self.total_exp)
 	if self.skill_system.offer_skill_upgrades_active == false:
 		if self.exp >= exp_required:
 			self.exp -= exp_required
 			self.skill_system.offer_skill_upgrades()
 			self.skills_learned += 1
 			exp_required = 2 + round(self.skills_learned * 1) + round(self.skills_learned *  self.skills_learned * 0.02) 
-			on_exp_change.emit(self.exp, exp_required, self.total_exp)
+			on_exp_change.emit(self.skills_learned, self.exp, exp_required, self.total_exp)

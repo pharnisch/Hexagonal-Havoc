@@ -96,7 +96,7 @@ func on_talent_chosen(skill_identifier):
 func offer_skill_upgrades():
 	self.offer_skill_upgrades_active = true
 	self.skill_points_spent += 1
-	if self.skill_points_spent in [5, 12, 20, 30]:
+	if self.skill_points_spent in [5, 15, 30, 50]:
 		var options = self.get_random_big_skill_options(3)
 		if options.size() == 0:
 			var minor_options = self.get_random_skill_options(3)

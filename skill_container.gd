@@ -56,8 +56,8 @@ func on_talent_chosen(skill_identifier):
 
 func get_description(identifier):
 	var descriptions =  {
-		running_speed = "+10% Walking Speed",
-		life_max = "+10 Max Life",
+		running_speed = "+20% Walking Speed",
+		life_max = "+50 Max Life",
 		life_reg = "+0.1 Life Per Second",
 		exp_bonus = "+10% EXP",
 		
