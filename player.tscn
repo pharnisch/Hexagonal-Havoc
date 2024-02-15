@@ -31,6 +31,7 @@ entity = NodePath("..")
 [node name="Weapon" parent="." instance=ExtResource("5_7jc6x")]
 
 [node name="AttackRangeLine" parent="." instance=ExtResource("6_6pu1t")]
+scale = Vector2(1.25, 1.25)
 
 [node name="AttackRangeCircle" parent="." instance=ExtResource("6_6pu1t")]
 

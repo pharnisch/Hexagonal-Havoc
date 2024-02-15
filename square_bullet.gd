@@ -10,6 +10,10 @@ var scaled_direction = null
 var crit = 0
 var crit_factor = 1.5
 var rng = null
+var shrinking = false
+var collapsing = false
+var stun_chance = 0
+var stun_time = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -22,8 +26,17 @@ func _ready():
 func _process(delta):
 	if scaled_direction != null:
 		self.position += scaled_direction * delta
+		
 	self.living_timer += delta
 	if self.living_timer >= self.living_time:
+		if self.shrinking:
+			get_node("SquareShape").growing_speed = -0.05
+		else:
+			if self.collapsing:
+				self.shrinking = true
+			else:
+				self.queue_free()
+	if self.living_timer >= self.living_time * 2:
 		self.queue_free()
 
 func request_destruction():
@@ -36,6 +49,8 @@ func shoot(direction):
 func _on_SquareBullet_body_entered(body):
 	if "Enemy" in body.name:
 		self.deal_damage(body)
+		if self.rng.randf_range(0,1) <= self.stun_chance:
+			body.get_node("Movement").stun(self.stun_time)
 		self.request_destruction()
 	
 func deal_damage(body):

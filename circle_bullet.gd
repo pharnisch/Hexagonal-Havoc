@@ -26,7 +26,7 @@ func _process(delta):
 	if scaled_direction != null:
 		self.position += scaled_direction * delta
 	self.living_timer += delta
-	if self.living_timer >= self.living_time:
+	if self.living_timer >= self.living_time * 0.5:
 		self.queue_free()
 
 func request_destruction():

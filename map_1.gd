@@ -44,7 +44,7 @@ func _process(delta):
 				var new_enemy = sub_wave["enemy_type"].instantiate()
 				new_enemy.walking_variant = sub_wave["walking_variant"]
 				new_enemy.melee_dmg *= (1 + (sub_wave["difficulty_scale"] - 1)/ 1.)
-				new_enemy.exp_worth *= (1 + (sub_wave["difficulty_scale"] - 1)/ 1.)
+				new_enemy.exp_worth *= (1 + (sub_wave["difficulty_scale"] - 1)/ 2.)
 				new_enemy.movement_speed_factor *= (1 + (sub_wave["difficulty_scale"] - 1)/ 4.)
 				
 				new_enemy.position = sp

@@ -22,7 +22,20 @@ func display_options(options=["A", "B", "C"]):
 	var gc = self.get_node("Container").get_node("GridContainer")
 	for option in options:
 		var b = self.button.instantiate()
+		
 		b.text = get_description(option)
+		if "[" in b.text:
+			var spl = b.text.split("[")
+			b.text = spl[0]
+			if "CIRCLE" in spl[1]:
+				b.add_child(load("res://circle_decoration.tscn").instantiate())
+			elif "LINE" in spl[1]:
+				b.add_child(load("res://line_decoration.tscn").instantiate())
+			elif "SQUARE" in spl[1]:
+				b.add_child(load("res://square_decoration.tscn").instantiate())
+			elif "TRIANGLE" in spl[1]:
+				b.add_child(load("res://triangle_decoration.tscn").instantiate())
+		
 		b.identifier = option
 		gc.add_child(b)
 		b.talent_chosen.connect(self.on_talent_chosen)
@@ -46,27 +59,30 @@ func get_description(identifier):
 		running_speed = "+10% Walking Speed",
 		life_max = "+10 Max Life",
 		life_reg = "+0.1 Life Per Second",
+		exp_bonus = "+10% EXP",
 		
 		# wird addiert zum spezialisierten, daher können diese up to 10 gehen (statt up to 5)!
 		casting_speed = "3.3% Casting Speed",
 		damage = "+3.3% Damage",
 		crit = "+5% Crit Chance",
 		crit_factor = "+5% Crit Multiplicator",
-		living_time = "+3.3% Bullet Living Time",
+		living_time = "+10% Bullet Living Time",
 		#ultimate_proc = 0,
 		
+		attack_range = "+10% Attack Range",
+		
 		circle = {
-			learned = "New Weapon: CIRCLE",
+			learned = "New Weapon: CIRCLE [CIRCLE]",
 			
 			casting_speed = "+10% Casting Speed [CIRCLE]",
 			damage = "+10% Damage [CIRCLE]",
 			crit = "+12.5% Crit Chance [CIRCLE]",
 			crit_factor = "+12.5% Crit Multiplicator [CIRCLE]",
-			living_time = "+10% Bullet Living Time [CIRCLE]",
+			living_time = "+20% Bullet Living Time [CIRCLE]",
 			#ultimate_proc = 0,
 
 			#travel_speed = 500,
-			indestructable = "Bullets Are Not Consumed [CIRCLE]",
+			indestructable = "+10% Penetration Bullets [CIRCLE]",
 			#growing_speed = 0.05,
 			attack_range = "+20% Attack Range [CIRCLE]",
 			bounce = "+10% Bounce Chance [CIRCLE]",
@@ -75,16 +91,16 @@ func get_description(identifier):
 			#element = null,
 		},
 		line = {
-			learned = "New Weapon: LINE",
+			learned = "New Weapon: LINE [LINE]",
 			
 			casting_speed = "+10% Casting Speed [LINE]",
 			damage = "+10% Damage [LINE]",
 			crit = "+12.5% Crit Chance [LINE]",
 			crit_factor = "+12.5% Crit Multiplicator [LINE]",
-			living_time = "+10% Bullet Living Time [LINE]",
+			living_time = "+20% Bullet Living Time [LINE]",
 			#ultimate_proc = 0,
 			
-			indestructable = "Bullets Are Not Consumed [LINE]",
+			indestructable = "+10% Penetration Bullets [LINE]",
 			overshoot = "+25% Beam Length [LINE]", # todo: make main line longer (maximum 3 times long)
 			sun_beam = "+2.5% Sun Beam Proc Chance [LINE]",
 			attack_range = "+20% Attack Range [LINE]", # todo: create second attack range
@@ -92,37 +108,40 @@ func get_description(identifier):
 			#element = null,
 		},
 		triangle = {
-			learned = "New Weapon: TRIANGLE",
+			learned = "New Weapon: TRIANGLE [TRIANGLE]",
 			
 			casting_speed = "+10% Casting Speed [TRIANGLE]",
 			damage = "+10% Damage [TRIANGLE]",
 			crit = "+12.5% Crit Chance [TRIANGLE]",
 			crit_factor = "+12.5% Crit Multiplicator [TRIANGLE]",
-			living_time = "+10% Bullet Living Time [TRIANGLE]",
+			living_time = "+20% Bullet Living Time [TRIANGLE]",
 			#ultimate_proc = 0,
 			
-			rotation_speed = "+10% Rotation Speed [TRIANGLE]",
-			growing_speed = "+10% Growing Speed [TRIANGLE]",
-			growing_min_scale = "+10% Minimum Size [TRIANGLE]",
-			growing_max_scale = "+10% Maximum Size [TRIANGLE]",
+			rotation_speed = "+20% Rotation Speed [TRIANGLE]",
+			growing_speed = "+20% Growing Speed [TRIANGLE]",
+			#growing_min_scale = "+10% Minimum Size [TRIANGLE]",
+			growing_max_scale = "+33% Maximum Size [TRIANGLE]",
+			surrounding = "+1 Surrounding [TRIANGLE]",
 			
 			#element = null,
 		},
 		square = {
-			learned = "New Weapon: SQUARE",
+			learned = "New Weapon: SQUARE [SQUARE]",
 			
 			casting_speed = "+10% Casting Speed [SQUARE]",
 			damage = "+10% Damage [SQUARE]",
 			crit = "+12.5% Crit Chance [SQUARE]",
 			crit_factor = "+12.5% Crit Multiplicator [SQUARE]",
-			living_time = "+10% Bullet Living Time [SQUARE]",
+			living_time = "+20% Bullet Living Time [SQUARE]",
 			#ultimate_proc = 0,
 			
 			#travel_speed = 500,
 			rotation_speed = "+10% Rotation Speed [SQUARE]",
 			growing_speed = "+10% Growing Speed [SQUARE]",
 			echo = "+1 Echo [SQUARE]",
-			
+			collapsing = "+10% Collapsing [SQUARE]",
+			stun_chance = "+15% Stun Chance [SQUARE]",
+			stun_time = "+0.75s Stun Time [SQUARE]",
 			#element = null,
 		},
 	}

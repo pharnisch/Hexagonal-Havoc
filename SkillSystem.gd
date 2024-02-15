@@ -96,7 +96,7 @@ func on_talent_chosen(skill_identifier):
 func offer_skill_upgrades():
 	self.offer_skill_upgrades_active = true
 	self.skill_points_spent += 1
-	if self.skill_points_spent % 10 == 0:
+	if self.skill_points_spent in [5, 12, 20, 30]:
 		var options = self.get_random_big_skill_options(3)
 		if options.size() == 0:
 			var minor_options = self.get_random_skill_options(3)
@@ -118,6 +118,7 @@ func get_default_state():
 		running_speed = 0,
 		life_max = 0,
 		life_reg = 0,
+		exp_bonus = 0,
 		
 		# wird addiert zum spezialisierten, daher können diese up to 10 gehen (statt up to 5)!
 		casting_speed = 0,
@@ -126,6 +127,8 @@ func get_default_state():
 		crit_factor = 0,
 		living_time = 0,
 		#ultimate_proc = 0,
+		
+		attack_range = 0,
 		
 		circle = {
 			learned = true,
@@ -138,7 +141,7 @@ func get_default_state():
 			#ultimate_proc = 0,
 
 			#travel_speed = 500,
-			indestructable = false,
+			indestructable = 0,
 			#growing_speed = 0.05,
 			attack_range = 0,
 			bounce = 0,
@@ -156,7 +159,7 @@ func get_default_state():
 			living_time = 0,
 			#ultimate_proc = 0,
 			
-			indestructable = false,
+			indestructable = 0,
 			overshoot = 0, # todo: make main line longer (maximum 3 times long)
 			sun_beam = 0,
 			attack_range = 0, # todo: create second attack range
@@ -177,6 +180,7 @@ func get_default_state():
 			growing_speed = 0,
 			#growing_min_scale = 0,
 			growing_max_scale = 0,
+			surrounding = 0,
 			
 			#element = null,
 		},
@@ -194,6 +198,9 @@ func get_default_state():
 			#rotation_speed = 0,
 			#growing_speed = 0,
 			echo = 0,
+			collapsing = 0,
+			stun_chance = 0,
+			stun_time = 0,
 			
 			#element = null,
 		},

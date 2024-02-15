@@ -11,6 +11,7 @@ var exp_worth = 1
 var melee_dmg = 5
 var movement_speed_factor = 1
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.name = "Enemy"
@@ -82,6 +83,7 @@ func get_nearest_collider(comfort_range = self.get_node("ComfortZone")):
 				nearest_collider = collider
 	return nearest_collider
 	
+
 	
 func die():
 	owner.get_node("Player").gain_exp(self.exp_worth)

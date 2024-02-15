@@ -10,6 +10,7 @@ var total_exp = 0
 var skills_learned = 0
 var skill_system = null
 var hp = null
+var exp_bonus = 0
 
 func _start():
 	pass
@@ -43,16 +44,19 @@ func die():
 
 func on_skills_update(skills):
 	var new_max_health = 100 + skills.life_max * 10
+	print(new_max_health, self.hp.max_health)
 	if new_max_health > self.hp.max_health:
 		self.hp.max_health = new_max_health
 		self.hp.health += 10
 	self.movement_speed = 200 + skills.running_speed * 20
 	self.get_node("Movement").movement_speed_changed()
 	self.hp.health_regen_per_sec = 1 + skills.life_reg * 0.1
-	self.get_node("AttackRangeCircle").scale = Vector2(1,1) * (1 + skills.circle.attack_range * 0.2)
-	self.get_node("AttackRangeLine").scale = Vector2(1,1) * (1 + skills.line.attack_range * 0.2)
+	self.get_node("AttackRangeCircle").scale = Vector2(1,1) * (1 + skills.circle.attack_range * 0.2 + skills.attack_range * 0.1)
+	self.get_node("AttackRangeLine").scale = Vector2(1,1) * (1 + skills.line.attack_range * 0.2 + skills.attack_range * 0.1)
+	self.exp_bonus = skills.exp_bonus * 0.1
 
 func gain_exp(gain):
+	gain *= (1. + self.exp_bonus)
 	self.exp += gain
 	self.total_exp += gain
 

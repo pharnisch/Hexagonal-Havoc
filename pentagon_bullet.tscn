@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnmwh0v2vbk40"]
+
+[ext_resource type="Script" path="res://PentagonBullet.gd" id="1_eyklc"]
+[ext_resource type="Script" path="res://PentagonShape.gd" id="2_ucp2b"]
+[ext_resource type="Texture2D" uid="uid://dv7gl5kxtyg0u" path="res://icon.svg" id="3_rmf2u"]
+
+[node name="PentagonBullet" type="Area2D"]
+position = Vector2(300, 300)
+script = ExtResource("1_eyklc")
+
+[node name="PentagonShape" type="Node2D" parent="."]
+script = ExtResource("2_ucp2b")
+growing_speed = 0.0
+growing_min_scale = 0.0
+growing_max_scale = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(50, 0, 15, -47, -40, -29, -40, 29, 15, 47)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_rmf2u")

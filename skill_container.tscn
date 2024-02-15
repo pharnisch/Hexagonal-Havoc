@@ -1,22 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bi5fcq38pi5oy"]
+[gd_scene load_steps=10 format=3 uid="uid://bi5fcq38pi5oy"]
 
 [ext_resource type="Script" path="res://skill_container.gd" id="1_6bcgl"]
 [ext_resource type="PackedScene" uid="uid://si6xejkupe8v" path="res://button.tscn" id="2_w6t5l"]
-
-[sub_resource type="Animation" id="Animation_10267"]
-resource_name = "UI_animation_test"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Container/GridContainer:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.148651, 0.683025),
-"update": 0,
-"values": [Vector2(0, -1000), Vector2(0, 0)]
-}
+[ext_resource type="PackedScene" uid="uid://bxix50ui58dmr" path="res://circle_decoration.tscn" id="3_oyp7p"]
+[ext_resource type="PackedScene" uid="uid://bd1271wb5j6su" path="res://line_decoration.tscn" id="4_1fn12"]
+[ext_resource type="PackedScene" uid="uid://oj1euociwoft" path="res://square_decoration.tscn" id="5_7jmn7"]
+[ext_resource type="PackedScene" uid="uid://b3s35wqmbx8rq" path="res://triangle_decoration.tscn" id="6_ktyik"]
 
 [sub_resource type="Animation" id="Animation_1r1af"]
 resource_name = "CloseSkillBox"
@@ -31,6 +20,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(3.73215, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -1000)]
+}
+
+[sub_resource type="Animation" id="Animation_10267"]
+resource_name = "UI_animation_test"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/GridContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.148651, 0.683025),
+"update": 0,
+"values": [Vector2(0, -1000), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8vdgj"]
@@ -69,10 +73,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 48.0
-offset_top = -1199.0
-offset_right = 576.0
-offset_bottom = -801.0
+offset_left = -264.0
+offset_top = -199.0
+offset_right = 264.0
+offset_bottom = 199.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -81,12 +85,25 @@ visible = false
 custom_minimum_size = Vector2(75, 130)
 layout_mode = 2
 
+[node name="CircleDecoration" parent="Container/GridContainer/Button" instance=ExtResource("3_oyp7p")]
+
 [node name="Button2" parent="Container/GridContainer" instance=ExtResource("2_w6t5l")]
 visible = false
 custom_minimum_size = Vector2(75, 130)
 layout_mode = 2
 
+[node name="LineDecoration" parent="Container/GridContainer/Button2" instance=ExtResource("4_1fn12")]
+
 [node name="Button3" parent="Container/GridContainer" instance=ExtResource("2_w6t5l")]
 visible = false
 custom_minimum_size = Vector2(75, 130)
 layout_mode = 2
+
+[node name="SquareDecoration" parent="Container/GridContainer/Button3" instance=ExtResource("5_7jmn7")]
+
+[node name="Button4" parent="Container/GridContainer" instance=ExtResource("2_w6t5l")]
+visible = false
+custom_minimum_size = Vector2(75, 130)
+layout_mode = 2
+
+[node name="TriangleDecoration" parent="Container/GridContainer/Button4" instance=ExtResource("6_ktyik")]

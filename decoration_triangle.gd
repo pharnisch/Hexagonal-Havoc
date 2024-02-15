@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @export var color := Color.WHITE
 @export var width := 20
@@ -8,7 +8,7 @@ extends Node2D
 var shrinking = false
 @export var growing_min_scale := 1.5
 @export var growing_max_scale := 2.5
-var scale_factor = 1
+
 
 func _ready():
 	self.rotation = 0
@@ -26,7 +26,7 @@ func _process(delta):
 		owner.scale += Vector2(1,1) * self.growing_speed
 
 func _draw():
-	var R = 1.8 * scale_factor
+	var R = 1.2
 	var points = [
 		Vector2(0., 1 * R), # R*cos(0), R*sin(0) = R, 0
 		Vector2(0.866 * R, -0.5 * R), # R*cos(120deg), R*sin(120deg) = -0.5R, (√3/2)R=0.866R

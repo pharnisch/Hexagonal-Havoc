@@ -26,13 +26,12 @@ func _process(delta):
 		owner.scale += Vector2(1,1) * self.growing_speed
 
 func _draw():
-	var R = 1.8 * scale_factor
-	var points = [
-		Vector2(0., 1 * R), # R*cos(0), R*sin(0) = R, 0
-		Vector2(0.866 * R, -0.5 * R), # R*cos(120deg), R*sin(120deg) = -0.5R, (√3/2)R=0.866R
-		Vector2(-0.866 * R, -0.5 * R), # R*cos(240eg), R*sin(240deg) = -0.5R, -(√3/2)R=-0.866R
-		]
-		
+	var R = 50 * scale_factor
+	var n = 5
+	var points = []
+	for i in range(n):
+		points.append(Vector2(R*cos(i*2*PI/n), -R*sin(i*2*PI/n)))
+	get_parent().get_node("CollisionPolygon2D").polygon = PackedVector2Array(points)
 		
 	for idx_start in points.size():
 		var idx_end = idx_start + 1
