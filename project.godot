@@ -27,3 +27,7 @@ project/assembly_name="Hexagonal Havoc"
 2d_physics/layer_4="enemy projectiles"
 2d_physics/layer_5="neutral"
 2d_physics/layer_6="neutral objectiles"
+
+[physics]
+
+common/max_physics_steps_per_frame=4

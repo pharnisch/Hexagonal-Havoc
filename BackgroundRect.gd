@@ -11,7 +11,7 @@ func _ready():
 	# nice color: f1e5ff
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	self.hue -= delta * 0.05
 	if self.hue > 1.:
 		self.hue = 0

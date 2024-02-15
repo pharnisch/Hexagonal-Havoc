@@ -16,7 +16,7 @@ func _ready():
 	self.particle_effect = load("res://particle_effect.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	self.health += self.health_regen_per_sec * delta
 	if self.health > self.max_health:
 		self.health = self.max_health

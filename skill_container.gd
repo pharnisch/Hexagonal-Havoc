@@ -15,7 +15,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	pass#self.global_position = self.player.global_position
 
 func display_options(options=["A", "B", "C"]):
@@ -85,7 +85,7 @@ func get_description(identifier):
 			indestructable = "+10% Penetration Bullets [CIRCLE]",
 			#growing_speed = 0.05,
 			attack_range = "+20% Attack Range [CIRCLE]",
-			bounce = "+10% Bounce Chance [CIRCLE]",
+			bounce = "+15% Bounce Chance [CIRCLE]",
 			split = "+1 Split Bullet [CIRCLE]",
 			
 			#element = null,

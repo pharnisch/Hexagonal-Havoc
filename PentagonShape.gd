@@ -14,7 +14,7 @@ func _ready():
 	self.rotation = 0
 	owner.scale *= self.growing_min_scale
 
-func _process(delta):
+func _physics_process(delta):
 	owner.rotation -= rotation_speed * delta
 	if owner.scale.x >= self.growing_max_scale:
 		self.shrinking = true

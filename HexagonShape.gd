@@ -8,7 +8,7 @@ extends Node2D
 func _ready():
 	self.rotation = 0
 
-func _process(delta):
+func _physics_process(delta):
 	self.rotation -= rotation_speed * delta
 
 func _draw():

@@ -9,7 +9,7 @@ func _ready():
 	self.lifebar = get_node("LifeBar")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	pass
 
 func health_change(health, max_health):

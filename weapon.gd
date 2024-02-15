@@ -107,6 +107,7 @@ func equip_triangle_surrounding(bullet_template):
 func beam(bullet_template):
 	var nearest_enemy = self.get_nearest_enemy(owner.get_node("AttackRangeLine"))
 	if nearest_enemy == null:
+		self.reload_timer_line = self.reload_time_line
 		return
 	var sun_proc = self.rng.randf_range(0,1) <= self.line_sun_beam
 	if sun_proc:
@@ -153,7 +154,7 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, squar
 		new_bullet.living_time = product
 		new_bullet.crit = 0.05 + 1. * (self.skill_state.circle.crit / 8. + self.skill_state.crit / 20.)
 		new_bullet.crit_factor = 1.5 * (1 + self.skill_state.circle.crit_factor / 5. + self.skill_state.crit_factor / 10.)
-		new_bullet.bounce = self.skill_state.circle.bounce / 10.
+		new_bullet.bounce = self.skill_state.circle.bounce * 0.15
 	
 		#new_bullet.destructable = !self.skill_state.circle.indestructable
 		new_bullet.destructable = !(self.rng.randf_range(0,1) <= self.skill_state.circle.indestructable * 0.1)
@@ -180,6 +181,8 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, squar
 	if new_bullet.aim_required:
 		var nearest_enemy = self.get_nearest_enemy(owner.get_node("AttackRangeCircle"))
 		if nearest_enemy == null:
+			if shoot_direction == null: # circle
+				self.reload_timer_circle -= self.reload_time_circle
 			new_bullet.queue_free()
 			return
 		direction = self.global_position.direction_to(nearest_enemy.global_position)

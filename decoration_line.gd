@@ -12,7 +12,7 @@ extends Control
 func _ready():
 	self.rotation = 0
 
-func _process(delta):
+func _physics_process(delta):
 	pass
 	#owner.rotation -= rotation_speed * delta
 	#owner.scale += Vector2(1,1) * self.growing_speed

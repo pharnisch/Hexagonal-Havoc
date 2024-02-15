@@ -27,7 +27,7 @@ func _ready():
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	self.timer += delta
 	if self.timer >= 0.01 and not self.updated:
 		#self.offer_skill_upgrades()

@@ -19,7 +19,7 @@ func _ready():
 	self.rng = RandomNumberGenerator.new()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	if scaled_direction != null:
 		self.position += scaled_direction * delta
 	self.living_timer += delta

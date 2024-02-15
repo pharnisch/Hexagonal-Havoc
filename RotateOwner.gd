@@ -11,7 +11,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	get_parent().rotation -= 1 * delta * direction
 	if self.traverse_circle:
 		var r = 20

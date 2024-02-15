@@ -21,7 +21,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 
 	self.wave_timer += delta
 	if self.wave_timer >= self.wave_time:
