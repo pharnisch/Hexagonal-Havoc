@@ -64,10 +64,38 @@ func get_random_big_skill_options(n):
 	for k_i in self.state.keys():
 		if (typeof(self.state[k_i]) == typeof({})):
 			for k_j in self.state[k_i].keys():
-				if (typeof(self.state[k_i][k_j]) == typeof(false) and (self.state[k_i][k_j]) == (false)) or ((self.state[k_i][k_j]) == (null)):
+				if (typeof(self.state[k_i][k_j]) == typeof(false) and (self.state[k_i][k_j]) == (false)):
 					#all_options.append(k_i + ":" + k_j)
 					if k_j == "learned" or self.state[k_i].learned:
 						all_options.append(k_i + ":" + k_j)
+
+	var selected = []
+	for i in range(n):
+		var rand_ind = self.rng.randi_range(0, all_options.size() - 1)
+		if rand_ind == -1 or all_options.size() == 0:
+			break
+		selected.append(all_options[rand_ind])
+		all_options.remove_at(rand_ind)
+	return selected
+	
+func get_random_element_skill_options(n):
+	return []
+	var all_options = []
+	for k_i in self.state.keys():
+		if (typeof(self.state[k_i]) == typeof({})):
+			for k_j in self.state[k_i].keys():
+				if ((self.state[k_i][k_j]) == (null)):
+					if  self.state[k_i].learned:
+						for el in ["fire", "frost", "poison", "lightning", "unholy", "terra", "holy", "air"]:
+							# fire [RED]: 15% of received fire-dmg per sec
+							# frost [BLUE]: 15%% of received frost-dmg slow [cap 70%]
+							# poison [GREEN]: 20%% -atk [cap 70%]
+							# lightning [YELLOW]: 15%% of received-lightn-dmg +crit receive for ALL [cap 70%]
+							# unholy [PURPLE]: 1%% lifesteal for ALL
+							# terra [BROWN]: 10% s + on stun timer
+							# holy [ORANGE]: 5%% + exp worth for ALL
+							# air [TURQUOISE]: 20% of casting time immunity
+							all_options.append(k_i + ":element:" + el)
 
 	var selected = []
 	for i in range(n):
@@ -81,13 +109,18 @@ func get_random_big_skill_options(n):
 func on_talent_chosen(skill_identifier):
 	if ":" in skill_identifier:
 		var spl = skill_identifier.split(":")
-		if typeof(self.state[spl[0]][spl[1]]) == typeof(0):
-			self.state[spl[0]][spl[1]] += 1
-		elif typeof(self.state[spl[0]][spl[1]]) == typeof(false):
-			self.state[spl[0]][spl[1]] = true
-		elif typeof(self.state[spl[0]][spl[1]]) == typeof(null):
-			self.state[spl[0]][spl[1]] = {}
-	else:
+		if spl.size() == 3: # circle:element:air
+			var chosen_element = spl[2]
+			var for_shape = spl[0]
+			self.state[for_shape].element = chosen_element
+		else: # circle:attack_range
+			if typeof(self.state[spl[0]][spl[1]]) == typeof(0):
+				self.state[spl[0]][spl[1]] += 1
+			elif typeof(self.state[spl[0]][spl[1]]) == typeof(false):
+				self.state[spl[0]][spl[1]] = true
+			elif typeof(self.state[spl[0]][spl[1]]) == typeof(null):
+				self.state[spl[0]][spl[1]] = {}
+	else: # attack_range
 		self.state[skill_identifier] += 1
 	self.offer_skill_upgrades_active = false
 	self.update()
@@ -96,8 +129,17 @@ func on_talent_chosen(skill_identifier):
 func offer_skill_upgrades():
 	self.offer_skill_upgrades_active = true
 	self.skill_points_spent += 1
-	if self.skill_points_spent in [5, 15, 30, 50]:
+	if self.skill_points_spent in [5, 15, 30, 50, 75]:
 		var options = self.get_random_big_skill_options(3)
+		if options.size() == 0:
+			var minor_options = self.get_random_skill_options(3)
+			if minor_options.size() == 0:
+				return
+			self.skill_container.display_options(minor_options)
+		else:
+			self.skill_container.display_options(options)
+	if self.skill_points_spent in [1,40,60,80,100]:
+		var options = self.get_random_element_skill_options(8)
 		if options.size() == 0:
 			var minor_options = self.get_random_skill_options(3)
 			if minor_options.size() == 0:
@@ -147,7 +189,7 @@ func get_default_state():
 			bounce = 0,
 			split = 0,
 			
-			#element = null,
+			element = null,
 		},
 		line = {
 			learned = false,
@@ -164,7 +206,7 @@ func get_default_state():
 			sun_beam = 0,
 			attack_range = 0, # todo: create second attack range
 			
-			#element = null,
+			element = null,
 		},
 		triangle = {
 			learned = false,
@@ -182,7 +224,7 @@ func get_default_state():
 			growing_max_scale = 0,
 			surrounding = 0,
 			
-			#element = null,
+			element = null,
 		},
 		square = {
 			learned = false,
@@ -202,7 +244,7 @@ func get_default_state():
 			stun_chance = 0,
 			stun_time = 0,
 			
-			#element = null,
+			element = null,
 		},
 	}
 	

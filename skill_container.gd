@@ -24,6 +24,7 @@ func display_options(options=["A", "B", "C"]):
 		var b = self.button.instantiate()
 		
 		b.text = get_description(option)
+		print(b.text)
 		if "[" in b.text:
 			var spl = b.text.split("[")
 			b.text = spl[0]
@@ -35,6 +36,23 @@ func display_options(options=["A", "B", "C"]):
 				b.add_child(load("res://square_decoration.tscn").instantiate())
 			elif "TRIANGLE" in spl[1]:
 				b.add_child(load("res://triangle_decoration.tscn").instantiate())
+			
+			if "Element:" in spl[0]:
+				var colors = {
+					"fire" : Color.INDIAN_RED,
+					"frost": Color.SKY_BLUE,
+					"poison": Color.LAWN_GREEN,
+					"lightning": Color.YELLOW,
+					"unholy": Color.MEDIUM_PURPLE,
+					"terra": Color.SANDY_BROWN,
+					"holy": Color.CORAL,
+					"air": Color.TURQUOISE
+				}
+				var spl2 = spl[0].split(":")
+				b.text = spl2[1]
+				for c_k in colors.keys():
+					if c_k in spl[0]:
+						b.modulate = colors[c_k]
 		
 		b.identifier = option
 		gc.add_child(b)
@@ -147,7 +165,10 @@ func get_description(identifier):
 	}
 	if ":" in identifier:
 		var spl = identifier.split(":")
-		return descriptions[spl[0]][spl[1]]
+		if spl.size() == 3:
+			return "Element:" + spl[2] + " ["+spl[0].to_upper()+"]"
+		else:
+			return descriptions[spl[0]][spl[1]]
 	else:
 		return descriptions[identifier]
 	
