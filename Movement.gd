@@ -4,6 +4,7 @@ extends Node2D
 var speed = null
 var direction = null
 var stun_time = 0
+var stun_immunity_timer = 6.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,7 +13,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if stun_time > 0:
+	if stun_time > 0 and self.stun_immunity_timer > 0:
+		self.stun_immunity_timer -= delta
 		stun_time -= delta
 		return
 	if self.direction != null:
@@ -30,4 +32,5 @@ func movement_speed_changed():
 	
 func stun(stun_time):
 	self.stun_time += stun_time
+
 

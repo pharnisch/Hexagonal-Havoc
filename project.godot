@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Hexagonal Havoc"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/Philipp/Documents/Hexagonal Havoc/film.avi"
+
 [layer_names]
 
 2d_physics/layer_1="player"

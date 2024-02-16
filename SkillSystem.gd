@@ -138,7 +138,7 @@ func offer_skill_upgrades():
 			self.skill_container.display_options(minor_options)
 		else:
 			self.skill_container.display_options(options)
-	if self.skill_points_spent in [1,40,60,80,100]:
+	elif self.skill_points_spent in [1,40,60,80,100]:
 		var options = self.get_random_element_skill_options(8)
 		if options.size() == 0:
 			var minor_options = self.get_random_skill_options(3)

@@ -19,6 +19,8 @@ func _ready():
 	self.wave_time = self.waves[self.wave_ind]["duration"]
 	self.wave_timer = 0
 
+	Engine.physics_ticks_per_second *= 2
+	Engine.time_scale *= 2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -90,7 +92,7 @@ func get_new_wave():
 	var player_skill_estimate = hp.health/hp.max_health #(hp.health/hp.max_health + self.agony) / 2.
 	var duration = 5 #self.rng.randi_range(5,20)
 	var shapes = [self.square_wave, self.circle_wave]
-	var difficulty_coefficient = 1 + wave_ind * 0.075 + wave_ind * 0.01 * (1 + player_skill_estimate)
+	var difficulty_coefficient = 1 + wave_ind*wave_ind*wave_ind*wave_ind*0.0000001+ wave_ind * 0.075 + wave_ind * 0.01 * (1 + player_skill_estimate)
 	#print("difficulty: ", difficulty_coefficient)
 	var new_wave = {
 		"duration": duration,

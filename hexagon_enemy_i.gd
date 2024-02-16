@@ -12,6 +12,7 @@ var melee_dmg = 5
 var movement_speed_factor = 1
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.name = "Enemy"
