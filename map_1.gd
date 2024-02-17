@@ -21,14 +21,14 @@ func _ready():
 	self.wave_time = self.waves[self.wave_ind]["duration"]
 	self.wave_timer = 0
 
-	Engine.physics_ticks_per_second *= 1.5
-	Engine.time_scale *= 1.5
+	Engine.physics_ticks_per_second *= 1.
+	Engine.time_scale *= 1.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	self.agony += delta*0.1
-	if self.agony > 1:
-		self.agony = 1
+	self.agony += delta*0.01
+	if self.agony > 5:
+		self.agony = 5
 
 	self.wave_timer += delta
 	if self.wave_timer >= self.wave_time:
@@ -51,9 +51,9 @@ func _physics_process(delta):
 			for sp in spawn_positions:
 				var new_enemy = sub_wave["enemy_type"].instantiate()
 				new_enemy.walking_variant = sub_wave["walking_variant"]
-				new_enemy.melee_dmg *= (1 + (sub_wave["difficulty_scale"] - 1)/ 1.)
+				new_enemy.melee_dmg *= (1 + (sub_wave["difficulty_scale"] - 1)/ 5.)
 				new_enemy.exp_worth *= (1 + (sub_wave["difficulty_scale"] - 1)/ 1.5)
-				new_enemy.movement_speed_factor *= (1 + (sub_wave["difficulty_scale"] - 1)/ 8.)
+				new_enemy.movement_speed_factor *= (1 + (sub_wave["difficulty_scale"] - 1)/ 10.)
 				
 				new_enemy.position = sp
 				self.add_child(new_enemy)
@@ -94,12 +94,12 @@ func choose_locations(locations, amount):
 	return chosen_locations
 	
 func get_new_wave():
-	print("AGONY: ", self.agony)
+	#print("AGONY: ", self.agony)
 	var hp = get_node("Player").get_node("HealthPool")
-	var player_skill_estimate = hp.health/hp.max_health #(hp.health/hp.max_health + self.agony) / 2.
+	var hp_ratio = hp.health/hp.max_health #(hp.health/hp.max_health + self.agony) / 2.
 	var duration = 5 #self.rng.randi_range(5,20)
 	var shapes = [self.square_wave, self.circle_wave]
-	var difficulty_coefficient = 1 + wave_ind*wave_ind*wave_ind*wave_ind*0.0000001+ wave_ind * 0.075 + wave_ind * 0.01 * self.agony + wave_ind * 0.05 * player_skill_estimate
+	var difficulty_coefficient = 1 + wave_ind*wave_ind*wave_ind*wave_ind*0.0000001+ wave_ind * 0.05 + wave_ind * 0.1 * self.agony + wave_ind * 0.01 * hp_ratio
 	#print("difficulty: ", difficulty_coefficient)
 	var new_wave = {
 		"duration": duration,
@@ -107,7 +107,7 @@ func get_new_wave():
 				{
 					"spawn_time": 0,
 					"enemy_type": self.hexagon_enemy,
-					"amount": 2 + round(difficulty_coefficient),
+					"amount": 2 + round(difficulty_coefficient/1.5),
 					"shape": shapes[self.rng.randi_range(0,shapes.size()-1)],
 					"shape_args": {"radius":600,"sep":100},
 					"walking_variant": self.rng.randi_range(1,4),
@@ -119,7 +119,7 @@ func get_new_wave():
 
 func decrease_agony(delta):
 	#print("-=", delta * 0.001)
-	self.agony -= delta * 0.01
+	self.agony -= delta * 0.001
 	if self.agony < 0:
 		self.agony = 0
 		

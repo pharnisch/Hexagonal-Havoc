@@ -33,7 +33,7 @@ func request_destruction():
 	if self.rng.randf_range(0,1) <= self.bounce:
 		var direction = Vector2(self.rng.randf_range(-1,1), self.rng.randf_range(-1,1)).normalized()
 		self.scaled_direction = direction * self.travel_speed
-	else:
+	if true:
 		for i in range(self.split):
 			var new_bullet = self.circle_bullet.instantiate()
 			var direction = Vector2(self.rng.randf_range(-1,1), self.rng.randf_range(-1,1)).normalized()

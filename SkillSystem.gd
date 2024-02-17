@@ -129,7 +129,7 @@ func on_talent_chosen(skill_identifier):
 func offer_skill_upgrades():
 	self.offer_skill_upgrades_active = true
 	self.skill_points_spent += 1
-	if self.skill_points_spent in [5, 15, 30, 50, 75]:
+	if self.skill_points_spent in [5,15,25,35]:
 		var options = self.get_random_big_skill_options(3)
 		if options.size() == 0:
 			var minor_options = self.get_random_skill_options(3)
@@ -138,7 +138,7 @@ func offer_skill_upgrades():
 			self.skill_container.display_options(minor_options)
 		else:
 			self.skill_container.display_options(options)
-	elif self.skill_points_spent in [1,40,60,80,100]:
+	elif self.skill_points_spent in [10,20,30,40,50]:
 		var options = self.get_random_element_skill_options(8)
 		if options.size() == 0:
 			var minor_options = self.get_random_skill_options(3)
@@ -175,19 +175,19 @@ func get_default_state():
 		circle = {
 			learned = true,
 			
-			casting_speed = 0,
+			casting_speed = 5,
 			damage = 0,
 			crit = 0,
 			crit_factor = 0,
-			living_time = 0,
+			living_time = 5,
 			#ultimate_proc = 0,
 
 			#travel_speed = 500,
-			indestructable = 0,
+			indestructable = 5,
 			#growing_speed = 0.05,
-			attack_range = 0,
-			bounce = 0,
-			split = 0,
+			attack_range = 5,
+			bounce = 5,
+			split = 5,
 			
 			element = null,
 		},
