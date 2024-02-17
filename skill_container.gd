@@ -24,7 +24,7 @@ func display_options(options=["A", "B", "C"]):
 		var b = self.button.instantiate()
 		
 		b.text = get_description(option)
-		print(b.text)
+		#print(b.text)
 		if "[" in b.text:
 			var spl = b.text.split("[")
 			b.text = spl[0]

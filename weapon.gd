@@ -209,7 +209,7 @@ func get_nearest_enemy(attack_range = owner.get_node("AttackRange")):
 	return closest_enemy
 		
 func on_skills_update(new_skill_state):
-	print(new_skill_state)
+	#print(new_skill_state)
 	self.skill_state = new_skill_state
 
 	self.reload_time_circle = 1.1 / (1 + self.skill_state.circle.casting_speed / 10. + self.skill_state.casting_speed / 30.)

@@ -19,7 +19,7 @@ layer = -10
 [node name="BackgroundRect" type="ColorRect" parent="CanvasLayer"]
 offset_right = 11337.0
 offset_bottom = 8870.0
-color = Color(1, 0.901961, 0.901961, 1)
+color = Color(0.788235, 0.686275, 0.858824, 1)
 script = ExtResource("4_lmk7g")
 
 [node name="UI" parent="." instance=ExtResource("5_edmx6")]

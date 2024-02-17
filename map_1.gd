@@ -8,7 +8,9 @@ var walking_variant = 1
 var walking_variants = 2
 var rng = null
 var waves = null
-var agony = 1
+var agony = 0
+var colors_inverted = false
+var rainbow_color = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,14 +21,18 @@ func _ready():
 	self.wave_time = self.waves[self.wave_ind]["duration"]
 	self.wave_timer = 0
 
-	Engine.physics_ticks_per_second *= 2
-	Engine.time_scale *= 2
+	Engine.physics_ticks_per_second *= 1.5
+	Engine.time_scale *= 1.5
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	self.agony += delta*0.1
+	if self.agony > 1:
+		self.agony = 1
 
 	self.wave_timer += delta
 	if self.wave_timer >= self.wave_time:
+		self.colors_inverted = !self.colors_inverted
 		self.waves.append(self.get_new_wave())
 		self.wave_ind += 1
 		if wave_ind == self.waves.size():
@@ -88,11 +94,12 @@ func choose_locations(locations, amount):
 	return chosen_locations
 	
 func get_new_wave():
+	print("AGONY: ", self.agony)
 	var hp = get_node("Player").get_node("HealthPool")
 	var player_skill_estimate = hp.health/hp.max_health #(hp.health/hp.max_health + self.agony) / 2.
 	var duration = 5 #self.rng.randi_range(5,20)
 	var shapes = [self.square_wave, self.circle_wave]
-	var difficulty_coefficient = 1 + wave_ind*wave_ind*wave_ind*wave_ind*0.0000001+ wave_ind * 0.075 + wave_ind * 0.01 * (1 + player_skill_estimate)
+	var difficulty_coefficient = 1 + wave_ind*wave_ind*wave_ind*wave_ind*0.0000001+ wave_ind * 0.075 + wave_ind * 0.01 * self.agony + wave_ind * 0.05 * player_skill_estimate
 	#print("difficulty: ", difficulty_coefficient)
 	var new_wave = {
 		"duration": duration,
@@ -109,6 +116,12 @@ func get_new_wave():
 		],
 	}
 	return new_wave
+
+func decrease_agony(delta):
+	#print("-=", delta * 0.001)
+	self.agony -= delta * 0.01
+	if self.agony < 0:
+		self.agony = 0
 		
 func get_some_waves():
 	return [

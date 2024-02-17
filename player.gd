@@ -44,7 +44,7 @@ func die():
 
 func on_skills_update(skills):
 	var new_max_health = 100 + skills.life_max * 50
-	print(new_max_health, self.hp.max_health)
+	#print(new_max_health, self.hp.max_health)
 	if new_max_health > self.hp.max_health:
 		self.hp.max_health = new_max_health
 		self.hp.health += 50

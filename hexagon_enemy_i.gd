@@ -19,10 +19,21 @@ func _ready():
 	self.rng = RandomNumberGenerator.new()
 
 func _physics_process(delta):
+	#print("decr")
+	get_parent().decrease_agony(delta)
+	
 	self.direction_change_interval_timer += delta
 	if self.direction_change_interval_timer >= self.direction_change_interval:
 		self.direction_change_interval_timer -= self.direction_change_interval
 		self.change_direction()
+		
+		
+	if !get_parent().colors_inverted:
+		self.get_node("HexagonShape").color = Color.BLACK
+		self.get_node("HexagonShape")._draw()
+	else:
+		self.get_node("HexagonShape").color = self.get_parent().rainbow_color
+		self.get_node("HexagonShape")._draw()
 	
 func change_direction():
 	# 1. calculate desired direction
@@ -41,7 +52,7 @@ func change_direction():
 	elif walking_variant == 3:
 		v = velocity
 		self.movement_speed = 90 * movement_speed_factor
-		self.direction_change_interval = 3.5
+		self.direction_change_interval = 7
 	elif walking_variant == 4:
 		v = Vector2(cos*velocity.x + sin*velocity.y, - sin*velocity.x + cos*velocity.y)
 		self.movement_speed = 200 * movement_speed_factor
