@@ -15,6 +15,11 @@ run/main_scene="res://map_1.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1000
+window/size/viewport_height=1000
+
 [dotnet]
 
 project/assembly_name="Hexagonal Havoc"

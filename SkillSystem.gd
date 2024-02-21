@@ -175,19 +175,19 @@ func get_default_state():
 		circle = {
 			learned = true,
 			
-			casting_speed = 5,
+			casting_speed = 0,
 			damage = 0,
 			crit = 0,
 			crit_factor = 0,
-			living_time = 5,
+			living_time = 0,
 			#ultimate_proc = 0,
 
 			#travel_speed = 500,
-			indestructable = 5,
+			indestructable = 0,
 			#growing_speed = 0.05,
-			attack_range = 5,
-			bounce = 5,
-			split = 5,
+			attack_range = 0,
+			bounce = 0,
+			split = 0,
 			
 			element = null,
 		},

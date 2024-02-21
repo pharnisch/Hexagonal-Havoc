@@ -48,10 +48,10 @@ func change_direction():
 		self.movement_speed = 200 * movement_speed_factor
 	elif walking_variant == 2:
 		v = velocity
-		self.movement_speed = 75 * movement_speed_factor
+		self.movement_speed = 65 * movement_speed_factor
 	elif walking_variant == 3:
 		v = velocity
-		self.movement_speed = 90 * movement_speed_factor
+		self.movement_speed = 75 * movement_speed_factor
 		self.direction_change_interval = 7
 	elif walking_variant == 4:
 		v = Vector2(cos*velocity.x + sin*velocity.y, - sin*velocity.x + cos*velocity.y)
