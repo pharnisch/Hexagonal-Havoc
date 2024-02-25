@@ -144,6 +144,32 @@ func beam_sun(bullet_template, main_target_position):
 		var v = Vector2(velocity.x*c-velocity.y*s, velocity.x*s + velocity.y*c) * self.rng.randf_range(min_factor, max_factor)
 		self._beam(bullet_template, owner.global_position + v, false)
 
+
+func circle_big_aoe_bullet(shoot_direction):
+	var backfire = self.skill_state.circle.backfire
+	if backfire == 0:
+		return
+	
+	var new_bullet = self.circle_bullet.instantiate()
+	
+	new_bullet.damage = 10 * (3 + 1.5 * backfire) * (1. + self.skill_state.circle.damage / 10. + self.skill_state.damage / 30.)
+	var living_time_multiplier = (1. + self.skill_state.circle.living_time / 4. + self.skill_state.living_time / 8.)
+	new_bullet.living_time = living_time_multiplier * 3
+	new_bullet.crit = 0.05 + 1. * (self.skill_state.circle.crit / 8. + self.skill_state.crit / 20.)
+	new_bullet.crit_factor = 2 * (1 + self.skill_state.circle.crit_factor / 5. + self.skill_state.crit_factor / 10.)
+	#new_bullet.bounce = self.skill_state.circle.bounce * 0.20
+
+	new_bullet.destructable = false
+	#new_bullet.split = self.skill_state.circle.split
+	
+	 
+	new_bullet.scale_size(2 + 1 * backfire)
+	
+	owner.owner.add_child(new_bullet)
+	new_bullet.transform = owner.global_transform
+	new_bullet.shoot(-shoot_direction)
+
+
 func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, square_echo = false):
 	var new_bullet = bullet_template.instantiate()
 	
@@ -182,11 +208,12 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, squar
 	if new_bullet.aim_required:
 		var nearest_enemy = self.get_nearest_enemy(owner.get_node("AttackRangeCircle"))
 		if nearest_enemy == null:
-			if shoot_direction == null: # circle
-				self.reload_timer_circle -= self.reload_time_circle
+			#if shoot_direction == null: # circle
+				#self.reload_timer_circle -= self.reload_time_circle
 			new_bullet.queue_free()
 			return
 		direction = self.global_position.direction_to(nearest_enemy.global_position)
+		circle_big_aoe_bullet(direction)
 	else:
 		if owner.move_direction != null:
 			direction = owner.move_direction

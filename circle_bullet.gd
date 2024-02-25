@@ -67,3 +67,8 @@ func deal_damage(body):
 		body.get_node("HealthPool")._get_damage(self.damage * self.crit_factor)
 	else:
 		body.get_node("HealthPool")._get_damage(self.damage)
+
+func scale_size(factor):
+	get_node("CircleShape").length = 20 * factor
+	get_node("CircleShape")._draw()
+	get_node("CollisionShape2D").shape.radius = 20 * factor

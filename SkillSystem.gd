@@ -188,6 +188,7 @@ func get_default_state():
 			attack_range = 0,
 			bounce = 0,
 			split = 0,
+			backfire = 0,
 			
 			element = null,
 		},
