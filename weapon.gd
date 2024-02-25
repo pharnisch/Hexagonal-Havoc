@@ -111,29 +111,65 @@ func beam(bullet_template):
 		return
 	var sun_proc = self.rng.randf_range(0,1) <= self.line_sun_beam
 	if sun_proc:
-		self.beam_sun(bullet_template, nearest_enemy.global_position)
+		self.beam_sun(bullet_template, nearest_enemy)
 	else:
-		self._beam(bullet_template, nearest_enemy.global_position)
+		self._beam(bullet_template, nearest_enemy)
 
-func _beam(bullet_template, target_position, main_beam = true):
+func _beam(bullet_template, target, from_object = null, names_hit = ["Player"]):
+	var from_position = null
+	if from_object == null:
+		from_object = owner
+	if typeof(from_object) == typeof(false):
+		return
+	from_position = from_object.global_position
+		
+	#print(from_position, target_position)
+	
 	var new_bullet = bullet_template.instantiate()
 	
+	var target_position = target.global_position
 	# overshooting scale
-	var v = target_position - owner.global_position
-	target_position = owner.global_position + v * (1 + self.line_overshoot / 4.)
+	var v = target_position - from_position
+	target_position = from_position + v * (1 + self.line_overshoot / 4.)
 	
-	new_bullet.set_points(owner.global_position, target_position)
+	new_bullet.set_points(from_position, target_position)
 	new_bullet.damage = 10 * 8 * (1 + self.skill_state.line.damage / 10. + self.skill_state.damage / 30.)
 	new_bullet.living_time = 0.5 * (1 + self.skill_state.line.living_time / 4. + self.skill_state.living_time / 8.)
 	new_bullet.crit = 0.05 + 1. * (self.skill_state.line.crit / 8. + self.skill_state.crit / 20.)
 	new_bullet.crit_factor = 2.0 * (1 + self.skill_state.line.crit_factor / 5. + self.skill_state.crit_factor / 10.)
 	#new_bullet.destructable = !self.skill_state.line.indestructable
-	new_bullet.destructable = !(self.rng.randf_range(0,1) <= self.skill_state.line.indestructable * 0.15)
+	new_bullet.destructable = false #!(self.rng.randf_range(0,1) <= self.skill_state.line.indestructable * 0.15)
 	owner.owner.add_child(new_bullet)
 	
-func beam_sun(bullet_template, main_target_position):
-	self._beam(bullet_template, main_target_position)
-	var velocity = main_target_position - owner.global_position
+	var lightning_proc = self.rng.randf_range(0,1) <= 0.15 * self.skill_state.line.chain_lightning
+	if lightning_proc:
+		var circle_shape = CircleShape2D.new()
+		circle_shape.radius = 125 + 25 * self.skill_state.line.attack_range
+		var query_params = PhysicsShapeQueryParameters2D.new()
+		query_params.shape = circle_shape
+		query_params.transform = Transform2D(0, target_position)
+		var space_state = get_world_2d().direct_space_state
+		var result = space_state.intersect_shape(query_params)
+		var filtered_result = []
+		names_hit.append(from_object.name)
+		for res in result:
+			for name_hit in names_hit:
+				if name_hit in res["collider"].name:
+					continue
+			#if "Player" in res["collider"].name:
+			#	continue
+			#if res["collider"] == from_object:
+			#	continue
+			filtered_result.append(res)
+		if filtered_result.size() == 0:
+			return
+		
+		self._beam(bullet_template, result[0]["collider"], target, names_hit)
+	
+	
+func beam_sun(bullet_template, main_target):
+	self._beam(bullet_template, main_target)
+	var velocity = main_target.global_position - owner.global_position
 	var total_beams = 12
 	var min_factor = 1.
 	var max_factor = 2.

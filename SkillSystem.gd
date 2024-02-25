@@ -35,6 +35,7 @@ func _physics_process(delta):
 		self.update()
 	
 func update():
+	print("EMIT")
 	skills_updated.emit(self.state)
 
 func get_random_skill_options(n):
@@ -206,6 +207,7 @@ func get_default_state():
 			overshoot = 0, # todo: make main line longer (maximum 3 times long)
 			sun_beam = 0,
 			attack_range = 0, # todo: create second attack range
+			chain_lightning = 0,
 			
 			element = null,
 		},

@@ -16,7 +16,13 @@ func _start():
 	pass
 
 func _physics_process(delta):
-	skill_system = self.get_node("Weapon").get_node("SkillSystem")
+	
+	if self.hp == null:
+		skill_system = self.get_node("Weapon").get_node("SkillSystem")
+		skill_system.skills_updated.connect(on_skills_update)
+		self.hp = self.get_node("HealthPool")
+	
+	
 	var move_direction = Vector2()
 	move_direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	move_direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -30,9 +36,7 @@ func _physics_process(delta):
 		hurtbox_dmg += delta * cb.melee_dmg
 	if hurtbox_dmg > 0:
 		#print("player gets hurtbox dmg:", hurtbox_dmg)
-		if self.hp == null:
-			self.get_node("Weapon").get_node("SkillSystem").skills_updated.connect(on_skills_update)
-			self.hp = self.get_node("HealthPool")
+
 		self.hp._get_damage(hurtbox_dmg, ":(")
 		#print(self.hp.health)
 	
@@ -43,6 +47,7 @@ func die():
 	#get_node("/root/Map_1/UI/RestartButton").visible = true
 
 func on_skills_update(skills):
+	print("CHAR:UPDATE")
 	var new_max_health = 100 + skills.life_max * 50
 	#print(new_max_health, self.hp.max_health)
 	if new_max_health > self.hp.max_health:
@@ -53,6 +58,7 @@ func on_skills_update(skills):
 	self.hp.health_regen_per_sec = 1 + skills.life_reg * 0.5
 	self.get_node("AttackRangeCircle").scale = Vector2(1,1) * (1 + skills.circle.attack_range * 0.2 + skills.attack_range * 0.1)
 	self.get_node("AttackRangeLine").scale = Vector2(1,1) * (1 + skills.line.attack_range * 0.2 + skills.attack_range * 0.1)
+	print(self.get_node("AttackRangeLine").scale)
 	self.exp_bonus = skills.exp_bonus * 0.1
 
 func gain_exp(gain):
