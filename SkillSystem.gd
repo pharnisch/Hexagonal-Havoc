@@ -24,7 +24,7 @@ func _ready():
 	#self.state.triangle.learned = false
 	#self.state.square.learned = false
 	
-	return
+	
 	self.state.circle.learned = false
 	self.state.line.learned = true
 	for sub_state_k in self.state.keys():

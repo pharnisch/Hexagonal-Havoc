@@ -100,7 +100,7 @@ func get_new_wave():
 	var duration = 5 #self.rng.randi_range(5,20)
 	var shapes = [self.square_wave, self.circle_wave]
 	var wi = wave_ind # +100
-	var difficulty_coefficient = 1 + wi*wi*wi*wi*0.0000001+ wi * 0.05 + wi * 0.1 * self.agony + wi * 0.01 * hp_ratio
+	var difficulty_coefficient = 1 + wi*wi*wi*wi*0.0000001+ wi * 0.05 + wi * 0.5 * self.agony + wi * 0.01 * hp_ratio
 	#print("difficulty: ", difficulty_coefficient)
 	var new_wave = {
 		"duration": duration,

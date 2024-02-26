@@ -173,7 +173,10 @@ func _beam(bullet_template, target, from_object = null, names_hit = ["Player"]):
 					filtered_result.append(res)
 				if filtered_result.size() != 0:
 					self._beam(bullet_template, filtered_result[0]["collider"], target, names_hit)
-		
+				if filtered_result.size() == 2:
+					self._beam(bullet_template, filtered_result[1]["collider"], target, names_hit)
+				#if filtered_result.size() == 4:
+				#	self._beam(bullet_template, filtered_result[1]["collider"], target, names_hit)
 	
 func beam_sun(bullet_template, main_target):
 	self._beam(bullet_template, main_target)
