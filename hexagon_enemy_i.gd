@@ -11,14 +11,37 @@ var exp_worth = 1
 var melee_dmg = 5
 var movement_speed_factor = 1
 
-
+var player = null
+var circle_bullet = null
+var square_bullet = null
+var triangle_bullet = null
+var line_bullet = null
+var reload_time_line = 1.5
+var reload_timer_line = 0
+var reload_time_circle = 3
+var reload_timer_circle = 0
+var reload_time_square = 999999999
+var reload_timer_square = 0
+var reload_time_triangle = 999999999
+var reload_timer_triangle = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.name = "Enemy"
 	self.rng = RandomNumberGenerator.new()
+	self.player = get_parent().get_node("Player")
+	self.circle_bullet = load("res://circle_bullet.tscn")
+	self.square_bullet = load("res://square_bullet.tscn")
+	self.line_bullet = load("res://line_bullet.tscn")
+	self.triangle_bullet = load("res://triangle_bullet.tscn")
 
 func _physics_process(delta):
+	#self.circle_logic(delta)
+	self.line_logic(delta)
+		
+
+	
+	
 	#print("decr")
 	get_parent().decrease_agony(delta)
 	
@@ -100,3 +123,47 @@ func get_nearest_collider(comfort_range = self.get_node("ComfortZone")):
 func die():
 	owner.get_node("Player").gain_exp(self.exp_worth)
 
+func line_logic(delta):	
+	self.reload_timer_line += delta
+	if self.reload_timer_line >= self.reload_time_line:
+		self.reload_timer_line -= self.reload_time_line
+
+		var new_bullet = line_bullet.instantiate()
+
+		new_bullet.get_node("LineShape").width = 10
+			
+		# overshooting scale
+		var v = (self.player.global_position - self.global_position).normalized()
+		
+		new_bullet.set_points(self.global_position, self.global_position + v * 200)
+		new_bullet.damage = 5
+		new_bullet.living_time = 1
+		
+		new_bullet.collision_layer = 8
+		new_bullet.collision_mask = 17
+		new_bullet.get_node("LineShape").color = Color.BLACK		
+		owner.add_child(new_bullet)
+
+func circle_logic(delta):
+	self.reload_timer_circle += delta
+	if self.reload_timer_circle >= self.reload_time_circle:
+		self.reload_timer_circle -= self.reload_time_circle
+		
+		var new_bullet = self.circle_bullet.instantiate()
+		new_bullet.damage = 5
+		new_bullet.living_time = 5
+		
+		get_parent().add_child(new_bullet)
+		new_bullet.transform = self.global_transform
+		#new_bullet.apply_central_impulse(direction * 500) 
+		var direction = (self.player.global_position - self.global_position).normalized()
+		
+		#new_bullet.set_collision_layer_bit(1, false) 
+		#new_bullet.set_collision_layer_bit(3, true) 
+		#new_bullet.set_collision_mask_bit(2, false)
+		#new_bullet.set_collision_mask_bit(0, true)
+		new_bullet.collision_layer = 8
+		new_bullet.collision_mask = 17
+		new_bullet.travel_speed = 200
+		new_bullet.get_node("CircleShape").color = Color.BLACK
+		new_bullet.shoot(direction)

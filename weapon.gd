@@ -276,7 +276,7 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, squar
 			direction = owner.move_direction
 		if shoot_direction != null:
 			direction = shoot_direction
-	
+
 	parent.add_child(new_bullet)
 	new_bullet.transform = owner.global_transform
 	#new_bullet.apply_central_impulse(direction * 500) 
