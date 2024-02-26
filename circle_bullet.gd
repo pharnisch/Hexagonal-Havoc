@@ -13,6 +13,7 @@ var rng = null
 var bounce = 0
 var split = 0
 var circle_bullet = null
+var aim_bot = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,8 +24,28 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if scaled_direction != null:
-		self.position += scaled_direction * delta
+	if self.aim_bot:
+		var circle_shape = CircleShape2D.new()
+		circle_shape.radius = 200 #+ 20 * self.skill_state.line.attack_range
+		var query_params = PhysicsShapeQueryParameters2D.new()
+		query_params.shape = circle_shape
+		query_params.transform = Transform2D(0, self.position)
+		var space_state = get_world_2d().direct_space_state
+		var result = space_state.intersect_shape(query_params)
+		if result.size() > 0:
+			var closest_target = null
+			var closest_dist = 99999
+			for res in result:
+				var dist = self.global_position.distance_to(res["collider"].global_position)
+				if (closest_target == null or dist < closest_dist) and "Player" not in res["collider"].name:
+					closest_dist = dist
+					closest_target = res["collider"]
+				
+			var target_pos = closest_target.global_position
+			self.position += (target_pos - self.position).normalized() * delta * self.travel_speed
+	else:
+		if scaled_direction != null:
+			self.position += scaled_direction * delta
 	self.living_timer += delta
 	if self.living_timer >= self.living_time * 0.6:
 		self.queue_free()

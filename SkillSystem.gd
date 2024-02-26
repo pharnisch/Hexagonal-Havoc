@@ -24,7 +24,7 @@ func _ready():
 	#self.state.triangle.learned = false
 	#self.state.square.learned = false
 	
-	
+	return
 	self.state.circle.learned = false
 	self.state.line.learned = true
 	for sub_state_k in self.state.keys():
@@ -201,6 +201,7 @@ func get_default_state():
 			bounce = 0,
 			split = 0,
 			backfire = 0,
+			aim_bot = 0,
 			
 			element = null,
 		},
