@@ -108,7 +108,7 @@ func get_new_wave():
 				{
 					"spawn_time": 0,
 					"enemy_type": self.hexagon_enemy,
-					"amount": 12 + round(difficulty_coefficient/1.5),
+					"amount": 4 + round(difficulty_coefficient/1.5),
 					"shape": shapes[self.rng.randi_range(0,shapes.size()-1)],
 					"shape_args": {"radius":600,"sep":100},
 					"walking_variant": self.rng.randi_range(1,4),

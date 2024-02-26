@@ -24,6 +24,17 @@ func _ready():
 	#self.state.triangle.learned = false
 	#self.state.square.learned = false
 	
+	return
+	self.state.circle.learned = false
+	self.state.line.learned = true
+	for sub_state_k in self.state.keys():
+		if typeof(self.state[sub_state_k]) == typeof({}):
+			for k in self.state[sub_state_k].keys():
+				if typeof(self.state[sub_state_k][k]) == typeof(0):
+					self.state[sub_state_k][k] = 5
+				#elif self.state[sub_state_k][k] == false:
+				#	self.state[sub_state_k][k] = true
+	
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

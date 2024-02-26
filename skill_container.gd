@@ -123,7 +123,7 @@ func get_description(identifier):
 			overshoot = "+25% Beam Length [LINE]", # todo: make main line longer (maximum 3 times long)
 			sun_beam = "+2.5% Sun Beam Proc Chance [LINE]",
 			attack_range = "+20% Attack Range [LINE]", # todo: create second attack range
-			chain_lightning = "+15% Chain Lightning",
+			chain_lightning = "+15% Chain Lightning [LINE]",
 			
 			#element = null,
 		},

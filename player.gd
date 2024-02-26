@@ -13,7 +13,7 @@ var hp = null
 var exp_bonus = 0
 
 func _start():
-	pass
+	self.name = "Player"
 
 func _physics_process(delta):
 	

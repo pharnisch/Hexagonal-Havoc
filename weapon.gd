@@ -119,53 +119,61 @@ func _beam(bullet_template, target, from_object = null, names_hit = ["Player"]):
 	var from_position = null
 	if from_object == null:
 		from_object = owner
-	if typeof(from_object) == typeof(false):
-		return
-	from_position = from_object.global_position
+	if typeof(from_object) != typeof(false):
+		from_position = from_object.global_position
+			
+		#print(from_position, target_position)
 		
-	#print(from_position, target_position)
-	
-	var new_bullet = bullet_template.instantiate()
-	
-	var target_position = target.global_position
-	# overshooting scale
-	var v = target_position - from_position
-	target_position = from_position + v * (1 + self.line_overshoot / 4.)
-	
-	new_bullet.set_points(from_position, target_position)
-	new_bullet.damage = 10 * 8 * (1 + self.skill_state.line.damage / 10. + self.skill_state.damage / 30.)
-	new_bullet.living_time = 0.5 * (1 + self.skill_state.line.living_time / 4. + self.skill_state.living_time / 8.)
-	new_bullet.crit = 0.05 + 1. * (self.skill_state.line.crit / 8. + self.skill_state.crit / 20.)
-	new_bullet.crit_factor = 2.0 * (1 + self.skill_state.line.crit_factor / 5. + self.skill_state.crit_factor / 10.)
-	#new_bullet.destructable = !self.skill_state.line.indestructable
-	new_bullet.destructable = false #!(self.rng.randf_range(0,1) <= self.skill_state.line.indestructable * 0.15)
-	owner.owner.add_child(new_bullet)
-	
-	var lightning_proc = self.rng.randf_range(0,1) <= 0.15 * self.skill_state.line.chain_lightning
-	if lightning_proc:
-		var circle_shape = CircleShape2D.new()
-		circle_shape.radius = 125 + 25 * self.skill_state.line.attack_range
-		var query_params = PhysicsShapeQueryParameters2D.new()
-		query_params.shape = circle_shape
-		query_params.transform = Transform2D(0, target_position)
-		var space_state = get_world_2d().direct_space_state
-		var result = space_state.intersect_shape(query_params)
-		var filtered_result = []
-		names_hit.append(from_object.name)
-		for res in result:
-			for name_hit in names_hit:
-				if name_hit in res["collider"].name:
-					continue
-			#if "Player" in res["collider"].name:
-			#	continue
-			#if res["collider"] == from_object:
-			#	continue
-			filtered_result.append(res)
-		if filtered_result.size() == 0:
-			return
+		var new_bullet = bullet_template.instantiate()
 		
-		self._beam(bullet_template, result[0]["collider"], target, names_hit)
-	
+		var target_position = null
+		if typeof(target) == typeof(Vector2()):
+			target_position = target
+		else:
+			target_position = target.global_position
+			new_bullet.get_node("LineShape").width = max(1, 10 - 3 * (names_hit.size() - 1))
+			
+		# overshooting scale
+		var v = target_position - from_position
+		target_position = from_position + v * (1 + self.line_overshoot / 4.)
+		
+		var lightning_factor = names_hit.size() + 1
+		
+		new_bullet.set_points(from_position, target_position)
+		new_bullet.damage = 10 / lightning_factor * 8 * (1 + self.skill_state.line.damage / 10. + self.skill_state.damage / 30.)
+		new_bullet.living_time = 0.5 * (1 + self.skill_state.line.living_time / 4. + self.skill_state.living_time / 8.)
+		new_bullet.crit = 0.05 + 1. * (self.skill_state.line.crit / 8. + self.skill_state.crit / 20.)
+		new_bullet.crit_factor = 2.0 * (1 + self.skill_state.line.crit_factor / 5. + self.skill_state.crit_factor / 10.)
+		#new_bullet.destructable = !self.skill_state.line.indestructable
+		new_bullet.destructable = false #!(self.rng.randf_range(0,1) <= self.skill_state.line.indestructable * 0.15)
+		owner.owner.add_child(new_bullet)
+		
+		if typeof(target) != typeof(Vector2()):
+			var lightning_proc = self.rng.randf_range(0,1) <= 0.15 * self.skill_state.line.chain_lightning
+			if lightning_proc:
+				var circle_shape = CircleShape2D.new()
+				circle_shape.radius = 100 + 20 * self.skill_state.line.attack_range
+				var query_params = PhysicsShapeQueryParameters2D.new()
+				query_params.shape = circle_shape
+				query_params.transform = Transform2D(0, target_position)
+				var space_state = get_world_2d().direct_space_state
+				var result = space_state.intersect_shape(query_params)
+				var filtered_result = []
+				
+				names_hit.append(target.name + "")
+				for res in result:
+					var skip = false
+					for name_hit in names_hit:
+						if name_hit == res["collider"].name:
+							skip = true
+							continue
+
+					if skip:
+						continue
+					filtered_result.append(res)
+				if filtered_result.size() != 0:
+					self._beam(bullet_template, filtered_result[0]["collider"], target, names_hit)
+		
 	
 func beam_sun(bullet_template, main_target):
 	self._beam(bullet_template, main_target)
@@ -178,7 +186,7 @@ func beam_sun(bullet_template, main_target):
 		var c = cos(angle * DEG2RAD)
 		var s = sin(angle * DEG2RAD)	
 		var v = Vector2(velocity.x*c-velocity.y*s, velocity.x*s + velocity.y*c) * self.rng.randf_range(min_factor, max_factor)
-		self._beam(bullet_template, owner.global_position + v, false)
+		self._beam(bullet_template, owner.global_position + v, null)
 
 
 func circle_big_aoe_bullet(shoot_direction):
