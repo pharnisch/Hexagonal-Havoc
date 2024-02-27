@@ -12,10 +12,24 @@ var skill_system = null
 var hp = null
 var exp_bonus = 0
 
+var start_sound = null
+var rank_up_sound = null
+var sound_player = null
+var die_sound = null
+
 func _start():
 	self.name = "Player"
+	
+
 
 func _physics_process(delta):
+	if sound_player == null:
+		sound_player = get_parent().get_node("SoundPlayer")
+		start_sound = preload("res://hexagon_assets/begin.wav")
+		rank_up_sound = preload("res://hexagon_assets/rankup.wav")
+		die_sound = preload("res://hexagon_assets/gameover.wav")
+		sound_player.stream = start_sound
+		sound_player.play()
 	
 	if self.hp == null:
 		skill_system = self.get_node("Weapon").get_node("SkillSystem")
@@ -28,6 +42,9 @@ func _physics_process(delta):
 	move_direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	
 	move_direction = move_direction.normalized()
+	var camera_rotated = self.get_node("Camera2D").rotation
+	move_direction = move_direction.rotated(camera_rotated)
+	#print(move_direction)
 	if move_direction.x != 0 or move_direction.y != 0:
 		self.move_direction = move_direction
 
@@ -43,6 +60,8 @@ func _physics_process(delta):
 	%Movement._set_direction(move_direction)
 	
 func die():
+	sound_player.stream = die_sound
+	sound_player.play()
 	get_tree().paused = true
 	#get_node("/root/Map_1/UI/RestartButton").visible = true
 
@@ -70,6 +89,8 @@ func gain_exp(gain):
 	on_exp_change.emit(self.skills_learned, self.exp, exp_required, self.total_exp)
 	if self.skill_system.offer_skill_upgrades_active == false:
 		if self.exp >= exp_required:
+			sound_player.stream = rank_up_sound
+			sound_player.play()
 			self.exp -= exp_required
 			self.skill_system.offer_skill_upgrades()
 			self.skills_learned += 1

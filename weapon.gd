@@ -137,7 +137,7 @@ func _beam(bullet_template, target, from_object = null, names_hit = ["Player"]):
 		var v = target_position - from_position
 		target_position = from_position + v * (1 + self.line_overshoot / 4.)
 		
-		var lightning_factor = names_hit.size() + 1
+		var lightning_factor = names_hit.size()
 		
 		new_bullet.set_points(from_position, target_position)
 		new_bullet.damage = 10 / lightning_factor * 8 * (1 + self.skill_state.line.damage / 10. + self.skill_state.damage / 30.)
@@ -201,9 +201,9 @@ func circle_big_aoe_bullet(shoot_direction):
 	
 	var new_bullet = self.circle_bullet.instantiate()
 	
-	var aim_bot_proc = self.rng.randf_range(0,1) <= 0.15 * self.skill_state.circle.aim_bot
-	if aim_bot_proc:
-		new_bullet.aim_bot = true
+	#var aim_bot_proc = self.rng.randf_range(0,1) <= 0.15 * self.skill_state.circle.aim_bot
+	#if aim_bot_proc:
+	#	new_bullet.aim_bot = true
 	
 	new_bullet.damage = 10 * (2 * backfire) * (1. + self.skill_state.circle.damage / 10. + self.skill_state.damage / 30.)
 	var living_time_multiplier = (1. + self.skill_state.circle.living_time / 4. + self.skill_state.living_time / 8.)
@@ -242,6 +242,9 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, squar
 	
 		#new_bullet.destructable = !self.skill_state.circle.indestructable
 		new_bullet.destructable = !(self.rng.randf_range(0,1) <= self.skill_state.circle.indestructable * 0.15)
+		if !new_bullet.destructable:
+			new_bullet.aim_bot = false
+		
 		new_bullet.split = self.skill_state.circle.split
 	else: # square
 		new_bullet.damage = 10 * 16 * (1 + self.skill_state.square.damage / 10. + self.skill_state.damage / 30.)

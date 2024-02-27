@@ -231,7 +231,7 @@ func loading_anim(secs, w):
 	self.get_node("HexagonShape").width = w
 	self.get_node("HexagonShape").queue_redraw()
 
-	await get_tree().create_timer(secs).timeout
+	await get_tree().create_timer(secs, false).timeout
 	
 	movement_speed_factor = tmp_spd
 	self.get_node("HexagonShape").width = tmp_wid

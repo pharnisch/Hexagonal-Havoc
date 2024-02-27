@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://si6xejkupe8v"]
+[gd_scene load_steps=3 format=3 uid="uid://si6xejkupe8v"]
 
 [ext_resource type="Script" path="res://button.gd" id="1_1x20p"]
+[ext_resource type="FontFile" uid="uid://bsuwta6n1amr" path="res://hexagon_assets/bumpitup.ttf" id="1_riwjo"]
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(528, 125)
@@ -15,6 +16,7 @@ offset_right = 37.5
 offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("1_riwjo")
+theme_override_font_sizes/font_size = 12
 text = "asfj  lskjfd lslasas sdklfj sh asdf ölsh"
 script = ExtResource("1_1x20p")

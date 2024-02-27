@@ -3,6 +3,10 @@ extends CanvasLayer
 var player = null
 var skill_system = null
 var button = null
+var sound_player = null
+var triangle_sound = null
+var line_sound = null
+var square_sound = null
 
 signal talent_chosen(skill_identifier)
 
@@ -16,7 +20,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	pass#self.global_position = self.player.global_position
+	if sound_player == null:
+		sound_player = get_parent().get_node("SoundPlayer")
+		triangle_sound = preload("res://hexagon_assets/triangle.wav")
+		square_sound = preload("res://hexagon_assets/square.wav")
+		line_sound = preload("res://hexagon_assets/line.wav")
 
 func display_options(options=["A", "B", "C"]):
 	var gc = self.get_node("Container").get_node("GridContainer")
@@ -67,6 +75,18 @@ func on_talent_chosen(skill_identifier):
 	for n in gc.get_children():
 		gc.remove_child(n)
 		n.queue_free()
+		
+	print(skill_identifier)
+	if "line:learned" in skill_identifier:
+		sound_player.stream = line_sound
+		sound_player.play()
+	if "triangle:learned" in skill_identifier:
+		sound_player.stream = triangle_sound
+		sound_player.play()
+	if "square:learned" in skill_identifier:
+		sound_player.stream = square_sound
+		sound_player.play()
+		
 	talent_chosen.emit(skill_identifier)
 	
 	get_tree().paused = false

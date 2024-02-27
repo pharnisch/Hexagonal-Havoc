@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://kjfmpvg8dipe"]
+[gd_scene load_steps=3 format=3 uid="uid://kjfmpvg8dipe"]
 
+[ext_resource type="FontFile" uid="uid://bsuwta6n1amr" path="res://hexagon_assets/bumpitup.ttf" id="1_gd6d2"]
 [ext_resource type="Script" path="res://text_label.gd" id="1_hxq0a"]
 
 [node name="TextLabel" type="Label"]
@@ -16,6 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_gd6d2")
 text = "129"
 horizontal_alignment = 1
 vertical_alignment = 1
