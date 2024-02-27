@@ -175,8 +175,9 @@ func circle_logic(delta):
 		new_bullet.travel_speed = 200
 		new_bullet.get_node("CircleShape").color = Color.BLACK
 		await self.loading_anim(1.5, 10)
-		new_bullet.living_time = 50
-		new_bullet.shoot(direction)
+		if new_bullet != null:
+			new_bullet.living_time = 50
+			new_bullet.shoot(direction)
 
 func triangle_logic(delta):
 	self.reload_timer_triangle += delta

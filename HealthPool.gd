@@ -24,12 +24,16 @@ func _physics_process(delta):
 		player_health_change.emit(self.health, self.max_health)
 		
 func _get_damage(dmg, special_display=null):
+	
 	#print("get dmg: ", dmg)
 	self.health -= dmg
 	if special_display != null:
 		self._display_string(special_display)
 	else:
-		self._display_damage(dmg)
+		if "Player" in owner.name:
+			self._display_damage_player(dmg)
+		else:
+			self._display_damage(dmg)
 	if self.health < self.min_health:
 		self.health = self.min_health
 	self._update_health_display()
@@ -63,6 +67,13 @@ func _display_damage(dmg):
 	text_label.position = owner.position
 	text_label.set_value(dmg)
 	owner.owner.add_child(text_label)
+	
+func _display_damage_player(dmg):
+	var text_label = self.text_label.instantiate()
+	text_label.position = owner.position
+	text_label.set_string(":((", 20 + round(dmg))
+	#text_label.change_color(Color.DEEP_PINK)
+	owner.owner.add_child(text_label)	
 
 func _display_string(string):
 	var text_label = self.text_label.instantiate()

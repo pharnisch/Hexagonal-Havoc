@@ -244,7 +244,7 @@ func _shoot(bullet_template, shoot_direction = null, parent = owner.owner, squar
 		new_bullet.destructable = !(self.rng.randf_range(0,1) <= self.skill_state.circle.indestructable * 0.15)
 		new_bullet.split = self.skill_state.circle.split
 	else: # square
-		new_bullet.damage = 10 * 20 * (1 + self.skill_state.square.damage / 10. + self.skill_state.damage / 30.)
+		new_bullet.damage = 10 * 16 * (1 + self.skill_state.square.damage / 10. + self.skill_state.damage / 30.)
 		new_bullet.living_time = 2 * (1 + self.skill_state.square.living_time / 4. + self.skill_state.living_time / 8.)
 		new_bullet.crit = 0.05 + 1. * (self.skill_state.square.crit / 8. + self.skill_state.crit / 20.)
 		new_bullet.crit_factor = 1.2 * (1 + self.skill_state.square.crit_factor / 5. + self.skill_state.crit_factor / 10.)
