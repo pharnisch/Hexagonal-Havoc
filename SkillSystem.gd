@@ -58,7 +58,7 @@ func get_random_skill_options(n):
 		else:
 			for k_j in self.state[k_i].keys():
 				if (typeof(self.state[k_i][k_j]) != typeof(true)) and ((self.state[k_i][k_j]) != (null)) and (typeof(self.state[k_i][k_j]) != typeof({})):
-					if self.state[k_i][k_j] < 5 or (k_j == "damage" and self.state[k_i][k_j] < 20):
+					if self.state[k_i][k_j] < 5 or (k_j == "damage" and self.state[k_i][k_j] < 5):
 						if self.state[k_i].learned:
 							all_options.append(k_i + ":" + k_j)
 	#print(all_options)

@@ -52,5 +52,4 @@ func deal_damage(body):
 		body.get_node("HealthPool")._get_damage(self.damage)
 
 func scale_up(factor):
-	get_node("CollisionPolygon2D").polygon = PackedVector2Array([Vector2(0,90*factor),Vector2(-77.94*factor,-45+factor), Vector2(77.94*factor,-45*factor)])
 	get_node("TriangleShape").scale_factor = factor

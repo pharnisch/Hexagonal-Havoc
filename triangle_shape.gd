@@ -33,7 +33,7 @@ func _draw():
 		Vector2(-0.866 * R, -0.5 * R), # R*cos(240eg), R*sin(240deg) = -0.5R, -(√3/2)R=-0.866R
 		]
 		
-		
+	var poly_points = []
 	for idx_start in points.size():
 		var idx_end = idx_start + 1
 		var len = points.size()
@@ -47,4 +47,6 @@ func _draw():
 		
 		var direction = (point_end - point_start).normalized()
 		draw_line(point_start*length - direction*width/2, point_end*length + direction*width/2, color, width)
+		poly_points.append(Vector2(point_start*length))
 	
+	get_parent().get_node("CollisionPolygon2D").polygon = PackedVector2Array(poly_points)

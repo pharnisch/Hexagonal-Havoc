@@ -14,6 +14,7 @@ var bounce = 0
 var split = 0
 var circle_bullet = null
 var aim_bot = false
+var split_layer = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,7 +27,7 @@ func _ready():
 func _physics_process(delta):
 	if self.aim_bot:
 		var circle_shape = CircleShape2D.new()
-		circle_shape.radius = 200 #+ 20 * self.skill_state.line.attack_range
+		circle_shape.radius = 2000 #+ 20 * self.skill_state.line.attack_range
 		var query_params = PhysicsShapeQueryParameters2D.new()
 		query_params.shape = circle_shape
 		query_params.transform = Transform2D(0, self.position)
@@ -40,9 +41,12 @@ func _physics_process(delta):
 				if (closest_target == null or dist < closest_dist) and "Player" not in res["collider"].name:
 					closest_dist = dist
 					closest_target = res["collider"]
-				
-			var target_pos = closest_target.global_position
-			self.position += (target_pos - self.position).normalized() * delta * self.travel_speed
+			if closest_target != null:
+				var target_pos = closest_target.global_position
+				self.position += (target_pos - self.position).normalized() * delta * self.travel_speed
+			else:
+				if scaled_direction != null:
+					self.position += scaled_direction * delta
 	else:
 		if scaled_direction != null:
 			self.position += scaled_direction * delta
@@ -51,27 +55,32 @@ func _physics_process(delta):
 		self.queue_free()
 
 func request_destruction():
-	if self.rng.randf_range(0,1) <= self.bounce:
-		var direction = Vector2(self.rng.randf_range(-1,1), self.rng.randf_range(-1,1)).normalized()
-		self.scaled_direction = direction * self.travel_speed
+
 	if true:
 		for i in range(self.split):
 			var new_bullet = self.circle_bullet.instantiate()
 			var direction = Vector2(self.rng.randf_range(-1,1), self.rng.randf_range(-1,1)).normalized()
 			#self.scaled_direction = direction * self.travel_speed
-			new_bullet.damage = self.damage / 1.5
-			new_bullet.living_time = self.living_time / 1.5
+			new_bullet.damage = self.damage / 2
+			new_bullet.living_time = self.living_time #/ 1.5
+			print(new_bullet.living_time)
 			new_bullet.crit = self.crit
 			new_bullet.crit_factor = self.crit_factor
 			new_bullet.bounce = self.bounce
 			new_bullet.destructable = self.destructable
-			new_bullet.split = self.split - 1 if self.split >= 1 else 0
-			new_bullet.shoot(direction)
-			new_bullet.transform = self.global_transform
-			#print(new_bullet.transform)
-			new_bullet.scale = Vector2(0.5, 0.5)
-			get_tree().get_root().get_node("Map_1").add_child(new_bullet)
+			new_bullet.split = 1 if self.split_layer <= 3 else 0 # self.split - 1 if self.split_layer <= 3 else 0
+			new_bullet.split_layer = self.split_layer + 1
+			new_bullet.aim_bot = (self.rng.randi_range(0,1)==1 and self.aim_bot)
 			
+			new_bullet.transform = self.global_transform
+			new_bullet.scale = self.scale / 1.5
+			get_tree().get_root().get_node("Map_1").add_child(new_bullet)
+			new_bullet.shoot(direction)
+			
+	if self.rng.randf_range(0,1) <= self.bounce:
+		var direction = Vector2(self.rng.randf_range(-1,1), self.rng.randf_range(-1,1)).normalized()
+		self.scaled_direction = direction * self.travel_speed
+	else:
 		if self.destructable:
 			self.queue_free() 
 

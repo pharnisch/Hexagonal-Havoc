@@ -74,7 +74,7 @@ func _physics_process(delta):
 		
 func equip_triangle_shield(bullet_template):
 	var new_bullet = bullet_template.instantiate()
-	new_bullet.damage = 10 * 9 * (1 + self.skill_state.triangle.damage / 10. + self.skill_state.damage / 30.)
+	new_bullet.damage = 10 * 6 * (1 + self.skill_state.triangle.damage / 10. + self.skill_state.damage / 30.)
 	new_bullet.living_time = 4.5 * (1 + self.skill_state.triangle.living_time / 4. + self.skill_state.living_time / 8.)
 	new_bullet.crit = 0.05 + 1. * (self.skill_state.triangle.crit / 8. + self.skill_state.crit / 20.)
 	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.triangle.crit_factor / 5. + self.skill_state.crit_factor / 10.)
@@ -193,8 +193,6 @@ func beam_sun(bullet_template, main_target):
 
 
 func circle_big_aoe_bullet(shoot_direction):
-
-	
 	var backfire = self.skill_state.circle.backfire
 	if backfire == 0:
 		return
@@ -216,7 +214,10 @@ func circle_big_aoe_bullet(shoot_direction):
 	#new_bullet.split = self.skill_state.circle.split
 	
 	 
-	new_bullet.scale_size(2 + 1 * backfire)
+	#new_bullet.scale_size(2 + 1 * backfire)
+	new_bullet.get_node("CollisionShape2D").shape = new_bullet.get_node("CollisionShape2D").shape.duplicate()
+	new_bullet.get_node("CollisionShape2D").shape.radius *= 2 + 1 * backfire
+	new_bullet.get_node("CircleShape").length *= 2 + 1 * backfire
 	
 	owner.owner.add_child(new_bullet)
 	new_bullet.transform = owner.global_transform
