@@ -16,14 +16,15 @@ var circle_bullet = null
 var square_bullet = null
 var triangle_bullet = null
 var line_bullet = null
-var reload_time_line = 1.5
+var reload_time_line = 5
 var reload_timer_line = 0
 var reload_time_circle = 3
 var reload_timer_circle = 0
-var reload_time_square = 999999999
+var reload_time_square = 8
 var reload_timer_square = 0
 var reload_time_triangle = 999999999
-var reload_timer_triangle = 0
+var reload_timer_triangle = 999999999
+var weapon = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,9 +37,12 @@ func _ready():
 	self.triangle_bullet = load("res://triangle_bullet.tscn")
 
 func _physics_process(delta):
+	if weapon != null:
+		weapon.call(delta)
 	#self.circle_logic(delta)
-	self.line_logic(delta)
-		
+	#self.line_logic(delta)
+	#self.square_logic(delta)
+	#self.triangle_logic(delta)
 
 	
 	
@@ -51,12 +55,12 @@ func _physics_process(delta):
 		self.change_direction()
 		
 		
-	if !get_parent().colors_inverted:
-		self.get_node("HexagonShape").color = Color.BLACK
-		self.get_node("HexagonShape")._draw()
-	else:
-		self.get_node("HexagonShape").color = self.get_parent().rainbow_color
-		self.get_node("HexagonShape")._draw()
+	#if !get_parent().colors_inverted:
+	#	self.get_node("HexagonShape").color = Color.BLACK
+	#	self.get_node("HexagonShape").queue_redraw()
+	#else:
+	#	self.get_node("HexagonShape").color = Color.GRAY #(self.get_parent().rainbow_color+Color.BLACK)/2
+	#	self.get_node("HexagonShape").queue_redraw()
 	
 func change_direction():
 	# 1. calculate desired direction
@@ -142,6 +146,8 @@ func line_logic(delta):
 		new_bullet.collision_layer = 8
 		new_bullet.collision_mask = 17
 		new_bullet.get_node("LineShape").color = Color.BLACK		
+		
+		await self.loading_anim(3, 35)
 		owner.add_child(new_bullet)
 
 func circle_logic(delta):
@@ -151,7 +157,9 @@ func circle_logic(delta):
 		
 		var new_bullet = self.circle_bullet.instantiate()
 		new_bullet.damage = 5
-		new_bullet.living_time = 5
+		
+		
+		
 		
 		get_parent().add_child(new_bullet)
 		new_bullet.transform = self.global_transform
@@ -166,4 +174,65 @@ func circle_logic(delta):
 		new_bullet.collision_mask = 17
 		new_bullet.travel_speed = 200
 		new_bullet.get_node("CircleShape").color = Color.BLACK
+		await self.loading_anim(1.5, 10)
+		new_bullet.living_time = 50
 		new_bullet.shoot(direction)
+
+func triangle_logic(delta):
+	self.reload_timer_triangle += delta
+	if self.reload_timer_triangle >= self.reload_time_triangle:
+		self.reload_timer_triangle -= self.reload_time_triangle
+		
+		var new_bullet = triangle_bullet.instantiate()		
+		new_bullet.collision_layer = 8
+		new_bullet.collision_mask = 17
+		new_bullet.get_node("TriangleShape").color = Color.BLACK
+		new_bullet.damage = 5
+		new_bullet.living_time = 999999999
+		new_bullet.get_node("TriangleShape").growing_speed = 0
+		#new_bullet.get_node("TriangleShape").rotation_speed = 0
+		new_bullet.scale_up(0.1)
+		new_bullet.traverse_circle = true
+		new_bullet.traverse_radius = 100
+		new_bullet.traverse_speed = 0.3
+	
+		self.add_child(new_bullet)
+		
+func square_logic(delta):
+	self.reload_timer_square += delta
+	if self.reload_timer_square >= self.reload_time_square:
+		self.reload_timer_square -= self.reload_time_square
+		
+		var new_bullet = square_bullet.instantiate()		
+		new_bullet.collision_layer = 8
+		new_bullet.collision_mask = 17
+		new_bullet.get_node("SquareShape").color = Color.BLACK
+		new_bullet.damage = 10
+		new_bullet.living_time = 3
+		new_bullet.get_node("SquareShape").growing_speed = 0.01
+		new_bullet.collapsing = 1
+		#new_bullet.stun_chance = 0.1 + self.skill_state.square.stun_chance * 0.1
+		#new_bullet.stun_time = 0.50 + self.skill_state.square.stun_time * 0.25
+		
+		#new_bullet.apply_central_impulse(direction * 500) 
+		self.get_node("HexagonShape").rotation_speed = 5
+		await loading_anim(4, 20)
+		self.get_node("HexagonShape").rotation_speed = 1
+		
+		get_parent().add_child(new_bullet)
+		new_bullet.transform = self.global_transform
+		new_bullet.shoot(Vector2(0,0))
+		
+func loading_anim(secs, w):
+	var tmp_spd = movement_speed_factor
+	movement_speed_factor = 0
+	var tmp_wid = self.get_node("HexagonShape").width
+	self.get_node("HexagonShape").width = w
+	self.get_node("HexagonShape").queue_redraw()
+
+	await get_tree().create_timer(secs).timeout
+	
+	movement_speed_factor = tmp_spd
+	self.get_node("HexagonShape").width = tmp_wid
+	self.get_node("HexagonShape").queue_redraw()
+	self.get_node("HexagonShape")._draw()

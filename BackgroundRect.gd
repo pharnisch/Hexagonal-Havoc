@@ -38,11 +38,14 @@ func _physics_process(delta):
 	
 	
 	get_parent().get_parent().rainbow_color = Color.from_hsv(self.hue, self.intensity, 1., 1.)
-	if get_parent().get_parent().colors_inverted:
-		self.color = Color.from_hsv(self.hue, self.intensity, 1., 1.)
+
+	if hue_going_up:
+		if get_parent().get_parent().colors_inverted:
+			self.color = (Color.BLACK + Color.from_hsv(self.hue, self.intensity, 1., 1.))/2
+		else:
+			self.color = (Color.GRAY + Color.from_hsv(self.hue, self.intensity, 1., 1.))/2
 	else:
-		self.color = Color.from_hsv(self.hue, self.intensity+0.2, 1., 1.)
-#	#if get_parent().get_parent().colors_inverted:
-#		self.color = Color.BLACK
-#	else:
-#		self.color = Color.from_hsv(self.hue, self.intensity, 1., 1.)
+		if get_parent().get_parent().colors_inverted:
+			self.color = (Color.BLACK + Color.from_hsv(self.hue, self.intensity+0.2, 1., 1.))/2
+		else:
+			self.color = (Color.GRAY + Color.from_hsv(self.hue, self.intensity+0.2, 1., 1.))/2

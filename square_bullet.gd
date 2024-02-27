@@ -47,11 +47,11 @@ func shoot(direction):
 	self.scaled_direction = direction * self.travel_speed
 
 func _on_SquareBullet_body_entered(body):
-	if "Enemy" in body.name:
-		self.deal_damage(body)
-		if self.rng.randf_range(0,1) <= self.stun_chance:
-			body.get_node("Movement").stun(self.stun_time)
-		self.request_destruction()
+	#if "Enemy" in body.name:
+	self.deal_damage(body)
+	if self.rng.randf_range(0,1) <= self.stun_chance:
+		body.get_node("Movement").stun(self.stun_time)
+	self.request_destruction()
 	
 func deal_damage(body):
 	if self.rng.randf_range(0,1) <= self.crit:

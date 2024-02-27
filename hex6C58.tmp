@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cpfin4hkqyh16"]
+
+[ext_resource type="PackedScene" uid="uid://cqonsdyndkq16" path="res://hexagon_shape.tscn" id="1_tbyrt"]
+[ext_resource type="Script" path="res://hexagon_enemy_i.gd" id="1_wahus"]
+[ext_resource type="PackedScene" uid="uid://cb0dy4uh1od1c" path="res://health_pool.tscn" id="2_qn734"]
+[ext_resource type="PackedScene" uid="uid://ddvfi4psfkx3i" path="res://movement.tscn" id="3_t1quy"]
+[ext_resource type="PackedScene" uid="uid://dy26rxrd3k5ab" path="res://comfort_zone.tscn" id="5_3u86t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a64yl"]
+radius = 55.0
+
+[node name="HexagonEnemyI" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 51
+gravity_scale = 0.0
+script = ExtResource("1_wahus")
+
+[node name="HexagonShape" parent="." instance=ExtResource("1_tbyrt")]
+scale = Vector2(0.7, 0.7)
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.7, 0.7)
+shape = SubResource("CircleShape2D_a64yl")
+
+[node name="HealthPool" parent="." instance=ExtResource("2_qn734")]
+unique_name_in_owner = true
+max_health = 80
+health_regen_per_sec = 0
+
+[node name="Movement" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("3_t1quy")]
+unique_name_in_owner = true
+entity = NodePath("..")
+
+[node name="ComfortZone" parent="." instance=ExtResource("5_3u86t")]
+unique_name_in_owner = true
+scale = Vector2(0.7, 0.7)

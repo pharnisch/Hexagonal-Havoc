@@ -50,6 +50,9 @@ func _physics_process(delta):
 			var spawn_positions = sub_wave["shape"].call(sub_wave["amount"], sub_wave["shape_args"])
 			for sp in spawn_positions:
 				var new_enemy = sub_wave["enemy_type"].instantiate()
+				var weapons = [null, null, null, null, new_enemy.circle_logic, new_enemy.line_logic, new_enemy.square_logic, new_enemy.triangle_logic]
+				
+				new_enemy.weapon = weapons[self.rng.randi_range(0, weapons.size() - 1)]
 				new_enemy.walking_variant = sub_wave["walking_variant"]
 				new_enemy.melee_dmg *= (1 + (sub_wave["difficulty_scale"] - 1)/ 5.)
 				new_enemy.exp_worth *= 1 * (1 + (sub_wave["difficulty_scale"] - 1)/ 1.5)

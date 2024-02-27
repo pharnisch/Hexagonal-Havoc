@@ -13,6 +13,7 @@ var rng = null
 var traverse_circle = false
 var traverse = 0.25
 var traverse_radius = 100
+var traverse_speed = 0.3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,7 +28,7 @@ func _physics_process(delta):
 	if traverse_circle:
 		var r = self.traverse_radius
 		self.position = Vector2(0 + r*cos(2*PI*self.traverse),0 -r*sin(2*PI*self.traverse))
-		self.traverse += delta * 0.3
+		self.traverse += delta * self.traverse_speed
 	self.living_timer += delta
 	if self.living_timer >= self.living_time:
 		self.queue_free()
@@ -40,9 +41,9 @@ func shoot(direction):
 	self.scaled_direction = direction * self.travel_speed
 
 func _on_TriangleBullet_body_entered(body):
-	if "Enemy" in body.name:
-		self.deal_damage(body)
-		self.request_destruction()
+	#if "Enemy" in body.name:
+	self.deal_damage(body)
+	self.request_destruction()
 	
 func deal_damage(body):
 	if self.rng.randf_range(0,1) <= self.crit:

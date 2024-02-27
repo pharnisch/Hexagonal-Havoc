@@ -105,7 +105,7 @@ func get_description(identifier):
 			attack_range = "+20% Attack Range [CIRCLE]",
 			bounce = "+15% Bounce Chance [CIRCLE]",
 			split = "+1 Split Bullet [CIRCLE]",
-			backfire = "+50% Backfire Damage&Size [CIRCLE]",
+			backfire = "+20 Damage Backfire AOE [CIRCLE]",
 			aim_bot = "+15% Chase Chance [CIRCLE]",
 			#element = null,
 		},

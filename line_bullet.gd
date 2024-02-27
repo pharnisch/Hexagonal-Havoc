@@ -34,9 +34,8 @@ func shoot(direction):
 	self.scaled_direction = direction * self.travel_speed
 
 func _on_LineBullet_body_entered(body):
-	if "Enemy" in body.name:
-		self.deal_damage(body)
-		self.request_destruction()
+	self.deal_damage(body)
+	self.request_destruction()
 
 func set_points(A, B):
 	%SegmentCollider.shape.a = A

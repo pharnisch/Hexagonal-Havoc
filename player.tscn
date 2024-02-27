@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://oabja83rgktq"]
+[gd_scene load_steps=9 format=3 uid="uid://oabja83rgktq"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_7i5rp"]
 [ext_resource type="PackedScene" uid="uid://cqonsdyndkq16" path="res://hexagon_shape.tscn" id="1_wy4nx"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="2_1kypo"]
 [ext_resource type="PackedScene" uid="uid://cb0dy4uh1od1c" path="res://health_pool.tscn" id="2_5vrfc"]
 [ext_resource type="PackedScene" uid="uid://ddvfi4psfkx3i" path="res://movement.tscn" id="4_yl61p"]
 [ext_resource type="PackedScene" uid="uid://ci8g2osy20wod" path="res://weapon.tscn" id="5_7jc6x"]
@@ -19,6 +20,8 @@ script = ExtResource("1_7i5rp")
 shape = SubResource("CircleShape2D_wf0q8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+ignore_rotation = false
+script = ExtResource("2_1kypo")
 
 [node name="HexagonShape" parent="." instance=ExtResource("1_wy4nx")]
 

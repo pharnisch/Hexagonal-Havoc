@@ -205,7 +205,7 @@ func circle_big_aoe_bullet(shoot_direction):
 	if aim_bot_proc:
 		new_bullet.aim_bot = true
 	
-	new_bullet.damage = 10 * (3 + 1.5 * backfire) * (1. + self.skill_state.circle.damage / 10. + self.skill_state.damage / 30.)
+	new_bullet.damage = 10 * (2 * backfire) * (1. + self.skill_state.circle.damage / 10. + self.skill_state.damage / 30.)
 	var living_time_multiplier = (1. + self.skill_state.circle.living_time / 4. + self.skill_state.living_time / 8.)
 	new_bullet.living_time = living_time_multiplier * 3
 	new_bullet.crit = 0.05 + 1. * (self.skill_state.circle.crit / 8. + self.skill_state.crit / 20.)

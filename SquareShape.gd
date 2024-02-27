@@ -12,6 +12,8 @@ func _ready():
 func _physics_process(delta):
 	owner.rotation -= rotation_speed * delta
 	owner.scale += Vector2(1,1) * self.growing_speed
+	if owner.scale.x < 0:
+		owner.queue_free()
 
 func _draw():
 	var points = [
