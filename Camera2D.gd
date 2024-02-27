@@ -25,9 +25,12 @@ func _physics_process(delta):
 	#self.rotation += delta * 0.05
 	
 	# play with offsit/position change of camera! (only slightly), maybe in random direction for x s, and then back immedeately or go back traverse
+	if self.traverse_direction == Vector2(0,0):
+		self.traverse_direction = Vector2(rng.randf_range(-1,1), rng.randf_range(-1,1))
+	
 	if traverse_out:
 		self.offset += self.traverse_direction * delta * 50
-		if self.offset.length() >= 100:
+		if self.offset.length() >= 300:
 			traverse_out = false
 	else:
 		self.offset -= self.traverse_direction * delta * 50
