@@ -24,6 +24,8 @@ func _physics_process(delta):
 		player_health_change.emit(self.health, self.max_health)
 		
 func _get_damage(dmg, special_display=null):
+	if "Enemy" in owner.name:
+		get_parent().get_parent().total_damage_done += dmg
 	
 	#print("get dmg: ", dmg)
 	self.health -= dmg

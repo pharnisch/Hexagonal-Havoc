@@ -11,6 +11,7 @@ var waves = null
 var agony = 0
 var colors_inverted = false
 var rainbow_color = null
+var total_damage_done = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
