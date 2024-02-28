@@ -74,8 +74,8 @@ func _physics_process(delta):
 		
 func equip_triangle_shield(bullet_template):
 	var new_bullet = bullet_template.instantiate()
-	new_bullet.damage = 10 * 6 * (1 + self.skill_state.triangle.damage / 10. + self.skill_state.damage / 30.)
-	new_bullet.living_time = 4.5 * (1 + self.skill_state.triangle.living_time / 4. + self.skill_state.living_time / 8.)
+	new_bullet.damage = 10 * 8 * (1 + self.skill_state.triangle.damage / 10. + self.skill_state.damage / 30.)
+	new_bullet.living_time = 3.5 * (1 + self.skill_state.triangle.living_time / 4. + self.skill_state.living_time / 8.)
 	new_bullet.crit = 0.05 + 1. * (self.skill_state.triangle.crit / 8. + self.skill_state.crit / 20.)
 	new_bullet.crit_factor = 1.5 * (1 + self.skill_state.triangle.crit_factor / 5. + self.skill_state.crit_factor / 10.)
 	
@@ -89,7 +89,7 @@ func equip_triangle_shield(bullet_template):
 func equip_triangle_surrounding(bullet_template):
 	var new_bullet = bullet_template.instantiate()
 	new_bullet.damage = 10 * 1. * (1 + self.skill_state.triangle.damage / 10. + self.skill_state.damage / 30.)
-	new_bullet.living_time = 15 * (1 + self.skill_state.triangle.living_time / 4. + self.skill_state.living_time / 8.)
+	new_bullet.living_time = 9 * (1 + self.skill_state.triangle.living_time / 4. + self.skill_state.living_time / 8.)
 	new_bullet.crit = 0.05 + 1. * (self.skill_state.triangle.crit / 8. + self.skill_state.crit / 20.)
 	new_bullet.crit_factor = 3. * (1 + self.skill_state.triangle.crit_factor / 5. + self.skill_state.crit_factor / 10.)
 	

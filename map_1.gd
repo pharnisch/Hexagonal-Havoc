@@ -56,7 +56,7 @@ func _physics_process(delta):
 				new_enemy.weapon = weapons[self.rng.randi_range(0, weapons.size() - 1)]
 				new_enemy.walking_variant = sub_wave["walking_variant"]
 				new_enemy.melee_dmg *= (1 + (sub_wave["difficulty_scale"] - 1)/ 5.)
-				new_enemy.exp_worth *= 1 * (1 + (sub_wave["difficulty_scale"] - 1)/ 1.5)
+				new_enemy.exp_worth *= 1 * (1 + (sub_wave["difficulty_scale"] - 1)/2.5)
 				new_enemy.movement_speed_factor *= (1 + (sub_wave["difficulty_scale"] - 1)/ 10.)
 				
 				new_enemy.position = sp

@@ -53,7 +53,7 @@ func get_random_skill_options(n):
 	var all_options = []
 	for k_i in self.state.keys():
 		if (typeof(self.state[k_i]) != typeof({})):
-			if self.state[k_i] < 10 or (k_i == "damage" and self.state[k_i] < 20):
+			if self.state[k_i] < 5 or (k_i == "damage" and self.state[k_i] < 5):
 				all_options.append(k_i)
 		else:
 			for k_j in self.state[k_i].keys():
