@@ -49,6 +49,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="ColorRect8" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -52593.4
 offset_top = -17957.0
 offset_right = 47406.6
@@ -57,6 +58,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect7" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -52877.4
 offset_top = -17296.8
 offset_right = 47122.6
@@ -65,6 +67,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect9" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -57213.1
 offset_top = -17220.0
 offset_right = 42786.9
@@ -73,6 +76,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect10" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -57447.0
 offset_top = -16928.0
 offset_right = 42553.0
@@ -81,6 +85,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect11" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -59441.0
 offset_top = -14455.0
 offset_right = 40559.0
@@ -89,6 +94,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect12" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -57638.7
 offset_top = -15498.3
 offset_right = 42361.3
@@ -97,6 +103,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect13" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -58455.0
 offset_top = -14848.0
 offset_right = 41545.0
@@ -105,6 +112,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect14" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -53260.0
 offset_top = -18631.0
 offset_right = 46740.0
@@ -113,6 +121,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect15" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -50360.0
 offset_top = -16067.0
 offset_right = 49640.0
@@ -121,6 +130,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect16" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -52851.0
 offset_top = -19157.0
 offset_right = 47149.0
@@ -129,6 +139,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect6" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -53821.0
 offset_top = -14029.0
 offset_right = 46179.0
@@ -137,6 +148,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect4" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -52481.5
 offset_top = -16187.0
 offset_right = 47518.5
@@ -145,6 +157,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect3" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -53356.0
 offset_top = -15038.7
 offset_right = 46644.0
@@ -153,6 +166,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -54201.4
 offset_top = -13077.7
 offset_right = 45798.6
@@ -161,6 +175,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect2" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -50620.4
 offset_top = -13832.7
 offset_right = 49379.6
@@ -169,6 +184,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect17" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -42309.6
 offset_top = -22182.1
 offset_right = 57690.4
@@ -177,6 +193,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect18" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -42779.1
 offset_top = -21637.8
 offset_right = 57220.9
@@ -185,6 +202,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect19" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -46937.2
 offset_top = -22868.4
 offset_right = 53062.8
@@ -193,6 +211,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect20" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -47248.1
 offset_top = -22660.2
 offset_right = 52751.9
@@ -201,6 +220,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect21" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -49893.4
 offset_top = -20901.3
 offset_right = 50106.6
@@ -209,6 +229,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect22" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -47860.8
 offset_top = -21354.3
 offset_right = 52139.2
@@ -217,6 +238,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect23" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -48834.9
 offset_top = -20979.6
 offset_right = 51165.1
@@ -225,6 +247,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect24" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -42742.8
 offset_top = -23025.3
 offset_right = 57257.3
@@ -233,6 +256,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect25" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -40748.0
 offset_top = -19708.0
 offset_right = 59252.0
@@ -241,6 +265,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect26" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -42194.5
 offset_top = -23404.0
 offset_right = 57805.5
@@ -249,6 +274,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect27" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -44661.6
 offset_top = -18805.0
 offset_right = 55338.4
@@ -257,6 +283,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect28" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -42735.2
 offset_top = -20460.3
 offset_right = 57264.8
@@ -265,6 +292,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect29" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -43914.5
 offset_top = -19628.2
 offset_right = 56085.5
@@ -273,6 +301,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect30" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -45310.5
 offset_top = -18012.2
 offset_right = 54689.5
@@ -281,6 +310,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect31" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -41668.2
 offset_top = -17655.4
 offset_right = 58331.8
@@ -289,6 +319,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect32" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -45206.0
 offset_top = -17129.9
 offset_right = 54794.0
@@ -297,6 +328,7 @@ rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
 
 [node name="ColorRect5" type="ColorRect" parent="Node"]
+layout_mode = 0
 offset_left = -53836.4
 offset_top = -12267.7
 offset_right = 46163.6

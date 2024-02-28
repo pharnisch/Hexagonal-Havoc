@@ -44,6 +44,9 @@ func _physics_process(delta):
 		self.wave_time = self.waves[self.wave_ind]["duration"]
 		self.wave_timer = 0
 	
+	if wave_ind > 100:
+		return
+	
 	var wave_ind = 0
 	for sub_wave in self.waves[self.wave_ind]["sub_waves"]:
 		if "spawned" not in sub_wave and sub_wave["spawn_time"] <= self.wave_timer:

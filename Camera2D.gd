@@ -50,7 +50,7 @@ func _physics_process(delta):
 		rotation_strength = 3
 	elif get_parent().get_parent().wave_ind >= 90:
 		rotation_max_time = 5
-		rotation_strength = 10
+		rotation_strength = 5
 	
 	if get_parent().get_parent().wave_ind >= 10:
 		if rotation_time == null:
