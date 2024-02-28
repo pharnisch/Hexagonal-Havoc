@@ -3,7 +3,7 @@ extends Node2D
 signal player_health_change(current_health, max_health)
 
 @export var max_health := 100
-@export var health_regen_per_sec := 1
+@export var health_regen_per_sec := 0.5
 var min_health = 0
 var health = null
 var text_label = null

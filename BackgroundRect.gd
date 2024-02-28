@@ -12,6 +12,8 @@ var intensity_jump_time = 3.142
 var	hue_jump_timer = 0
 var hue_jump_time = 4.142
 var darkness_timer = 0
+var darkness_time = 11.1
+var darkness_length = 0.6
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,13 +25,20 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	
+	if get_parent().get_parent().wave_ind >= 40:
+		self.darkness_time = 8.9
+	elif get_parent().get_parent().wave_ind >= 60:
+		self.darkness_time = 6.7
+	elif get_parent().get_parent().wave_ind >= 80:
+		self.darkness_time = 4.5
+	
 	if get_parent().get_parent().wave_ind >= 30:
 		darkness_timer += delta
-		if darkness_timer >= 4.5 and darkness_timer <= 5.1:
+		if darkness_timer >= darkness_time and darkness_timer <= darkness_time + darkness_length:
 			self.color = (Color.BLACK)
 			return
-		if darkness_timer > 5.1:
-			darkness_timer -= 5.1
+		if darkness_timer > darkness_time + darkness_length:
+			darkness_timer -= (darkness_time + darkness_length)
 	
 	if get_parent().get_parent().wave_ind >= 15:
 		intensity_jump_timer += delta

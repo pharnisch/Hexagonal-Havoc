@@ -74,11 +74,11 @@ func on_skills_update(skills):
 		self.hp.health += 50
 	self.movement_speed = 200 + skills.running_speed * 40
 	self.get_node("Movement").movement_speed_changed()
-	self.hp.health_regen_per_sec = 1 + skills.life_reg * 0.5
+	self.hp.health_regen_per_sec = 0.5 + skills.life_reg * 0.25
 	self.get_node("AttackRangeCircle").scale = Vector2(1,1) * (1 + skills.circle.attack_range * 0.2 + skills.attack_range * 0.1)
 	self.get_node("AttackRangeLine").scale = Vector2(1,1) * (1 + skills.line.attack_range * 0.2 + skills.attack_range * 0.1)
 	print(self.get_node("AttackRangeLine").scale)
-	self.exp_bonus = skills.exp_bonus * 0.1
+	self.exp_bonus = skills.exp_bonus * 0.05
 
 func gain_exp(gain):
 	gain *= (1. + self.exp_bonus)

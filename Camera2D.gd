@@ -27,17 +27,41 @@ func _physics_process(delta):
 	# maybe add more and more visual stuff for higher levels, e.g. wave 1-10 nothing, 11-20 zoom, 21-... rotation, 31-... camera offset, 41..high zoom, 51.high rotation, 61. high offset, 71. high jumps, 81. high color changes
 	
 	# rotate also movement input from keyboard!
-	if get_parent().get_parent().wave_ind >= 10:
+	if get_parent().get_parent().wave_ind >= 90:
 		if rotation_time == null:
-			rotation_time = self.rng.randf_range(2,10)
-			rotation_amount = self.rng.randf_range(-1./rotation_time, 1./rotation_time)
+			rotation_time = self.rng.randf_range(2,5)
+			rotation_amount = self.rng.randf_range(-10./rotation_time, 10./rotation_time)
 		rotation_timer += delta
 		if rotation_timer >= rotation_time:
 			rotation_timer -= rotation_time
-			rotation_time = self.rng.randf_range(2,10)
-			rotation_amount = self.rng.randf_range(-1./rotation_time, 1./rotation_time)
+			rotation_time = self.rng.randf_range(2,5)
+			rotation_amount = self.rng.randf_range(-10./rotation_time, 10./rotation_time)
 		self.rotation += delta * rotation_amount
-		#self.rotation = deg_to_rad(180)
+		
+		
+	# rotation params for different waves
+	var rotation_max_time = 10
+	var rotation_strength = 1
+	if get_parent().get_parent().wave_ind >= 50:
+		rotation_max_time = 9
+		rotation_strength = 2
+	elif get_parent().get_parent().wave_ind >= 70:
+		rotation_max_time = 7
+		rotation_strength = 3
+	elif get_parent().get_parent().wave_ind >= 90:
+		rotation_max_time = 5
+		rotation_strength = 10
+	
+	if get_parent().get_parent().wave_ind >= 10:
+		if rotation_time == null:
+			rotation_time = self.rng.randf_range(2,rotation_max_time)
+			rotation_amount = self.rng.randf_range(-rotation_strength/rotation_time, rotation_strength/rotation_time)
+		rotation_timer += delta
+		if rotation_timer >= rotation_time:
+			rotation_timer -= rotation_time
+			rotation_time = self.rng.randf_range(2,rotation_max_time)
+			rotation_amount = self.rng.randf_range(-rotation_strength/rotation_time, rotation_strength/rotation_time)
+		self.rotation += delta * rotation_amount
 	
 	# play with offsit/position change of camera! (only slightly), maybe in random direction for x s, and then back immedeately or go back traverse
 	

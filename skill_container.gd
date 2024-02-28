@@ -96,8 +96,8 @@ func get_description(identifier):
 	var descriptions =  {
 		running_speed = "+20% Walking Speed",
 		life_max = "+50 Max Life",
-		life_reg = "+0.5 Life Per Second",
-		exp_bonus = "+10% EXP",
+		life_reg = "+0.25 Life Per Second",
+		exp_bonus = "+5% EXP",
 		
 		# wird addiert zum spezialisierten, daher können diese up to 10 gehen (statt up to 5)!
 		casting_speed = "3.3% Casting Speed",

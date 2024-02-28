@@ -24,4 +24,4 @@ func health_change(health, max_health):
 func on_exp_change(lvl, exp, exp_for_next_skill, total_exp):
 	self.get_node("ExpBar").value = exp
 	self.get_node("ExpBar").max_value = exp_for_next_skill
-	self.get_node("ExpBar").get_node("ExpText").text = str(round(exp)) + "/" + str(round(exp_for_next_skill)) + " (LVL: " + str(lvl) + ")"# +", TOTAL XP: " + str(round(total_exp)) + ")"
+	self.get_node("ExpBar").get_node("ExpText").text = str(snapped(exp,0.1)) + "/" + str(round(exp_for_next_skill)) + " (LVL: " + str(lvl) + ")"# +", TOTAL XP: " + str(round(total_exp)) + ")"
