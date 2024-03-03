@@ -17,6 +17,8 @@ var rank_up_sound = null
 var sound_player = null
 var die_sound = null
 
+var endUI = load("res://end_ui.tscn")
+
 func _start():
 	self.name = "Player"
 	
@@ -63,7 +65,10 @@ func die():
 	sound_player.stream = die_sound
 	sound_player.play()
 	get_tree().paused = true
-	get_node("/root/Map_1/UI/RestartButton").visible = true
+	#get_node("/root/Map_1/UI/RestartButton").visible = true
+	#get_node("/root/Map_1/UI/HomeButton").visible = true
+	var eUI = self.endUI.instantiate()
+	get_parent().get_node("UI").add_child(eUI)
 
 func on_skills_update(skills):
 	print("CHAR:UPDATE")

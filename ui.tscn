@@ -1,9 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://km765w0j4vfi"]
+[gd_scene load_steps=7 format=3 uid="uid://km765w0j4vfi"]
 
 [ext_resource type="Script" path="res://ui.gd" id="1_j4xlj"]
-[ext_resource type="PackedScene" uid="uid://si6xejkupe8v" path="res://button.tscn" id="2_nvwg2"]
 [ext_resource type="FontFile" uid="uid://bsuwta6n1amr" path="res://hexagon_assets/bumpitup.ttf" id="2_tx6ub"]
-[ext_resource type="Script" path="res://button_restart.gd" id="3_t1dh0"]
 
 [sub_resource type="Theme" id="Theme_tgwiy"]
 
@@ -102,36 +100,6 @@ theme_override_fonts/font = ExtResource("2_tx6ub")
 text = "0/5"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="RestartButton" parent="." instance=ExtResource("2_nvwg2")]
-process_mode = 3
-custom_minimum_size = Vector2(100, 50)
-anchors_preset = 7
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 386.0
-offset_top = -155.0
-offset_right = 487.0
-offset_bottom = -105.0
-grow_vertical = 0
-text = "Restart"
-script = ExtResource("3_t1dh0")
-scene_name = "map_1"
-
-[node name="HomeButton" parent="." instance=ExtResource("2_nvwg2")]
-process_mode = 3
-custom_minimum_size = Vector2(100, 50)
-anchors_preset = 7
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -485.0
-offset_top = -155.0
-offset_right = -384.0
-offset_bottom = -105.0
-grow_vertical = 0
-text = "Home"
-script = ExtResource("3_t1dh0")
-scene_name = "home"
 
 [node name="TimeText" type="Label" parent="."]
 anchors_preset = 7

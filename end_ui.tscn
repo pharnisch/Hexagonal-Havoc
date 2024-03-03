@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr80ujcndx712"]
+
+[ext_resource type="Script" path="res://end_ui.gd" id="1_6pbli"]
+[ext_resource type="PackedScene" uid="uid://si6xejkupe8v" path="res://button.tscn" id="1_oa7jc"]
+[ext_resource type="Script" path="res://button_restart.gd" id="2_4iykj"]
+
+[node name="EndUI" type="Node"]
+script = ExtResource("1_6pbli")
+
+[node name="RestartButton" parent="." instance=ExtResource("1_oa7jc")]
+process_mode = 3
+custom_minimum_size = Vector2(100, 50)
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 300.0
+offset_top = -155.0
+offset_right = 480.0
+offset_bottom = -105.0
+grow_vertical = 0
+text = "Restart [SPACE]"
+script = ExtResource("2_4iykj")
+scene_name = "map_1"
+
+[node name="HomeButton" parent="." instance=ExtResource("1_oa7jc")]
+process_mode = 3
+custom_minimum_size = Vector2(100, 50)
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -480.0
+offset_top = -155.0
+offset_right = -326.0
+offset_bottom = -105.0
+grow_vertical = 0
+text = "Home [ESCAPE]"
+script = ExtResource("2_4iykj")
+scene_name = "home"
