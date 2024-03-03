@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ionfrodpageg"]
+[gd_scene load_steps=10 format=3 uid="uid://ionfrodpageg"]
 
 [ext_resource type="Script" path="res://map_1.gd" id="1_3jja6"]
 [ext_resource type="PackedScene" uid="uid://oabja83rgktq" path="res://player.tscn" id="1_8hccq"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" path="res://BackgroundRect.gd" id="4_lmk7g"]
 [ext_resource type="PackedScene" uid="uid://km765w0j4vfi" path="res://ui.tscn" id="5_edmx6"]
 [ext_resource type="AudioStream" uid="uid://c5fcbo2f0guem" path="res://onlymp3.to - Super Hexagon FULL Soundtrack-jigRSeRYMzA-192k-1709038307.mp3" id="6_rtydc"]
+[ext_resource type="Script" path="res://MusicPlayer.gd" id="7_nstrk"]
 [ext_resource type="AudioStream" uid="uid://cndniok5jlf1c" path="res://hexagon_assets/awesome.wav" id="7_vftx8"]
+[ext_resource type="Script" path="res://Starthilfe.gd" id="9_y1nyp"]
 
 [node name="Map_1" type="Node2D"]
 script = ExtResource("1_3jja6")
@@ -38,7 +40,7 @@ script = ExtResource("4_lmk7g")
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("6_rtydc")
-autoplay = true
+script = ExtResource("7_nstrk")
 
 [node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
@@ -335,3 +337,7 @@ offset_right = 46163.6
 offset_bottom = -12172.7
 rotation = 0.305433
 color = Color(0, 0, 0, 0.0196078)
+
+[node name="Starthilfe" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("9_y1nyp")

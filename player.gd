@@ -63,7 +63,7 @@ func die():
 	sound_player.stream = die_sound
 	sound_player.play()
 	get_tree().paused = true
-	#get_node("/root/Map_1/UI/RestartButton").visible = true
+	get_node("/root/Map_1/UI/RestartButton").visible = true
 
 func on_skills_update(skills):
 	print("CHAR:UPDATE")
@@ -86,6 +86,7 @@ func gain_exp(gain):
 	self.total_exp += gain
 
 	var exp_required = 2 + round(self.skills_learned * 1) + round(self.skills_learned *  self.skills_learned * 0.02) 
+	#var exp_required = 
 	on_exp_change.emit(self.skills_learned, self.exp, exp_required, self.total_exp)
 	if self.skill_system.offer_skill_upgrades_active == false:
 		if self.exp >= exp_required:

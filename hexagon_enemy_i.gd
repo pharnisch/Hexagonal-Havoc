@@ -16,6 +16,8 @@ var circle_bullet = null
 var square_bullet = null
 var triangle_bullet = null
 var line_bullet = null
+var ls = preload("res://line_shape.tscn")
+var ls_instance = null
 var reload_time_line = 5
 var reload_timer_line = 0
 var reload_time_circle = 3
@@ -25,6 +27,8 @@ var reload_timer_square = 0
 var reload_time_triangle = 999999999
 var reload_timer_triangle = 999999999
 var weapon = null
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -139,7 +143,10 @@ func line_logic(delta):
 		# overshooting scale
 		var v = (self.player.global_position - self.global_position).normalized()
 		
-		new_bullet.set_points(self.global_position, self.global_position + v * 200)
+		var A = self.global_position
+		var B = self.global_position + v * 500
+		
+		new_bullet.set_points(A, B)
 		new_bullet.damage = 5
 		new_bullet.living_time = 1
 		
@@ -147,7 +154,21 @@ func line_logic(delta):
 		new_bullet.collision_mask = 17
 		new_bullet.get_node("LineShape").color = Color.BLACK		
 		
-		await self.loading_anim(3, 35)
+		
+		# add loading line
+		var loading_line = self.ls.instantiate()
+		loading_line.color = Color(0,0,0,0.1)
+		loading_line.A = A
+		loading_line.B = B
+		owner.add_child(loading_line)
+		loading_line._draw()
+		self.ls_instance = loading_line
+		
+		await self.loading_anim(1.5, 35)
+		
+		# remove loading line
+		loading_line.queue_free()
+		
 		owner.add_child(new_bullet)
 
 func circle_logic(delta):
@@ -209,7 +230,7 @@ func square_logic(delta):
 		new_bullet.collision_mask = 17
 		new_bullet.get_node("SquareShape").color = Color.BLACK
 		new_bullet.damage = 10
-		new_bullet.living_time = 3
+		new_bullet.living_time = 5
 		new_bullet.get_node("SquareShape").growing_speed = 0.01
 		new_bullet.collapsing = 1
 		#new_bullet.stun_chance = 0.1 + self.skill_state.square.stun_chance * 0.1
@@ -237,3 +258,7 @@ func loading_anim(secs, w):
 	self.get_node("HexagonShape").width = tmp_wid
 	self.get_node("HexagonShape").queue_redraw()
 	self.get_node("HexagonShape")._draw()
+
+func _exit_tree():
+	if self.ls_instance != null:
+		self.ls_instance.queue_free()
