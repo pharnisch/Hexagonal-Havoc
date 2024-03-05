@@ -10,8 +10,9 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	pass
+func _process(delta):
+	if Input.is_key_pressed(KEY_ESCAPE):
+		self.click()
 
 func click():
 	#get_node("/root/Map_1").free()
