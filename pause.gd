@@ -11,7 +11,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print(toggle_timer)
 	if toggle_timer >= toggle_time: 
 		if Input.is_key_pressed(KEY_ENTER):
 			self.toggle()

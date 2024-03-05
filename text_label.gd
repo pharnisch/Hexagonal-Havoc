@@ -1,6 +1,6 @@
 extends Label
 
-var living_time = 0.5
+@export var living_time = 0.5
 var living_timer = 0
 
 

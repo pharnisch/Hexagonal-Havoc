@@ -19,7 +19,7 @@ func _ready():
 	self.rng = RandomNumberGenerator.new()
 	self.waves = [self.get_new_wave()]
 	
-	self.wave_time = self.waves[self.wave_ind]["duration"]
+	self.wave_time = 5#self.waves[self.wave_ind]["duration"]
 	self.wave_timer = 0
 
 	Engine.physics_ticks_per_second *= 1.
@@ -27,9 +27,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	self.agony += delta*0.01
+	if win_condition():
+		get_tree().get_root().get_child(0).get_node("UI").get_node("GratulationMessage").visible = true
+		return
+	
+	self.agony += delta*0.1
 	if self.agony > 5:
 		self.agony = 5
+		
+	if wave_ind > 100:
+		return
 
 	self.wave_timer += delta
 	if self.wave_timer >= self.wave_time:
@@ -44,8 +51,7 @@ func _physics_process(delta):
 		self.wave_time = self.waves[self.wave_ind]["duration"]
 		self.wave_timer = 0
 	
-	if wave_ind > 100:
-		return
+
 	
 	var wave_ind = 0
 	for sub_wave in self.waves[self.wave_ind]["sub_waves"]:
@@ -100,6 +106,14 @@ func choose_locations(locations, amount):
 		locations.remove_at(rnd_ind)
 	return chosen_locations
 	
+func win_condition():
+	if wave_ind >= 100:
+		for n in get_tree().get_root().get_child(0).get_children():
+			if "Enemy" in n.name:
+				return false
+		return true
+	return false
+	
 func get_new_wave():
 	#print("AGONY: ", self.agony)
 	var hp = get_node("Player").get_node("HealthPool")
@@ -127,7 +141,7 @@ func get_new_wave():
 
 func decrease_agony(delta):
 	#print("-=", delta * 0.001)
-	self.agony -= delta * 0.001
+	self.agony -= delta * 0.01
 	if self.agony < 0:
 		self.agony = 0
 		
