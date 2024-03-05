@@ -74,7 +74,7 @@ func request_destruction():
 			
 			new_bullet.transform = self.global_transform
 			new_bullet.scale = self.scale / 1.5
-			get_tree().get_root().get_node("Map_1").add_child(new_bullet)
+			get_tree().get_root().get_child(0).add_child(new_bullet)
 			new_bullet.shoot(direction)
 			
 	if self.rng.randf_range(0,1) <= self.bounce:

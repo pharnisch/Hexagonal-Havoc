@@ -1,6 +1,7 @@
 extends Button
 
 #var level = preload("res://map_1.tscn")
+@export var level = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,4 +15,4 @@ func _process(delta):
 func on_pressed():
 	#get_tree().change_scene_to_packed(load("res://map_1.tscn"))
 	print(get_tree().paused)
-	get_tree().change_scene_to_packed(load("res://map_1.tscn"))
+	get_tree().change_scene_to_packed(load("res://map_" + str(self.level) + ".tscn"))

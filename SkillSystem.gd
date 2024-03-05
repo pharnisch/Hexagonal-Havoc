@@ -139,28 +139,32 @@ func on_talent_chosen(skill_identifier):
 	#self.offer_skill_upgrades()
 
 func offer_skill_upgrades():
+	var options_amount = 3
+	if (get_tree().get_current_scene().name) == "Map_2":
+		options_amount = 1
+		
 	self.offer_skill_upgrades_active = true
 	self.skill_points_spent += 1
 	if self.skill_points_spent in [5,15,25,35]:
-		var options = self.get_random_big_skill_options(3)
+		var options = self.get_random_big_skill_options(options_amount)
 		if options.size() == 0:
-			var minor_options = self.get_random_skill_options(3)
+			var minor_options = self.get_random_skill_options(options_amount)
 			if minor_options.size() == 0:
 				return
 			self.skill_container.display_options(minor_options)
 		else:
 			self.skill_container.display_options(options)
 	elif self.skill_points_spent in [10,20,30,40,50]:
-		var options = self.get_random_element_skill_options(8)
+		var options = self.get_random_element_skill_options(options_amount)
 		if options.size() == 0:
-			var minor_options = self.get_random_skill_options(3)
+			var minor_options = self.get_random_skill_options(options_amount)
 			if minor_options.size() == 0:
 				return
 			self.skill_container.display_options(minor_options)
 		else:
 			self.skill_container.display_options(options)
 	else:
-		var minor_options = self.get_random_skill_options(3)
+		var minor_options = self.get_random_skill_options(options_amount)
 		if minor_options.size() == 0:
 			return
 		self.skill_container.display_options(minor_options)

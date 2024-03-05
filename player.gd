@@ -65,8 +65,6 @@ func die():
 	sound_player.stream = die_sound
 	sound_player.play()
 	get_tree().paused = true
-	#get_node("/root/Map_1/UI/RestartButton").visible = true
-	#get_node("/root/Map_1/UI/HomeButton").visible = true
 	var eUI = self.endUI.instantiate()
 	get_parent().get_node("UI").add_child(eUI)
 

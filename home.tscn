@@ -35,7 +35,7 @@ offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Level1" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="Level_Get_To_100" type="Button" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -47,8 +47,24 @@ theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
 theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
 theme_override_fonts/font = ExtResource("2_pa13x")
 theme_override_font_sizes/font_size = 32
-text = "BEGIN"
+text = "NORMAL"
 script = ExtResource("1_ra1gt")
+
+[node name="Level_Get_To_100_Random_Skill" type="Button" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("2_pa13x")
+theme_override_font_sizes/font_size = 32
+text = "RANDOM"
+script = ExtResource("1_ra1gt")
+level = 2
 
 [node name="2" type="Control" parent="CanvasLayer"]
 layout_mode = 3
