@@ -35,7 +35,7 @@ func _physics_process(delta):
 	if self.agony > 5:
 		self.agony = 5
 		
-	if wave_ind > 100:
+	if self.wave_ind >= 100:
 		return
 
 	self.wave_timer += delta

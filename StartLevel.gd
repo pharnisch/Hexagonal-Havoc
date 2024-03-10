@@ -2,10 +2,13 @@ extends Button
 
 #var level = preload("res://map_1.tscn")
 @export var level = 1
+@export var sel = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.pressed.connect(self.on_pressed)
+	if self.sel:
+		self.grab_focus()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -11,6 +11,15 @@ func _ready():
 		
 
 
+func physics(delta):
+	#if self.has_focus():
+	#	self.set("theme_override_constants/outline_size", 20)
+	#	print("make big")
+	#else:
+	#	self.set("theme_override_constants/outline_size", 0)
+	#self._draw()
+	pass
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	pass

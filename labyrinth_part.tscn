@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfrt24ju5tam2"]
+
+[ext_resource type="Script" path="res://LabyrinthPart.gd" id="1_p06rm"]
+
+[node name="LabyrinthPart" type="Node2D"]
+script = ExtResource("1_p06rm")

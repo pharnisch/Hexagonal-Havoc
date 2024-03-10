@@ -24,6 +24,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	# STONED MODE
+	# TODO: have different x and y zoom levels
+	# TODO: zoom more to top as to bottom (tilt camera angle) -> needs camera3d?
+	
+	
+	
 	# maybe add more and more visual stuff for higher levels, e.g. wave 1-10 nothing, 11-20 zoom, 21-... rotation, 31-... camera offset, 41..high zoom, 51.high rotation, 61. high offset, 71. high jumps, 81. high color changes
 	
 	# rotate also movement input from keyboard!

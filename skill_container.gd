@@ -29,7 +29,9 @@ func _physics_process(delta):
 func display_options(options=["A", "B", "C"]):
 	var gc = self.get_node("Container").get_node("GridContainer")
 	for option in options:
+
 		var b = self.button.instantiate()
+
 		
 		b.text = get_description(option)
 		#print(b.text)
@@ -65,6 +67,8 @@ func display_options(options=["A", "B", "C"]):
 		b.identifier = option
 		gc.add_child(b)
 		b.talent_chosen.connect(self.on_talent_chosen)
+		if option == options[0]: # first option
+			b.grab_focus()
 	self.get_node("AnimationPlayer").play("UI_animation_test")
 	get_tree().paused = true
 		

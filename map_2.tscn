@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4vq0bo7y1xue"]
+[gd_scene load_steps=11 format=3 uid="uid://c4vq0bo7y1xue"]
 
 [ext_resource type="Script" path="res://map_1.gd" id="1_dv14p"]
 [ext_resource type="PackedScene" uid="uid://oabja83rgktq" path="res://player.tscn" id="2_v0jxs"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://MusicPlayer.gd" id="7_3pt2g"]
 [ext_resource type="AudioStream" uid="uid://cndniok5jlf1c" path="res://hexagon_assets/awesome.wav" id="8_qex14"]
 [ext_resource type="Script" path="res://Starthilfe.gd" id="9_wkjsk"]
+[ext_resource type="PackedScene" uid="uid://bfrt24ju5tam2" path="res://labyrinth_part.tscn" id="10_14kd2"]
 
 [node name="Map_2" type="Node2D"]
 script = ExtResource("1_dv14p")
@@ -341,3 +342,37 @@ color = Color(0, 0, 0, 0.0196078)
 [node name="Starthilfe" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("9_wkjsk")
+
+[node name="LabyrinthPart1" parent="." instance=ExtResource("10_14kd2")]
+
+[node name="LabyrinthPart2" parent="." instance=ExtResource("10_14kd2")]
+scale = Vector2(2, 2)
+rotation_speed = -1
+rotation_start = 90
+
+[node name="LabyrinthPart3" parent="." instance=ExtResource("10_14kd2")]
+scale = Vector2(3, 3)
+rotation_start = 180
+
+[node name="LabyrinthPart4" parent="." instance=ExtResource("10_14kd2")]
+scale = Vector2(5, 5)
+rotation_speed = -1
+rotation_start = 270
+
+[node name="LabyrinthPart5" parent="." instance=ExtResource("10_14kd2")]
+scale = Vector2(8, 8)
+rotation_start = 360
+
+[node name="LabyrinthPart6" parent="." instance=ExtResource("10_14kd2")]
+scale = Vector2(13, 13)
+rotation_speed = -1
+rotation_start = 450
+
+[node name="LabyrinthPart7" parent="." instance=ExtResource("10_14kd2")]
+scale = Vector2(21, 21)
+rotation_start = 540
+
+[node name="LabyrinthPart8" parent="." instance=ExtResource("10_14kd2")]
+scale = Vector2(34, 34)
+rotation_speed = -1
+rotation_start = 600
