@@ -20,8 +20,8 @@ var die_sound = null
 
 var endUI = load("res://end_ui.tscn")
 
-# Variable to store whether the mouse (or touch) is pressed
-var is_pressed = false
+var latest_touch_index: int = -1
+var is_pressed: bool = false
 
 
 func _start():
@@ -76,10 +76,9 @@ func _physics_process(delta):
 	
 	
 # Mobile Steuerung (Touch-Eingabe)
+
 func _input(event):
-	# Mobile Steuerung (Touch-Eingabe)
-	#if os_name == "Android" or os_name == "iOS" or OS.has_feature("touchscreen"):
-	if event is InputEventMouseButton or event is InputEventScreenTouch:
+	if event is InputEventMouseButton:
 		if event.pressed:  # When the mouse button is pressed
 			is_pressed = true
 			
@@ -96,13 +95,42 @@ func _input(event):
 			print("Mouse released")
 	
 	# Handle mouse movement while pressed
-	if is_pressed and (event is InputEventMouseMotion or event is InputEventScreenTouch):
+	if is_pressed and (event is InputEventMouseMotion):
 		# Update the move direction as the mouse slides
 		var screen_center = get_viewport().get_visible_rect().size / 2
 		move_direction = (event.position - screen_center).normalized()
 		self.touch_direction = move_direction  # You can use this for movement
 		
 		print("Mouse moved, new direction: ", move_direction)
+	
+	
+	# Mobile Steuerung (Touch-Eingabe)
+	if event is InputEventScreenTouch:
+		if event.pressed:  # When a touch begins
+			# Update the latest touch index
+			latest_touch_index = event.index
+			is_pressed = true
+
+			# Calculate the direction relative to the screen center
+			var screen_center = get_viewport().get_visible_rect().size / 2
+			move_direction = (event.position - screen_center).normalized()
+			touch_direction = move_direction  # Use this for movement
+
+			print("Touch pressed at position: ", event.position, ", index: ", event.index)
+
+		elif not event.pressed and event.index == latest_touch_index:  # When the latest touch ends
+			touch_direction = Vector2()
+			is_pressed = false
+			print("Touch released, index: ", event.index)
+			latest_touch_index = -1  # Reset the latest touch index
+
+	elif event is InputEventScreenDrag and event.index == latest_touch_index:
+		# Update the move direction for the latest touch while dragging
+		var screen_center = get_viewport().get_visible_rect().size / 2
+		move_direction = (event.position - screen_center).normalized()
+		touch_direction = move_direction
+
+		print("Touch moved, new direction: ", move_direction, ", index: ", event.index)
 			
 func die():
 	sound_player.stream = die_sound

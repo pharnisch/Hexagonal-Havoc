@@ -41,3 +41,7 @@ movie_writer/movie_file="C:/Users/Philipp/Documents/Hexagonal Havoc/film.avi"
 [physics]
 
 common/max_physics_steps_per_frame=4
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

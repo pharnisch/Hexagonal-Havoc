@@ -65,9 +65,9 @@ func _physics_process(delta):
 				
 				new_enemy.weapon = weapons[self.rng.randi_range(0, weapons.size() - 1)]
 				new_enemy.walking_variant = sub_wave["walking_variant"]
-				new_enemy.melee_dmg *= (1 + (sub_wave["difficulty_scale"] - 1)/ 5.)
-				new_enemy.exp_worth *= 1 * (1 + (sub_wave["difficulty_scale"] - 1)/2.5)
-				new_enemy.movement_speed_factor *= (1 + (sub_wave["difficulty_scale"] - 1)/ 10.)
+				new_enemy.melee_dmg *= (1 + (sub_wave["difficulty_scale"] - 1)/ 3.)
+				new_enemy.exp_worth *= 0.9 * (1 + (sub_wave["difficulty_scale"] - 1)/5)
+				new_enemy.movement_speed_factor *= (1 + (sub_wave["difficulty_scale"] - 1)/ 7.)
 				
 				new_enemy.position = sp
 				self.add_child(new_enemy)
@@ -122,7 +122,7 @@ func get_new_wave():
 	var duration = 5 #self.rng.randi_range(5,20)
 	var shapes = [self.square_wave, self.circle_wave]
 	var wi = wave_ind # +100
-	var difficulty_coefficient = 1 + wi*wi*wi*wi*0.0000001+ wi * 0.05 + wi * 0.5 * self.agony + wi * 0.01 * hp_ratio
+	var difficulty_coefficient = 1.5 + wi*wi*wi*wi*0.00000015+ wi * 0.05 + wi * 0.5 * self.agony + wi * 0.01 * hp_ratio
 	#print("difficulty: ", difficulty_coefficient)
 	var new_wave = {
 		"duration": duration,
