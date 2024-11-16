@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bi5fcq38pi5oy" path="res://skill_container.tscn" id="3_4gfci"]
 [ext_resource type="Script" path="res://BackgroundRect.gd" id="4_qfsai"]
 [ext_resource type="PackedScene" uid="uid://km765w0j4vfi" path="res://ui.tscn" id="5_tv7tw"]
-[ext_resource type="AudioStream" uid="uid://c5fcbo2f0guem" path="res://onlymp3.to - Super Hexagon FULL Soundtrack-jigRSeRYMzA-192k-1709038307.mp3" id="6_qli0r"]
+[ext_resource type="AudioStream" uid="uid://db5rkq8ehhv8a" path="res://music/AdhesiveWombat - Night Shade ♫ NO COPYRIGHT 8-bit Music.mp3" id="6_t1gv1"]
 [ext_resource type="Script" path="res://MusicPlayer.gd" id="7_3pt2g"]
 [ext_resource type="AudioStream" uid="uid://cndniok5jlf1c" path="res://hexagon_assets/awesome.wav" id="8_qex14"]
 [ext_resource type="Script" path="res://Starthilfe.gd" id="9_wkjsk"]
@@ -40,7 +40,7 @@ script = ExtResource("4_qfsai")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("6_qli0r")
+stream = ExtResource("6_t1gv1")
 script = ExtResource("7_3pt2g")
 
 [node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
@@ -344,35 +344,43 @@ process_mode = 3
 script = ExtResource("9_wkjsk")
 
 [node name="LabyrinthPart1" parent="." instance=ExtResource("10_14kd2")]
+visible = false
 
 [node name="LabyrinthPart2" parent="." instance=ExtResource("10_14kd2")]
+visible = false
 scale = Vector2(2, 2)
 rotation_speed = -1
 rotation_start = 90
 
 [node name="LabyrinthPart3" parent="." instance=ExtResource("10_14kd2")]
+visible = false
 scale = Vector2(3, 3)
 rotation_start = 180
 
 [node name="LabyrinthPart4" parent="." instance=ExtResource("10_14kd2")]
+visible = false
 scale = Vector2(5, 5)
 rotation_speed = -1
 rotation_start = 270
 
 [node name="LabyrinthPart5" parent="." instance=ExtResource("10_14kd2")]
+visible = false
 scale = Vector2(8, 8)
 rotation_start = 360
 
 [node name="LabyrinthPart6" parent="." instance=ExtResource("10_14kd2")]
+visible = false
 scale = Vector2(13, 13)
 rotation_speed = -1
 rotation_start = 450
 
 [node name="LabyrinthPart7" parent="." instance=ExtResource("10_14kd2")]
+visible = false
 scale = Vector2(21, 21)
 rotation_start = 540
 
 [node name="LabyrinthPart8" parent="." instance=ExtResource("10_14kd2")]
+visible = false
 scale = Vector2(34, 34)
 rotation_speed = -1
 rotation_start = 600

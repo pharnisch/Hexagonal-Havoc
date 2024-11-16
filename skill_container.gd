@@ -8,6 +8,11 @@ var triangle_sound = null
 var line_sound = null
 var square_sound = null
 
+var choose_sound = null
+var select_sound = null
+
+
+
 signal talent_chosen(skill_identifier)
 
 # Called when the node enters the scene tree for the first time.
@@ -15,6 +20,7 @@ func _ready():
 	self.player = owner.get_node("Player")
 	self.skill_system = self.player.get_node("Weapon").get_node("SkillSystem")
 	self.button = load("res://button.tscn")
+	
 	#self.display_options()
 
 
@@ -25,6 +31,8 @@ func _physics_process(delta):
 		triangle_sound = preload("res://hexagon_assets/triangle.wav")
 		square_sound = preload("res://hexagon_assets/square.wav")
 		line_sound = preload("res://hexagon_assets/line.wav")
+		choose_sound = preload("res://hexagon_assets/menuchoose.wav")
+		select_sound = preload("res://hexagon_assets/menuselect.wav")
 
 func display_options(options=["A", "B", "C"]):
 	var gc = self.get_node("Container").get_node("GridContainer")
@@ -67,6 +75,7 @@ func display_options(options=["A", "B", "C"]):
 		b.identifier = option
 		gc.add_child(b)
 		b.talent_chosen.connect(self.on_talent_chosen)
+		b.connect("focus_entered", Callable(self, "_on_focus_entered"))
 		if option == options[0]: # first option
 			b.grab_focus()
 	self.get_node("AnimationPlayer").play("UI_animation_test")
@@ -80,16 +89,19 @@ func on_talent_chosen(skill_identifier):
 		gc.remove_child(n)
 		n.queue_free()
 		
-	print(skill_identifier)
+	#print(skill_identifier)
 	if "line:learned" in skill_identifier:
 		sound_player.stream = line_sound
 		sound_player.play()
-	if "triangle:learned" in skill_identifier:
+	elif "triangle:learned" in skill_identifier:
 		sound_player.stream = triangle_sound
 		sound_player.play()
-	if "square:learned" in skill_identifier:
+	elif "square:learned" in skill_identifier:
 		sound_player.stream = square_sound
 		sound_player.play()
+	#else:
+#		sound_player.stream = select_sound
+#		sound_player.play()
 		
 	talent_chosen.emit(skill_identifier)
 	
@@ -198,6 +210,11 @@ func get_description(identifier):
 	else:
 		return descriptions[identifier]
 	
+	
+func _on_focus_entered():
+	if sound_player != null:
+		sound_player.stream = choose_sound
+		sound_player.play()
 
 
 	

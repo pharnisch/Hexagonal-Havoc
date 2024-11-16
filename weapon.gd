@@ -340,4 +340,3 @@ func on_skills_update(new_skill_state):
 		self.reload_time_triangle_surrounding = self.reload_time_triangle / self.skill_state.triangle.surrounding if self.skill_state.triangle.surrounding > 0 else 999999999
 
 	
-

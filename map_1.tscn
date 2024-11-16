@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bi5fcq38pi5oy" path="res://skill_container.tscn" id="3_15fcn"]
 [ext_resource type="Script" path="res://BackgroundRect.gd" id="4_lmk7g"]
 [ext_resource type="PackedScene" uid="uid://km765w0j4vfi" path="res://ui.tscn" id="5_edmx6"]
-[ext_resource type="AudioStream" uid="uid://c5fcbo2f0guem" path="res://onlymp3.to - Super Hexagon FULL Soundtrack-jigRSeRYMzA-192k-1709038307.mp3" id="6_rtydc"]
+[ext_resource type="AudioStream" uid="uid://db5rkq8ehhv8a" path="res://music/AdhesiveWombat - Night Shade ♫ NO COPYRIGHT 8-bit Music.mp3" id="6_ck3ii"]
 [ext_resource type="Script" path="res://MusicPlayer.gd" id="7_nstrk"]
 [ext_resource type="AudioStream" uid="uid://cndniok5jlf1c" path="res://hexagon_assets/awesome.wav" id="7_vftx8"]
 [ext_resource type="Script" path="res://Starthilfe.gd" id="9_y1nyp"]
@@ -39,7 +39,7 @@ script = ExtResource("4_lmk7g")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("6_rtydc")
+stream = ExtResource("6_ck3ii")
 script = ExtResource("7_nstrk")
 
 [node name="SoundPlayer" type="AudioStreamPlayer" parent="."]

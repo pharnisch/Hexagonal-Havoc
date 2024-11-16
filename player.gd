@@ -11,6 +11,7 @@ var skills_learned = 0
 var skill_system = null
 var hp = null
 var exp_bonus = 0
+var touch_direction = Vector2()
 
 var start_sound = null
 var rank_up_sound = null
@@ -18,6 +19,10 @@ var sound_player = null
 var die_sound = null
 
 var endUI = load("res://end_ui.tscn")
+
+# Variable to store whether the mouse (or touch) is pressed
+var is_pressed = false
+
 
 func _start():
 	self.name = "Player"
@@ -37,11 +42,19 @@ func _physics_process(delta):
 		skill_system = self.get_node("Weapon").get_node("SkillSystem")
 		skill_system.skills_updated.connect(on_skills_update)
 		self.hp = self.get_node("HealthPool")
-	
+		
 	
 	var move_direction = Vector2()
 	move_direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	move_direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	
+	if self.touch_direction != Vector2():
+		move_direction = self.touch_direction
+	
+	var os_name = OS.get_name()
+
+
+
 	
 	move_direction = move_direction.normalized()
 	var camera_rotated = self.get_node("Camera2D").rotation
@@ -61,9 +74,40 @@ func _physics_process(delta):
 	
 	%Movement._set_direction(move_direction)
 	
+	
+# Mobile Steuerung (Touch-Eingabe)
+func _input(event):
+	# Mobile Steuerung (Touch-Eingabe)
+	#if os_name == "Android" or os_name == "iOS" or OS.has_feature("touchscreen"):
+	if event is InputEventMouseButton or event is InputEventScreenTouch:
+		if event.pressed:  # When the mouse button is pressed
+			is_pressed = true
+			
+			# Calculate the direction relative to the screen center when clicked
+			var screen_center = get_viewport().get_visible_rect().size / 2
+			move_direction = (event.position - screen_center).normalized()
+			self.touch_direction = move_direction  # You can use this for movement
+			
+			print("Mouse pressed at position: ", event.position)
+		
+		elif not event.pressed and is_pressed:  # When the mouse button is released
+			self.touch_direction = Vector2()
+			is_pressed = false
+			print("Mouse released")
+	
+	# Handle mouse movement while pressed
+	if is_pressed and (event is InputEventMouseMotion or event is InputEventScreenTouch):
+		# Update the move direction as the mouse slides
+		var screen_center = get_viewport().get_visible_rect().size / 2
+		move_direction = (event.position - screen_center).normalized()
+		self.touch_direction = move_direction  # You can use this for movement
+		
+		print("Mouse moved, new direction: ", move_direction)
+			
 func die():
 	sound_player.stream = die_sound
 	sound_player.play()
+	get_tree().get_root().get_child(0).get_node("UI").get_script().save_highscore()
 	get_tree().paused = true
 	var eUI = self.endUI.instantiate()
 	get_parent().get_node("UI").add_child(eUI)

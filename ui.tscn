@@ -179,7 +179,7 @@ offset_top = 70.0
 offset_right = 461.0
 offset_bottom = 120.0
 grow_vertical = 1
-text = "Pause [ENTER]"
+text = "Pause: ENTER"
 script = ExtResource("4_d8r7h")
 
 [node name="GratulationMessage" parent="." instance=ExtResource("5_tuia0")]
@@ -200,6 +200,6 @@ offset_top = 70.0
 offset_right = -316.0
 offset_bottom = 120.0
 grow_vertical = 1
-text = "Home [ESCAPE]"
+text = "Home: ESCAPE"
 script = ExtResource("4_66hqg")
 scene_name = "home"

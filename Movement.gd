@@ -32,5 +32,3 @@ func movement_speed_changed():
 	
 func stun(stun_time):
 	self.stun_time += stun_time
-
-

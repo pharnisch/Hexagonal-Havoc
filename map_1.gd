@@ -29,6 +29,7 @@ func _ready():
 func _physics_process(delta):
 	if win_condition():
 		get_tree().get_root().get_child(0).get_node("UI").get_node("GratulationMessage").visible = true
+		get_tree().get_root().get_child(0).get_node("UI").get_script().save_highscore()
 		return
 	
 	self.agony += delta*0.1
